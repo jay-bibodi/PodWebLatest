@@ -1,0 +1,47 @@
+<div class="wrapper">
+    <div class="page-header" style="background-image: url('../assets/img/login-image.jpg');">
+        <div class="filter"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
+                    <div class="card card-register">
+                        <h3 class="title" style="color:#FFFFFF">Welcome to Podcast Dapp</h3>
+                        <div class="social-line text-center">
+                            <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                            <a href="#pablo" class="btn btn-neutral btn-google btn-just-icon">
+                                <i class="fa fa-google-plus"></i>
+                            </a>
+                            <a href="#pablo" class="btn btn-neutral btn-twitter btn-just-icon">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                        
+                        <form name="form" (ngSubmit)="f.form.valid && login(f.value)" #f="ngForm" novalidate>
+                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !emailOfPerson.valid }">
+                                        <label for="emailOfPerson">Email</label>
+                                        <input type="email" autocomplete="off" placeholder="Enter email" class="form-control" name="emailOfPerson" [(ngModel)]="model.emailOfPerson" #emailOfPerson="ngModel" required />
+                                        <div *ngIf="f.submitted && !emailOfPerson.valid" class="help-block">Email is required</div>
+                                    </div>
+
+                                    <!-- Password -->
+                                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !passwordOfPerson.valid }">
+                                        <label for="passwordOfPerson">Password</label>
+                                        <input type="password" autocomplete="off" placeholder="Enter password" class="form-control far fa-eye" name="passwordOfPerson" [(ngModel)]="model.passwordOfPerson" #passwordOfPerson="ngModel" required />
+                                        <div *ngIf="f.submitted && !passwordOfPerson.valid" class="help-block">Password is required</div>
+                                    </div>
+                            <button [disabled]="loading" class="btn btn-danger btn-block btn-round">Login</button>
+                        </form>
+
+                        <div class="forgot">
+                            <a href="#" class="btn btn-link btn-danger">Forgot password?</a>
+                            <a href="/signup" class="btn btn-link btn-danger">Register</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
