@@ -3,8 +3,10 @@ var router = express.Router();
 let fs = require('fs')
 var moment = require('moment-timezone');
 
+console.log("Inside Regulator");
+
 // load web3 configurations
-let Web3 = require('web3');
+/*let Web3 = require('web3');
 const web3 = new Web3();
 
 // load sol compiler
@@ -12,7 +14,7 @@ let solc = require('solc');
 
 // load ganache test rpc configuration
 var Ganache = require("ganache-core");
-web3.setProvider(Ganache.provider());
+web3.setProvider(Ganache.provider());*/
 
 // Load db configurations
 var MongoClient = require('mongodb').MongoClient;
