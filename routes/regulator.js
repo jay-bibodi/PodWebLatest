@@ -1,6 +1,6 @@
-//var express = require('express');
-//var router = express.Router();
-var fs = require('fs')
+var express = require('express');
+var router = express.Router();
+var fs = require('fs');
 var moment = require('moment-timezone');
 
 console.log("Inside Regulator");
