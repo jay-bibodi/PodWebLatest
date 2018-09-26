@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-let fs = require('fs')
+//var express = require('express');
+//var router = express.Router();
+var fs = require('fs')
 var moment = require('moment-timezone');
 
 console.log("Inside Regulator");
@@ -31,8 +31,8 @@ function login(req,res,next)
 
     if(userObject !== undefined && userObject !== "")
     {
-        const tokenWithEmailAddressAndPassword = jwt.sign(userObject.emaiId, userObject.metadata.password); // <==== The all-important "jwt.sign" function
-        const token = jwt.sign(tokenWithEmailAddressAndPassword,serverJWT_Secret);
+        var tokenWithEmailAddressAndPassword = jwt.sign(userObject.emaiId, userObject.metadata.password); // <==== The all-important "jwt.sign" function
+        var token = jwt.sign(tokenWithEmailAddressAndPassword,serverJWT_Secret);
         res.status(200).send({
             status: "Created Successfully",
             emailAddress: userObject.emaiId,
@@ -70,7 +70,7 @@ function signup(req,res,next)
 var getUserFromDb = (emailOfPerson) =>{
     MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
         if(err) throw new Error();
-        const db = database.db(DatabaseName);
+        var db = database.db(DatabaseName);
         var emailId = emailOfPerson;
         db.collection(DatabaseCollectionName).findOne({ emailId: emailId }).then((document) => {
             return document;
@@ -92,7 +92,7 @@ var createUserAccount = (userInfo,res)=>{
                 
                 MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
                     if(err) throw new Error();
-                    const db = database.db(DatabaseName)
+                    var db = database.db(DatabaseName)
                     db.collection(DatabaseCollectionName).findAndModify(
                         {emailId : userInfo.emailOfPerson},
                         [],
@@ -101,8 +101,8 @@ var createUserAccount = (userInfo,res)=>{
                         function (error, object) {
                             if (!error) 
                             {
-                                const tokenWithEmailAddressAndPassword = jwt.sign(userInfo.emailOfPerson, userInfo.passwordOfPerson); // <==== The all-important "jwt.sign" function
-                                const token = jwt.sign(tokenWithEmailAddressAndPassword,serverJWT_Secret);
+                                var tokenWithEmailAddressAndPassword = jwt.sign(userInfo.emailOfPerson, userInfo.passwordOfPerson); // <==== The all-important "jwt.sign" function
+                                var token = jwt.sign(tokenWithEmailAddressAndPassword,serverJWT_Secret);
                                 res.status(200).send({
                                     status: "Created Successfully",
                                     emailAddress: userInfo.emailOfPerson,
