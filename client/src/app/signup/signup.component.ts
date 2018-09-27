@@ -24,11 +24,11 @@ export class SignupComponent implements OnInit {
     register(){
         console.log(this.model);
         this.loading = true;
-        /*this.http.post('http://localhost:3000/signup', this.model).subscribe((data) => {
+        this.http.post('http://localhost:3000/signup', this.model).subscribe((data) => {
                 console.log("message sending results", data);  
-              }, (err) => { console.log("message sending err", err) }, () => { })*/
-        this.http.post(Global.API_ENDPOINT+'/signup', this.model).subscribe((data) => {
+              }, (err) => { console.log("message sending err", err) }, () => { })
+        /*this.http.post(Global.API_ENDPOINT+'/signup', this.model).subscribe((data) => {
                 console.log("message sending results", data);  
-            }, (err) => { console.log("message sending err", err) }, () => { })      
+            }, (err) => { console.log("message sending err", err) }, () => { })*/      
       }
 }

@@ -25,11 +25,11 @@ export class HomeComponent implements OnInit {
     login(){
         console.log(this.model);
         this.loading = true;
-        /*this.http.post('http://localhost:3000/regulator/login', this.model).subscribe((data) => {
+        this.http.post('http://localhost:3000/login', this.model).subscribe((data) => {
                 console.log("message sending results", data);  
-              }, (err) => { console.log("message sending err", err) }, () => { })*/
-        this.http.post(Global.API_ENDPOINT+'/login', this.model).subscribe((data) => {
+              }, (err) => { console.log("message sending err", err) }, () => { })
+        /*this.http.post(Global.API_ENDPOINT+'/login', this.model).subscribe((data) => {
                 console.log("message sending results", data);  
-            }, (err) => { console.log("message sending err", err) }, () => { })
+            }, (err) => { console.log("message sending err", err) }, () => { })*/
     }
 }

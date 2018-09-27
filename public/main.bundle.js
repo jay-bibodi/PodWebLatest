@@ -835,7 +835,6 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global__ = __webpack_require__("../../../../../src/global.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -845,7 +844,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -863,12 +861,12 @@ var HomeComponent = (function () {
     HomeComponent.prototype.login = function () {
         console.log(this.model);
         this.loading = true;
-        /*this.http.post('http://localhost:3000/regulator/login', this.model).subscribe((data) => {
-                console.log("message sending results", data);
-              }, (err) => { console.log("message sending err", err) }, () => { })*/
-        this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* Global */].API_ENDPOINT + '/login', this.model).subscribe(function (data) {
+        this.http.post('http://localhost:3000/login', this.model).subscribe(function (data) {
             console.log("message sending results", data);
         }, function (err) { console.log("message sending err", err); }, function () { });
+        /*this.http.post(Global.API_ENDPOINT+'/login', this.model).subscribe((data) => {
+                console.log("message sending results", data);
+            }, (err) => { console.log("message sending err", err) }, () => { })*/
     };
     return HomeComponent;
 }());
@@ -1277,7 +1275,6 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global__ = __webpack_require__("../../../../../src/global.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1287,7 +1284,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -1305,12 +1301,12 @@ var SignupComponent = (function () {
     SignupComponent.prototype.register = function () {
         console.log(this.model);
         this.loading = true;
-        /*this.http.post('http://localhost:3000/signup', this.model).subscribe((data) => {
-                console.log("message sending results", data);
-              }, (err) => { console.log("message sending err", err) }, () => { })*/
-        this.http.post(__WEBPACK_IMPORTED_MODULE_3__global__["a" /* Global */].API_ENDPOINT + '/signup', this.model).subscribe(function (data) {
+        this.http.post('http://localhost:3000/signup', this.model).subscribe(function (data) {
             console.log("message sending results", data);
         }, function (err) { console.log("message sending err", err); }, function () { });
+        /*this.http.post(Global.API_ENDPOINT+'/signup', this.model).subscribe((data) => {
+                console.log("message sending results", data);
+            }, (err) => { console.log("message sending err", err) }, () => { })*/
     };
     return SignupComponent;
 }());
@@ -1342,22 +1338,6 @@ var environment = {
     production: false
 };
 //# sourceMappingURL=environment.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/global.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Global; });
-var Global = (function () {
-    function Global() {
-    }
-    return Global;
-}());
-
-Global.API_ENDPOINT = 'https://podweb.azurewebsites.net';
-//# sourceMappingURL=global.js.map
 
 /***/ }),
 
