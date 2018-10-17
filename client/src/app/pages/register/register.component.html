@@ -1,0 +1,136 @@
+<div class="wrapper wrapper-full-page">
+  <div class="page-header register-page header-filter" filter-color="black" style="background-image: url('./assets/img/register.jpg'); background-size: cover; background-position: top center;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 ml-auto mr-auto">
+          <div class="card card-signup">
+            <h2 class="card-title text-center">Register</h2>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-5 ml-auto">
+                  <div class="info info-horizontal">
+                    <div class="icon icon-rose">
+                      <i class="material-icons">timeline</i>
+                    </div>
+                    <div class="description">
+                      <h4 class="info-title">Powered By Ethereum Network</h4>
+                      <p class="description">
+                        We've created decentrailized application for the podcast. Sell and Purchase the podcast with
+                        ERC-20 Pods Token
+                      </p>
+                    </div>
+                  </div>
+                  <div class="info info-horizontal">
+                    <div class="icon icon-primary">
+                      <i class="material-icons">code</i>
+                    </div>
+                    <div class="description">
+                      <h4 class="info-title">Full Profit</h4>
+                      <p class="description">
+                        Get full profit without paying specific amount to share to third party platform.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="info info-horizontal">
+                    <div class="icon icon-info">
+                      <i class="material-icons">group</i>
+                    </div>
+                    <div class="description">
+                      <h4 class="info-title">Audience</h4>
+                      <p class="description">
+                        Anyone could publish and sell the podcast to earn tokens.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5 mr-auto">
+                  <div class="social text-center">
+                    <button mat-raised-button class="btn btn-just-icon btn-round btn-twitter">
+                      <i class="fa fa-twitter"></i>
+                    </button>
+                    <button mat-raised-button class="btn btn-just-icon btn-round btn-dribbble">
+                      <i class="fa fa-dribbble"></i>
+                    </button>
+                    <button mat-raised-button class="btn btn-just-icon btn-round btn-facebook">
+                      <i class="fa fa-facebook"> </i>
+                    </button>
+                    <h4 class="mt-3"> or be classical </h4>
+                  </div>
+                  <form class="form" name="form" (ngSubmit)="f.form.valid && register(f.value)" #f="ngForm" novalidate>
+                    <div class="form-group has-default">
+                      <div class="input-group form-group" [ngClass]="{ 'has-error': f.submitted && !nameOfPerson.valid }">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">person</i>
+                          </span>
+                        </div>
+                        <input type="text" autocomplete="off" placeholder="Enter Name" class="form-control" name="nameOfPerson"
+                          [(ngModel)]="model.nameOfPerson" #nameOfPerson="ngModel" required />
+                      </div>
+                      <div *ngIf="f.submitted && !nameOfPerson.valid" class="help-block" style="text-align: right;">Name
+                        is required</div>
+                    </div>
+                    <div class="form-group has-default">
+                      <div class="input-group form-group" [ngClass]="{ 'has-error': f.submitted && !emailOfPerson.valid }">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">mail</i>
+                          </span>
+                        </div>
+                        <input type="email" autocomplete="off" placeholder="Enter email" class="form-control" name="emailOfPerson"
+                          [(ngModel)]="model.emailOfPerson" #emailOfPerson="ngModel" required ngModel email>
+                      </div>
+                      <div *ngIf="f.submitted && !emailOfPerson.valid" class="help-block" style="text-align: right;">Email
+                        is required</div>
+
+                    </div>
+                    <div class="form-group has-default">
+                      <div class="input-group form-group" [ngClass]="{ 'has-error': f.submitted && !passwordOfPerson.valid }">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">lock_outline</i>
+                          </span>
+                        </div>
+                        <input type="password" autocomplete="off" placeholder="Enter password" class="form-control far fa-eye"
+                          name="passwordOfPerson" [(ngModel)]="model.passwordOfPerson" #passwordOfPerson="ngModel"
+                          required />
+
+                      </div>
+                      <div *ngIf="f.submitted && !passwordOfPerson.valid" class="help-block" style="text-align: right;">Password
+                        is required</div>
+                    </div>
+                    <div class="text-center">
+                      <button [disabled]="loading" type="submit" class="btn btn-primary btn-round mt-4">Get Started</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer ">
+      <div class="container">
+        <nav class="pull-left">
+          <ul>
+            <li>
+              <a [routerLink]="['/pages/about']">
+                About Us
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Blog
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div class="copyright pull-right">
+          &copy;
+          {{test | date: 'yyyy'}}, made with <i class="material-icons">favorite</i> by Jay Bibodi, CSU Sacramento.
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>

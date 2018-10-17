@@ -1,6 +1,14 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "target": "es5",
@@ -11,7 +19,8 @@
     ]
   },
   "files": [
-    "test.ts"
+    "test.ts",
+    "polyfills.ts"
   ],
   "include": [
     "**/*.spec.ts",

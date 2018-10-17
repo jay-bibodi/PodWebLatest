@@ -1,0 +1,81 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-icon card-header-rose">
+            <div class="card-icon">
+              <i class="material-icons">perm_identity</i>
+            </div>
+            <h4 class="card-title">Edit User Profile
+            </h4>
+          </div>
+          <div class="card-body">
+            <form #userProfileForm="ngForm" (ngSubmit)="editUserProfile(userProfileForm.value)" (change)="mark_changed()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Token</label>
+                    <input [disabled]="disableToken" type="text" class="form-control" name="userToken" [(ngModel)]="userToken">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Name</label>
+                    <input type="text" class="form-control" name="userName" [(ngModel)]="userName">
+                    <div *ngIf="!isNamePresent" class="help-block" style="text-align: right;">Name is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Email address</label>
+                    <input [disabled]="disableEmailAddress" type="email" class="form-control" name="userEmail" [(ngModel)]="userEmail">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Seconday email address</label>
+                      <input type="email" class="form-control" name="userSecondaryEmail" [(ngModel)]="userSecondaryEmail">
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Address</label>
+                    <input type="text" class="form-control" name="userAddress" [(ngModel)]="userAddress">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">City</label>
+                    <input type="text" class="form-control" name="userCity" [(ngModel)]="userCity">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Country</label>
+                    <input type="text" class="form-control" name="userCountry" [(ngModel)]="userCountry">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Postal Code</label>
+                    <input type="text" class="form-control" name="userPostalCode" [(ngModel)]="userPostalCode">
+                  </div>
+                </div>
+              </div>
+              <button mat-raised-button type="submit" (click)="loadLatestPodcast()" class="btn btn-rose pull-right">Cancel</button>
+              <button mat-raised-button type="submit" class="btn btn-rose pull-right">Update Profile</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,196 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-icon card-header-rose">
+            <div class="card-icon">
+              <i class="material-icons">info</i>
+            </div>
+            <h4 class="card-title">Podcast Details
+            </h4>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <img class="card-img-top" src={{srcValue}} alt="Card image cap">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Title:&nbsp;&nbsp;</label>
+                    <label class="bmd-label-floating">{{podcastName}}</label><br />
+                    <label class="bmd-label-floating">Artist Name:&nbsp;&nbsp; </label>
+                    <label class="bmd-label-floating">{{artistName}}</label><br />
+                    <label class="bmd-label-floating">Tags:&nbsp;&nbsp; </label>
+                    <label class="bmd-label-floating">{{Tag}}</label><br />
+                    <label class="bmd-label-floating" *ngIf="isPaid">{{podcastCost}}</label><br />
+                    <div class="row">
+                      <div class="col-md-2" style="text-align:right">
+                        {{ currentTrackPostion | humanTime }}
+                      </div>
+                      <div class="progress col-md-6" style="height: 5px; width: 100%; margin-top: 10px;">
+                        <div class="progress-bar progress-bar-success" role="progressbar" [ngStyle]="{width : progress }">
+                          <span class="sr-only"></span>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        {{ currentTrackDuration | humanTime }}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div *ngFor="let song of songs" class="songs">
+                        <div class="button-row">
+                          <button mat-button color="primary" class="song-title-btn" [musicPlayer]="'play'" [song]="song">
+                            <i class="fa fa-play" aria-hidden="true"></i>
+                          </button>
+                          <button mat-button color="accent" pauseMusic>
+                            <i class="fa fa-pause" aria-hidden="true"></i>
+                          </button>
+                          <button mat-button color="warn" stopMusic>
+                            <i class="fa fa-stop" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12" style="margin-top: 50px;">
+                    <mat-form-field>
+                        <textarea matInput placeholder="Enter Comments"></textarea></mat-form-field>
+                        <div class="card-footer text-right">
+                            <div class="form-check mr-auto"></div>
+                            <button mat-raised-button type="submit" class="btn btn-rose" (click)="postComment()">Comment</button>
+                            <button mat-raised-button type="submit" class="btn btn-rose" (click)="clearComment()">Cancel</button>
+                        </div>
+                    <div *ngFor="let comment of comments">
+                        
+                            <label class="bmd-label-floating">{{comment.whoCommented}},&nbsp;&nbsp;</label>
+                            <label class="bmd-label-floating">{{comment.whenCommented}}&nbsp;&nbsp;</label>
+                        
+                          <mat-form-field>
+                              <input [disabled]="true" type="text" matInput value="{{comment.commentsDescription}}"></mat-form-field>
+                        
+                      </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!--<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                  <div style="width: 20rem;">
+                    <img class="card-img-top" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap">
+                    <div class="card-body">
+                      
+                      <div class="button-row">
+                        <button mat-raised-button color="primary" playMusic>
+                          <i class="fa fa-play" aria-hidden="true"></i>
+                        </button>
+                        <button mat-raised-button color="accent" pauseMusic>
+                          <i class="fa fa-pause" aria-hidden="true"></i>
+                        </button>
+                        <button mat-raised-button color="warn" stopMusic>
+                          <i class="fa fa-stop" aria-hidden="true"></i>
+                        </button>
+                        <button mat-raised-button repeatMusic>Repeat</button>
+                      </div>
+                  
+                      <h5 class="mat-body">Volume: {{ volume }}</h5>
+                  
+                      <div class="button-row">
+                        <button mat-raised-button color="primary" increaseVolume>+</button>
+                        <button mat-raised-button color="accent" decreaseVolume>-</button>
+                        <button mat-raised-button muteMusic>Mute ({{ mute }})</button>
+                      </div>
+                  
+                      <div class="button-row">
+                        <button mat-icon-button color="primary" previousTrack>
+                          <i class="fa fa-step-backward" aria-hidden="true"></i>
+                        </button>
+                        <button mat-icon-button color="primary" nextTrack>
+                          <i class="fa fa-step-forward" aria-hidden="true"></i>
+                        </button>
+                        <button mat-raised-button color="primary" clearPlaylist>Clear Playlist</button>
+                      </div>
+                  
+                      <h5 class="mat-title playlist-title">Playlist:</h5>
+                  
+                      <div class="playlist">
+                        <div *ngFor="let song of playlist; index as i;">
+                          <a playFromPlaylist [song]="song">{{ song.title }}</a>
+                          <a removeFromPlaylist [song]="song" [index]="i">
+                            <small>(remove)</small>
+                          </a>
+                          <span *ngIf="currentPlaying && currentPlaying.id == song.id"> - (current)</span>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="progress" style="height: 2px; width: 100%;">
+                      <div class="progress-bar progress-bar-success"
+                           role="progressbar"
+                           [ngStyle]="{width : progress }">
+                        <span class="sr-only"></span>
+                      </div>
+                    </div>
+                    
+                    <p *ngIf="currentPlaying" class="mat-body">
+                      Currently Playing: {{ currentPlaying.title }} by {{ currentPlaying.artist }} ({{ currentTrackPostion | humanTime }} / {{ currentTrackDuration | humanTime }})
+                    </p>
+                
+                    
+                  
+  
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <div style="text-align:center; margin: 8px;">
+    <h1 class="mat-h1">
+      Welcome to {{ title }}!
+    </h1>
+  
+    <div>
+      <h5 class="mat-title">Songs</h5>
+      <div *ngFor="let song of songs" class="songs">
+        <div class="button-row">
+          <button mat-button color="primary" class="song-title-btn" [musicPlayer]="'play'" [song]="song">
+            {{ song.title }}
+          </button>
+          <button mat-mini-fab color="accent" musicPlayer [song]="song">+</button>
+        </div>
+      </div>
+  
+      <div class="button-row play-btns">
+        <button mat-raised-button color="primary" playAll [songs]="songs">Play all</button>
+        <button mat-raised-button color="accent" playAll [songs]="songs" [play]="false">Add all</button>
+      </div>
+    </div>
+  
+    <hr /> 
+  
+    
+  </div>
+  
+  
+-->

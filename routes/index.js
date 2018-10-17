@@ -18,4 +18,23 @@ router.post('/signup',function(req,res,next){
   regulator.signup(req,res,next);
 });
 
+router.post('/forgotPassword',function(req,res,next){
+  console.log("Inside index.js")
+  regulator.forgotPassword(req,res,next);
+});
+
+router.post('/resetPassword/:token',function(req,res,next){
+  console.log("Inside resetPassword in index.js");
+  regulator.resetPassword(req,res,next);
+});
+
+router.post('/updateUserDetails',function(req,res,next){
+  console.log("Inside updateUserDetails in index.js");
+  regulator.updateUserDetails(req,res,next);
+})
+
+router.get('/getUserInfo',function(req,res,next){
+  regulator.getUserInfo(req,res,next);
+});
+
 module.exports = router;

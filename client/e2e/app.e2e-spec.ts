@@ -1,14 +1,14 @@
-import { Pk2AngularCliFreePage } from './app.po';
+import { MdProAngularCliPage } from './app.po';
 
-describe('pk2-angular-cli-free App', () => {
-  let page: Pk2AngularCliFreePage;
+describe('md-pro-angular-cli App', () => {
+  let page: MdProAngularCliPage;
 
   beforeEach(() => {
-    page = new Pk2AngularCliFreePage();
+    page = new MdProAngularCliPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });

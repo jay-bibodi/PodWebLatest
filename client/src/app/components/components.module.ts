@@ -1,38 +1,34 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
-import { NouisliderModule } from 'ng2-nouislider';
-import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../app.module';
 
-import { BasicelementsComponent } from './basicelements/basicelements.component';
-import { NavigationComponent } from './navigation/navigation.component';
+import { ButtonsComponent } from './buttons/buttons.component';
+import { ComponentsRoutes } from './components.routing';
+import { GridSystemComponent } from './grid/grid.component';
+import { IconsComponent } from './icons/icons.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { PanelsComponent } from './panels/panels.component';
+import { SweetAlertComponent } from './sweetalert/sweetalert.component';
 import { TypographyComponent } from './typography/typography.component';
-import { NucleoiconsComponent } from './nucleoicons/nucleoicons.component';
-import { ComponentsComponent } from './components.component';
-import { NotificationComponent } from './notification/notification.component';
-import { NgbdModalComponent } from './modal/modal.component';
-import { NgbdModalContent } from './modal/modal.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        NgbModule,
-        NouisliderModule,
-        JWBootstrapSwitchModule
-    ],
-    declarations: [
-        ComponentsComponent,
-        BasicelementsComponent,
-        NavigationComponent,
-        TypographyComponent,
-        NucleoiconsComponent,
-        NotificationComponent,
-        NgbdModalComponent,
-        NgbdModalContent
-    ],
-    entryComponents: [NgbdModalContent],
-    exports:[ ComponentsComponent ]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(ComponentsRoutes),
+    FormsModule,
+    MaterialModule
+  ],
+  declarations: [
+      ButtonsComponent,
+      GridSystemComponent,
+      IconsComponent,
+      NotificationsComponent,
+      PanelsComponent,
+      SweetAlertComponent,
+      TypographyComponent
+  ]
 })
-export class ComponentsModule { }
+
+export class ComponentsModule {}
