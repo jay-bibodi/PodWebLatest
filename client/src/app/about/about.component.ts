@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-about-cmp',
@@ -7,6 +8,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 export class AboutComponent implements OnInit, OnDestroy {
     test: Date = new Date();
+
+    constructor(private router: Router) { }
+
     ngOnInit() {
       const body = document.getElementsByTagName('body')[0];
       //body.classList.add('lock-page');
@@ -21,6 +25,13 @@ export class AboutComponent implements OnInit, OnDestroy {
       const body = document.getElementsByTagName('body')[0];
       //body.classList.remove('lock-page');
       body.classList.remove('off-canvas-sidebar');
+    }
 
+    loadLoginComponent(){
+        this.router.navigateByUrl('/pages/login');
+    }
+
+    loadRegisterComponent(){
+        this.router.navigateByUrl('/pages/register');
     }
 }

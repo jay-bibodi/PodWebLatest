@@ -47,7 +47,7 @@ import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedpluginModule} from './shared/fixedplugin/fixedplugin.module';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
-
+import { AboutComponent } from './about/about.component';
 import { AppRoutes } from './app.routing';
 
 @NgModule({
@@ -104,7 +104,8 @@ export class MaterialModule {}
     declarations: [
         AppComponent,
         AdminLayoutComponent,
-        AuthLayoutComponent
+        AuthLayoutComponent,
+        AboutComponent
     ],
     bootstrap:    [ AppComponent ]
 })

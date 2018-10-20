@@ -197,23 +197,6 @@ var createUserAccount = (userInfo, res) => {
                                                 token: jwtToken
                                             });
                                     });
-
-
-                                /*podsTokenContractInstance.methods.transfer(accountJson.address,10).send({from: ethAccounts[0]}, function(error, result){
-                                    setTimeout(()=>{
-                                        podsTokenContractInstance.methods.getBalance(accountJson.address).call({from: ethAccounts[0]}, function(error, result){
-                                            console.log(error);
-                                            console.log(result);
-                                            var jwtToken = jwt.sign({emailId: userInfo.emailOfPerson},serverJWT_Secret);
-                                            console.log(jwt.verify(jwtToken,serverJWT_Secret));
-                                            res.status(200).send({
-                                                status: "Created Successfully",
-                                                emailAddress: userInfo.emailOfPerson,
-                                                token: jwtToken
-                                            });
-                                        })
-                                    },15000)
-                                });*/
                             }
                             else
                             {

@@ -10,7 +10,7 @@ import { RegisterComponent } from './register/register.component';
 //import { PricingComponent } from './pricing/pricing.component';
 //import { LockComponent } from './lock/lock.component';
 import { LoginComponent } from './login/login.component';
-import { AboutComponent } from './about/about.component';
+//import { AboutComponent } from './about/about.component';
 
 @NgModule({
   imports: [
@@ -22,8 +22,8 @@ import { AboutComponent } from './about/about.component';
   ],
   declarations: [
     LoginComponent,
-    RegisterComponent,
-    AboutComponent
+    RegisterComponent
+    //,AboutComponent
   //  PricingComponent,
     //LockComponent
   ]

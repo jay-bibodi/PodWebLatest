@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { LockComponent } from './lock/lock.component';
-import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 
 export const PagesRoutes: Routes = [
@@ -22,9 +21,9 @@ export const PagesRoutes: Routes = [
         }/* {
             path: 'pricing',
             component: PricingComponent
-        }*/,{
+        },{
             path: 'about',
             component: AboutComponent
-        }]
+        }*/]
     }
 ];
