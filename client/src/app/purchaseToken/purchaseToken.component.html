@@ -12,23 +12,24 @@
                         </div>
                         <div class="col-lg-4"></div>
                         <div class="col-lg-12">
-                            <mat-form-field>
-                                <mat-select placeholder="Number of Tokens" name="city">
-                                    <mat-option *ngFor="let city of cities" [value]="city.value">
-                                        {{ city.viewValue }}
+                            <mat-form-field style="margin-top: 20px;">
+                                <mat-select placeholder="Number of Tokens" name="tokenName" (selectionChange)="selectedToken($event.value)">
+                                    <mat-option *ngFor="let token of tokenList" [value]="token.value">
+                                        {{ token.viewValue }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-lg-12">
-                                <mat-form-field>
-                            <input [disabled]="amount" type="email" matInput placeholder="Amount will be Auto populated"></mat-form-field>
-                        </div><br/>
+                            <mat-form-field>
+                                <input [disabled]="amount" type="text" name="amountForTokenSelected" matInput
+                                    placeholder="Amount will be Auto populated" [(ngModel)]="amountForTokenSelected"></mat-form-field>
+                        </div><br />
                         <div class="col-lg-12">
-                                <mat-form-field>
-                            <textarea matInput placeholder="Add optional Message"></textarea></mat-form-field>
+                            <mat-form-field>
+                                <textarea matInput placeholder="Add optional Message"></textarea></mat-form-field>
                         </div>
-                        
+
                         <div class="card-footer text-right">
                             <div class="form-check mr-auto"></div>
                             <button mat-raised-button type="submit" class="btn btn-rose" (click)="purchaseTokenForm()">Purchase</button>
