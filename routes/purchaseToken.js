@@ -9,7 +9,6 @@ global.fetch = require('node-fetch')
 const cc = require('cryptocompare')
 
 function getTokenList(req,res,next){
-    console.log("Get token list");
     var headers = JSON.parse(JSON.stringify(req.headers));
     var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token,serverJWT_Secret)));
 
@@ -34,7 +33,6 @@ function getTokenList(req,res,next){
 }
 
 function getAmountForTokenValue(req,res,next){
-    console.log("Get token list");
     var headers = JSON.parse(JSON.stringify(req.headers));
     var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token,serverJWT_Secret)));
 
@@ -46,16 +44,17 @@ function getAmountForTokenValue(req,res,next){
     } 
     else
     {
-        console.log(req.body);
         var tokenVal = JSON.parse(JSON.stringify(req.body));
-        console.log(tokenVal);
+        var tokens = parseInt(tokenVal.totalToken);
 
         cc.price('ETH', 'USD')
         .then(prices => {
-            console.log(prices)
+            var price = parseFloat(prices.USD);
             // -> { USD: 1100.24 }
             res.send(JSON.stringify({
-                data: (tokenPrice*(prices.USD)*(tokenVal.totalToken)),
+                data: Math.ceil((tokenPrice*(price)*(tokens))),
+                price: prices.USD,
+                tokens: tokenVal.totalToken,
                 status: "amount fetched successfully"
             }));
         })
@@ -75,25 +74,30 @@ function stripePurchaseToken(req,res,next){
     } 
     else
     {
-        console.log(req.body);
-        var tokenInformation = JSON.parse(JSON.stringify(req.body));
+        var purchaseTokenObj = JSON.parse(JSON.stringify(req.body));
+        var stripeId = purchaseTokenObj.stripeId;
+        var tokens = parseInt(purchaseTokenObj.tokens);
+        var price = parseFloat(purchaseTokenObj.price);
+        var amount = parseFloat(purchaseTokenObj.amount);
+        var verifyAmount = Math.ceil((tokenPrice*(price)*(tokens))); 
 
-        var token = tokenInformation.token.id;
-        var totalToken = tokenInformation.totalToken;
-        var price = tokenInformation.price;
-
-        var charge = stripe.charge.create({
-            amount: (tokenPrice*(price)*(totalToken)),
-            currency: "usd",
-            source:token
-        },function(err,charge){
-            if(err && err.type === "StripeCardError"){
-                console.log("Your card was declined");
-            }
-            console.log(charge);
-        });
-        console.log("Your payment was successful");
-        res.send({});
+        if(verifyAmount === amount){
+            const charge = stripe.charges.create({
+                amount: (verifyAmount * 100), // expressed in cents
+                currency: 'usd',
+                description: 'Example charge',
+                source: stripeId,
+              });
+            
+            res.send(JSON.stringify({
+                status:"Payment Successful. Token will be credited in few minutes!" 
+            }));
+        }
+        else{
+            res.status(401).send(JSON.stringify({
+                status: "Problem in total amount! Transaction has been cancelled!"
+            }));
+        }
     }
 }
 

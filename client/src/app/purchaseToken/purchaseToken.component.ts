@@ -18,14 +18,13 @@ declare const $: any;
 
 export class PurchaseTokenComponent implements OnInit {
   amount = true;
+  prices: string;
+  tokens: string;
+    
   constructor(private http: Http,private router: Router){}
 
-  tokenList: null;/*[
-    {value: '25', viewValue: '25'},
-    {value: '50', viewValue: '50'},
-    {value: '75', viewValue: '75'},
-    {value: '100', viewValue: '100'}
-  ];*/
+  tokenList: null;
+
   amountForTokenSelected: string;
 
     ngOnInit() {
@@ -65,6 +64,10 @@ export class PurchaseTokenComponent implements OnInit {
           var body = JSON.parse(data.text());
           console.log(body);
           this.amountForTokenSelected = body.data;
+          this.prices = (body.price).toString();
+          this.tokens = body.tokens;
+          console.log(this.prices);
+          console.log(this.tokens);
           console.log(this.amountForTokenSelected);
       }, (err) => {  
         console.log("message sending err", err);
@@ -80,47 +83,72 @@ export class PurchaseTokenComponent implements OnInit {
       })
     }
 
-    purchaseTokenForm(){
+    purchaseToken(form){
+        var self = this;
+        console.log("Inside purchase Token form");
+        console.log(form.amountForTokenSelected);
+        console.log(this.prices);
+        console.log(this.tokens);
+        var ethPrice = this.prices;
+        var tokensToBuy = this.tokens;
+
+        var purchaseTokenObj = {
+            "stripeId":"",
+            "price":ethPrice,
+            "tokens":tokensToBuy,
+            "amount":form.amountForTokenSelected
+        }
+
         var handler = (<any>window).StripeCheckout.configure({
             key: 'pk_test_CoMBkQnIgd8vejmt3EsQTasU',
             locale: 'auto',
+          });
+
+          handler.open({
+            name: 'Purchase PodWeb Token',
+            //description: '2 widgets',
+            amount: (parseFloat(form.amountForTokenSelected) * 100),
             token: function (token: any) {
                 console.log(token);
-                // You can access the token ID with `token.id`.
-                // Get the token ID to your server-side code for use.
+                console.log(token.id);
+                purchaseTokenObj.stripeId = token.id;        
+                console.log(purchaseTokenObj);
+                //this.callStripePurchaseToken(purchaseTokenObj);
+                /*swal({
+                    title: "Tokens will be credited in your account in few minutes!",
+                    text: "If tokens are not credited within 3 hours! Please contact send us an email",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).catch(swal.noop)*/
+
                 let headers = new Headers();
                 headers.append("token",localStorage.getItem("token")); 
                 headers.append("emailAddress",localStorage.getItem("emailAddress"));
 
-                this.http.post('http://localhost:3000/stripePurchaseToken',token,{headers: headers}).subscribe((data) => {
-                    console.log("message sending results", data); 
-                    var body = JSON.parse(data.text());
-                    console.log(body);
-                    swal({
-                        title: body.data,
-                        text: "",
-                        timer: 3000,
-                        showConfirmButton: false
-                    }).catch(swal.noop)
-                }, (err) => {  
-                    console.log("message sending err", err);
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("emailAddress");
-                    swal({
-                        title: "Invalid login credentials. Please login again!",
-                        text: "",
-                        timer: 3000,
-                        showConfirmButton: false
-                    }).catch(swal.noop)
-                    this.router.navigateByUrl('/');
-                })
+                self.http.post('http://localhost:3000/stripePurchaseToken', purchaseTokenObj,{headers: headers}).subscribe((data) => {
+                    console.log("message sending results stripePurchaseToken", data); 
+                        console.log(data.status);
+                        var body = JSON.parse(data.text());
+                        console.log(body);
+                        swal({
+                            title: body.status,
+                            text: "",
+                            timer: 3000,
+                            showConfirmButton: false
+                        }).catch(swal.noop)
+                    }, (err) => {  
+                        console.log("message sending err", err);
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("emailAddress");
+                        swal({
+                            title: "Invalid login credentials. Please login again!",
+                            text: "",
+                            timer: 3000,
+                            showConfirmButton: false
+                        }).catch(swal.noop)
+                        self.router.navigateByUrl('/');
+                    })
             }
-          });
-      
-          handler.open({
-            name: 'Purchase PodWeb Token',
-            //description: '2 widgets',
-            amount: this.amountForTokenSelected
           });
     }
 }
