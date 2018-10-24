@@ -20,7 +20,9 @@ export class PurchaseTokenComponent implements OnInit {
   amount = true;
   prices: string;
   tokens: string;
-    
+  gasPrice: string;
+  gas:string;
+
   constructor(private http: Http,private router: Router){}
 
   tokenList: null;
@@ -62,13 +64,18 @@ export class PurchaseTokenComponent implements OnInit {
       this.http.post('http://localhost:3000/getAmountForTokenValue', {"totalToken":value},{headers: headers}).subscribe((data) => {
           console.log("message sending results", data); 
           var body = JSON.parse(data.text());
-          console.log(body);
+          //console.log(body);
           this.amountForTokenSelected = body.data;
           this.prices = (body.price).toString();
           this.tokens = body.tokens;
+          this.gasPrice = body.gasPrice;
+          this.gas = body.gas;
+          
           console.log(this.prices);
           console.log(this.tokens);
           console.log(this.amountForTokenSelected);
+          console.log(this.gasPrice);
+          console.log(this.gas);
       }, (err) => {  
         console.log("message sending err", err);
           localStorage.removeItem("token");
@@ -89,16 +96,23 @@ export class PurchaseTokenComponent implements OnInit {
         console.log(form.amountForTokenSelected);
         console.log(this.prices);
         console.log(this.tokens);
+
         var ethPrice = this.prices;
         var tokensToBuy = this.tokens;
+        var gasPrice = this.gasPrice;
+        var gas = this.gas;
+        console.log("Gas:"+gas);
 
         var purchaseTokenObj = {
             "stripeId":"",
             "price":ethPrice,
             "tokens":tokensToBuy,
-            "amount":form.amountForTokenSelected
+            "amount":form.amountForTokenSelected,
+            "gasPrice":gasPrice,
+            "gas":gas
         }
 
+        console.log(purchaseTokenObj);
         var handler = (<any>window).StripeCheckout.configure({
             key: 'pk_test_CoMBkQnIgd8vejmt3EsQTasU',
             locale: 'auto',
@@ -113,6 +127,7 @@ export class PurchaseTokenComponent implements OnInit {
                 console.log(token.id);
                 purchaseTokenObj.stripeId = token.id;        
                 console.log(purchaseTokenObj);
+
                 //this.callStripePurchaseToken(purchaseTokenObj);
                 /*swal({
                     title: "Tokens will be credited in your account in few minutes!",

@@ -7,6 +7,7 @@ var serverJWT_Secret = 'kpTxN=)7mX3W3SEJ58Ubt8-';
 var tokenPrice = 0.001; // expressed in ether.
 global.fetch = require('node-fetch')
 const cc = require('cryptocompare')
+var oneGweiToEther = 0.000000001;
 
 function getTokenList(req,res,next){
     var headers = JSON.parse(JSON.stringify(req.headers));
@@ -51,8 +52,9 @@ function getAmountForTokenValue(req,res,next){
         .then(prices => {
             var price = parseFloat(prices.USD);
             // -> { USD: 1100.24 }
+//            var etherPriceToDeployContract = (oneGweiToEther * web3.eth.)
             res.send(JSON.stringify({
-                data: Math.ceil((tokenPrice*(price)*(tokens))),
+                data: Math.ceil( ((tokenPrice*(price)*(tokens)))),
                 price: prices.USD,
                 tokens: tokenVal.totalToken,
                 status: "amount fetched successfully"

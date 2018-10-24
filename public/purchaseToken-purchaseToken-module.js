@@ -889,13 +889,17 @@ var PurchaseTokenComponent = /** @class */ (function () {
         this.http.post('http://localhost:3000/getAmountForTokenValue', { "totalToken": value }, { headers: headers }).subscribe(function (data) {
             console.log("message sending results", data);
             var body = JSON.parse(data.text());
-            console.log(body);
+            //console.log(body);
             _this.amountForTokenSelected = body.data;
             _this.prices = (body.price).toString();
             _this.tokens = body.tokens;
+            _this.gasPrice = body.gasPrice;
+            _this.gas = body.gas;
             console.log(_this.prices);
             console.log(_this.tokens);
             console.log(_this.amountForTokenSelected);
+            console.log(_this.gasPrice);
+            console.log(_this.gas);
         }, function (err) {
             console.log("message sending err", err);
             localStorage.removeItem("token");
@@ -917,12 +921,18 @@ var PurchaseTokenComponent = /** @class */ (function () {
         console.log(this.tokens);
         var ethPrice = this.prices;
         var tokensToBuy = this.tokens;
+        var gasPrice = this.gasPrice;
+        var gas = this.gas;
+        console.log("Gas:" + gas);
         var purchaseTokenObj = {
             "stripeId": "",
             "price": ethPrice,
             "tokens": tokensToBuy,
-            "amount": form.amountForTokenSelected
+            "amount": form.amountForTokenSelected,
+            "gasPrice": gasPrice,
+            "gas": gas
         };
+        console.log(purchaseTokenObj);
         var handler = window.StripeCheckout.configure({
             key: 'pk_test_CoMBkQnIgd8vejmt3EsQTasU',
             locale: 'auto',

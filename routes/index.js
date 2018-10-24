@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var regulator = require('./regulator');
-var purchaseToken = require('./purchaseToken');
+//var purchaseToken = require('./purchaseToken');
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -32,15 +32,15 @@ router.get('/getUserInfo',function(req,res,next){
 });
 
 router.get('/getTokenList',function(req,res,next){
-  purchaseToken.getTokenList(req,res,next);
+  regulator.getTokenList(req,res,next);
 })
 
 router.post('/getAmountForTokenValue',function(req,res,next){
-  purchaseToken.getAmountForTokenValue(req,res,next);
+  regulator.getAmountForTokenValue(req,res,next);
 });
 
 router.post('/stripePurchaseToken',function(req,res,next){
-  purchaseToken.stripePurchaseToken(req,res,next);
+  regulator.stripePurchaseToken(req,res,next);
 });
 
 module.exports = router;
