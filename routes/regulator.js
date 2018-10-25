@@ -5,6 +5,12 @@ var async = require('async');
 var crypto = require('crypto');
 var bcrypt = require('bcrypt');
 var sgMail = require('@sendgrid/mail');
+var detect = require('detect-file-type');
+
+const IPFS = require('ipfs-api');
+const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+var FileReader = require('filereader')
+
 sgMail.setApiKey("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");
 var serverJWT_Secret = 'kpTxN=)7mX3W3SEJ58Ubt8-';
 
@@ -74,9 +80,34 @@ let podsTokenSaleBytecode = '0x' + podsTokenSaleCompiledContract.contracts['Pods
 var podsTokenSaleContract = new web3.eth.Contract(JSON.parse(podsTokenSaleAbi));
 var podsTokenSaleContractTx;// = podsTokenSaleContract.deploy({data:podsTokenSaleBytecode,arguments:[1000000]});
 
+addFileToIpfs();
+
+function addFileToIpfs(){
+
+    fs.readFile("../uploads/file-1540458990081", function (err, data) {
+        if (err) throw err;
+        console.log(data);
+        detect.fromFile('../uploads/file-1540458990081', function(err, result) {
+ 
+            if (err) {
+              return console.log(err);
+            }
+         
+            console.log(result); // { ext: 'jpg', mime: 'image/jpeg' }
+          });
+        /*ipfs.add(Buffer.from(data), (err, result) => {
+            if (err || !result) {
+              console.log("Unable to upload to IPFS API: "+err);
+            } else {
+                console.log(result);
+            }
+          })*/
+    });
+}
+
 //  getEthAccounts and deployContract
 var ethAccounts = [];
-getEthAccounts(deployContract);
+//getEthAccounts(deployContract);
 function getEthAccounts(callback) {
     web3.eth.getAccounts(function(error, result) {
         if (error != null)

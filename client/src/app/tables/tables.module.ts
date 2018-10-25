@@ -5,18 +5,21 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../app.module';
 
 import { TablesRoutes } from './tables.routing';
-
+import { TagInputModule } from 'ngx-chips';
 import { ExtendedTableComponent } from './extendedtable/extendedtable.component';
 import { RegularTableComponent } from './regulartable/regulartable.component';
 import { DataTableComponent } from './latestPodcast/datatable.component';
 import { UserPublishedTableComponent } from './userPublishedTable/userPublishedTable.component';
 import { PurchasedPodcastTableComponent } from './purchasedPodcast/purchasedPodcast.component';
+import { PodcastDetailComponent } from '../forms/podcastDetailforms/podcastDetailforms.component';
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(TablesRoutes),
     FormsModule,
+    TagInputModule,
     MaterialModule
   ],
   declarations: [
@@ -24,7 +27,10 @@ import { PurchasedPodcastTableComponent } from './purchasedPodcast/purchasedPodc
       DataTableComponent,
       RegularTableComponent,
       UserPublishedTableComponent,
-      PurchasedPodcastTableComponent
+      PurchasedPodcastTableComponent,
+      PodcastDetailComponent,
+      FileSelectDirective,
+      FileDropDirective
   ]
 })
 

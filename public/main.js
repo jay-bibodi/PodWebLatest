@@ -10,7 +10,7 @@
 var map = {
 	"./calendar/calendar.module": [
 		"./src/app/calendar/calendar.module.ts",
-		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~userpage-user-module",
+		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
 		"calendar-calendar-module"
 	],
 	"./charts/charts.module": [
@@ -28,12 +28,12 @@ var map = {
 	],
 	"./pages/pages.module": [
 		"./src/app/pages/pages.module.ts",
-		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~userpage-user-module",
+		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
 		"pages-pages-module"
 	],
 	"./purchaseToken/purchaseToken.module": [
 		"./src/app/purchaseToken/purchaseToken.module.ts",
-		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~userpage-user-module",
+		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
 		"forms-forms-module~purchaseToken-purchaseToken-module",
 		"purchaseToken-purchaseToken-module"
 	],
@@ -43,6 +43,7 @@ var map = {
 	],
 	"./tables/tables.module": [
 		"./src/app/tables/tables.module.ts",
+		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
 		"tables-tables-module"
 	],
 	"./timeline/timeline.module": [
@@ -51,7 +52,7 @@ var map = {
 	],
 	"./userpage/user.module": [
 		"./src/app/userpage/user.module.ts",
-		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~userpage-user-module",
+		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
 		"userpage-user-module"
 	],
 	"./widgets/widgets.module": [
@@ -245,12 +246,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_auth_auth_layout_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./layouts/auth/auth-layout.component */ "./src/app/layouts/auth/auth-layout.component.ts");
 /* harmony import */ var _about_about_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./about/about.component */ "./src/app/about/about.component.ts");
 /* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
+/* harmony import */ var ngx_chips__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ngx-chips */ "./node_modules/ngx-chips/esm5/ngx-chips.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -327,7 +330,8 @@ var AppModule = /** @class */ (function () {
                 _sidebar_sidebar_module__WEBPACK_IMPORTED_MODULE_9__["SidebarModule"],
                 _shared_navbar_navbar_module__WEBPACK_IMPORTED_MODULE_11__["NavbarModule"],
                 _shared_footer_footer_module__WEBPACK_IMPORTED_MODULE_10__["FooterModule"],
-                _shared_fixedplugin_fixedplugin_module__WEBPACK_IMPORTED_MODULE_12__["FixedpluginModule"]
+                _shared_fixedplugin_fixedplugin_module__WEBPACK_IMPORTED_MODULE_12__["FixedpluginModule"],
+                ngx_chips__WEBPACK_IMPORTED_MODULE_17__["TagInputModule"]
             ],
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],

@@ -1,6 +1,7 @@
 // IMPORTANT: this is a plugin which requires jQuery for initialisation and data manipulation
 
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { UUID } from 'angular2-uuid';
 
 declare interface UserPublishedTable {
   headerRow: string[];
@@ -17,6 +18,7 @@ declare const $: any;
 
 export class UserPublishedTableComponent implements OnInit, AfterViewInit {
     public dataTable: UserPublishedTable;
+    podcastId = UUID.UUID();
 
     ngOnInit() {
         this.dataTable = {

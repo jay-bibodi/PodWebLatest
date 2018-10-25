@@ -1,0 +1,126 @@
+<div class="main-content">
+    <div class="row">
+        <button mat-raised-button type="submit" (click)="goBack()" style="margin-left: 20px;" class="btn btn-sm btn-rose pull-left"><i
+                aria-hidden="true" class="fa fa-arrow-circle-left" style="padding-bottom: 3px;"></i>&nbsp;&nbsp;Back to list
+        </button>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-rose">
+                            <div class="card-icon">
+                                <i class="material-icons">cloud_upload</i>
+                            </div>
+                            <h4 class="card-title">Upload Podcast
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <form #podcastDetailForm="ngForm" (ngSubmit)="editPodcastDetail(podcastDetailForm.value)"
+                                (change)="mark_changed()">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="title" [(ngModel)]="title"
+                                        placeholder="Enter Title">
+                                    <div *ngIf="!isTitlePresent" class="help-block" style="text-align: right;color:red">Title
+                                        for the podcast must be present</div>
+                                </div>
+                                <div class="form-group">
+                                    <tag-input name="tags" [(ngModel)]='tags' placeholder="+ Tag" secondaryPlaceholder="Add Tags"
+                                        aria-placeholder="tags"></tag-input>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" style="margin-top:3%">
+                                            <mat-radio-group class="example-radio-group" [(ngModel)]="selectedType">
+                                                <mat-radio-button class="example-radio-button" *ngFor="let type of podcastTypes"
+                                                    [value]="type" (change)="radioChange($event)">
+                                                    {{type}} &nbsp;&nbsp;&nbsp;&nbsp;
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                            <div *ngIf="!isRadioButtonSelected" class="help-block" style="text-align: left;color:red">Please
+                                                select atleast one type</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" *ngIf="isPaidPodcast">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="amount" [(ngModel)]="amount"
+                                                placeholder="Number of Pods Token Required to purchase podcast">
+                                            <div *ngIf="!isAmountPresent && isPaidPodcast" class="help-block" style="text-align: right;color:red">{{errorTextForAmount}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
+                                        [uploader]="uploader" style="border: dotted 3px lightgray;min-height: 20px;padding: 19px;margin-bottom: 20px;background-color: #f5f5f5;border-radius:4px;box-shadow:inset 0px 1px 1px rgba(0,0,0,0.05)">
+                                        Drop the File Here
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="btn btn-primary" style="background-color:#e91e63 !important;">
+                                            Browse File <input type="file" style="display: none;" class="form-control" name="single" ng2FileSelect [uploader]="uploader" placeholder="choose Intent ZipFile"/>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50%">Name</th>
+                                                    <th>Size</th>
+                                                    <th>Progress</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of uploader.queue">
+                                                    <td>
+                                                        <strong>{{ item.file.name }}</strong>
+                                                    </td>
+                                                    <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
+                                                    <td>
+                                                        <div class="progress" style="margin-bottom: 0;">
+                                                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span *ngIf="item.isSuccess">
+                                                            <i class="material-icons">check_circle</i>
+                                                        </span>
+                                                        <span *ngIf="item.isCancel">
+                                                            <i class="material-icons">cancel</i>
+                                                        </span>
+                                                        <span *ngIf="item.isError">
+                                                            <span *ngIf="check_for_error(item.isError)">
+                                                                <i class="material-icons">error</i>
+                                                            </span>
+                                                        </span>
+                                                    </td>
+                                                    <td nowrap>
+                                                        <button type="button" class="btn btn-success btn-xs" style="background-color:#3581f2 !important;"
+                                                            (click)="item.upload(); set_flag()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                                                            <i class="material-icons">cloud_upload</i> Upload
+                                                        </button>
+                                                        <!--<button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()"
+                                                            [disabled]="!item.isUploading">
+                                                            <i class="material-icons">cancel</i> Cancel
+                                                        </button>-->
+                                                        <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                                                            <i class="material-icons">delete_forever</i> Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button mat-raised-button type="submit" (click)="loadPublishedPodcast()" class="btn btn-rose pull-right">Cancel</button>
+                                <button mat-raised-button type="submit" class="btn btn-rose pull-right">Save</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
