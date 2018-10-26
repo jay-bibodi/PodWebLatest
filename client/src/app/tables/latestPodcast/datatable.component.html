@@ -3,27 +3,30 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                  <div class="card-header card-header-primary card-header-icon">
-                    <div class="card-icon">
-                      <i class="material-icons">assignment</i>
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">assignment</i>
+                        </div>
+                        <h4 class="card-title">Latest Podcast</h4>
                     </div>
-                    <h4 class="card-title">Latest Podcast</h4>
-                  </div>
                     <div class="card-body">
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>
                         <div class="material-datatables">
-                          <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover"
+                                cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                     <tr>
-                                      <th>{{ dataTable.headerRow[0] }}</th>
-                                      <th>{{ dataTable.headerRow[1] }}</th>
-                                      <th>{{ dataTable.headerRow[2] }}</th>
-                                      <th>{{ dataTable.headerRow[3] }}</th>
-                                      <th>{{ dataTable.headerRow[4] }}</th>
-                                      <th class="disabled-sorting">{{ dataTable.headerRow[5] }}</th>
-                                      <th class="disabled-sorting">{{ dataTable.headerRow[6] }}</th>
+                                        <th>{{ dataTable.headerRow[0] }}</th>
+                                        <th>{{ dataTable.headerRow[1] }}</th>
+                                        <th>{{ dataTable.headerRow[2] }}</th>
+                                        <th>{{ dataTable.headerRow[3] }}</th>
+                                        <th>{{ dataTable.headerRow[4] }}</th>
+                                        <th class="disabled-sorting">{{ dataTable.headerRow[5] }}</th>
+                                        <th class="disabled-sorting">{{ dataTable.headerRow[6] }}</th>
+                                        <th [hidden]="true">{{dataTable.headerRow[7]}}</th>
+                                        <th [hidden]="true">{{dataTable.headerRow[8]}}</th>
                                     </tr>
                                 </thead>
                                 <!--<tfoot>
@@ -44,15 +47,20 @@
                                         <td>{{row[3]}}</td>
                                         <td>{{row[4]}}</td>
                                         <td>
-                                          <!--<a href="#" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">favorite</i></a>
+                                            <!--<a href="#" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">favorite</i></a>
                                           <a href="#" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>
                                           <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>-->
-                                          <a href="#" class="btn btn-link btn-warning btn-just-icon play" style="color:rgb(171, 71, 188)"><i class="material-icons" style="font-size:18px">play_circle_outline</i></a>
-                                          
+                                            <a href="#" class="btn btn-link btn-warning btn-just-icon play" style="color:rgb(171, 71, 188)"><i
+                                                    class="material-icons" style="font-size:18px">play_circle_outline</i></a>
+
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-link btn-warning btn-just-icon view" style="color:rgb(171, 71, 188)" [routerLink]="['/tables/latestPodcast','12345']"><i class="material-icons" style="font-size:18px">remove_red_eye</i></a>
+                                            <a href="#" class="btn btn-link btn-warning btn-just-icon view" style="color:rgb(171, 71, 188)"
+                                                [routerLink]="['/tables/latestPodcast','12345']"><i class="material-icons"
+                                                    style="font-size:18px">remove_red_eye</i></a>
                                         </td>
+                                        <td [hidden]="true">{{row[7]}}</td>
+                                        <td [hidden]="true">{{row[8]}}</td>
                                     </tr>
                                 </tbody>
                             </table>

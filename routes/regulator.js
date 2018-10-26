@@ -6,22 +6,46 @@ var crypto = require('crypto');
 var bcrypt = require('bcrypt');
 var sgMail = require('@sendgrid/mail');
 var detect = require('detect-file-type');
-
 const IPFS = require('ipfs-api');
 const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
-var FileReader = require('filereader')
-
 sgMail.setApiKey("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");
 var serverJWT_Secret = 'kpTxN=)7mX3W3SEJ58Ubt8-';
-
 // Publishable key: pk_test_CoMBkQnIgd8vejmt3EsQTasU
 // Secret key: sk_test_F2JU8TVN1he8TAAh90ByLXbr
 var stripe = require("stripe")("sk_test_F2JU8TVN1he8TAAh90ByLXbr");
 var tokenPrice = 1000000000000000; // expressed in wei //0.001; // expressed in ether.
 global.fetch = require('node-fetch')
 const cc = require('cryptocompare')
-//var oneGweiToEther = 0.000000001;
 var tokensAvailable = 600000;
+var multer = require('multer');
+var fs = require('fs');
+var path = require('path');
+var CircularJSON = require('circular-json')
+var DIR = path.join(__dirname, '..', 'uploads'); //'../uploads/';
+
+// Load user detail collection configurations
+var MongoClient = require('mongodb').MongoClient;
+var DatabaseUrl = "mongodb://podweb1:zyiF9C2bTNt75wpnpuJqpEoA0riWV8izvxINQzKxRHS1dJnE0SZ5otRhUGBEq3CWPmGjN6Rgn0KQrehqGRailA==@podweb1.documents.azure.com:10255/?ssl=true"; //process.env.DatabaseUri;
+var DatabaseName = "podweb1";
+var DatabaseCollectionName = "AppUser";
+
+// Load podcast detail collection configuration
+var PodcastCollectionName = "PodcastDetail";
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, DIR)
+    },
+    filename: function (req, file, cb) {
+        console.log(req);
+        console.log(file);
+        cb(null, file.originalname)
+    }
+})
+
+var upload = multer({ //multer settings
+    storage: storage
+}).single('file');
 
 var userInfoStructure = {
     "token": "",
@@ -33,6 +57,20 @@ var userInfoStructure = {
     "country": "",
     "postalCode": ""
 };
+
+var podcastDetailStructure = {
+    "uploadedBy": "",
+    "fileHashKey": "",
+    "title": "",
+    "tags": [],
+    "artistName": "",
+    "isPodcastPaid": "",
+    "amount": "",
+    "comments": [],
+    "likes": [],
+    "createdDateTime": "",
+    "modifiedDataTime": ""
+}
 
 console.log("Inside Regulator");
 
@@ -80,36 +118,36 @@ let podsTokenSaleBytecode = '0x' + podsTokenSaleCompiledContract.contracts['Pods
 var podsTokenSaleContract = new web3.eth.Contract(JSON.parse(podsTokenSaleAbi));
 var podsTokenSaleContractTx;// = podsTokenSaleContract.deploy({data:podsTokenSaleBytecode,arguments:[1000000]});
 
-addFileToIpfs();
+/*addFileToIpfs();
 
-function addFileToIpfs(){
+function addFileToIpfs() {
 
     fs.readFile("../uploads/file-1540458990081", function (err, data) {
         if (err) throw err;
         console.log(data);
-        detect.fromFile('../uploads/file-1540458990081', function(err, result) {
- 
+        detect.fromFile('../uploads/file-1540458990081', function (err, result) {
+
             if (err) {
-              return console.log(err);
+                return console.log(err);
             }
-         
+
             console.log(result); // { ext: 'jpg', mime: 'image/jpeg' }
-          });
+        });
         /*ipfs.add(Buffer.from(data), (err, result) => {
             if (err || !result) {
               console.log("Unable to upload to IPFS API: "+err);
             } else {
                 console.log(result);
             }
-          })*/
+          })
     });
-}
+}*/
 
 //  getEthAccounts and deployContract
 var ethAccounts = [];
-//getEthAccounts(deployContract);
+getEthAccounts(deployContract);
 function getEthAccounts(callback) {
-    web3.eth.getAccounts(function(error, result) {
+    web3.eth.getAccounts(function (error, result) {
         if (error != null)
             console.log("Couldn't get accounts");
         ethAccounts = result;
@@ -119,38 +157,38 @@ function getEthAccounts(callback) {
 
 function deployContract() {
 
-    myContractTx.send({ from: ethAccounts[0], gas: 327027 }, function(error, transactionHash) { }).on('error', function(error) { })
-        .on('transactionHash', function(transactionHash) { })
-        .on('receipt', function(receipt) {
+    myContractTx.send({ from: ethAccounts[0], gas: 4712388 }, function (error, transactionHash) { }).on('error', function (error) { })
+        .on('transactionHash', function (transactionHash) { })
+        .on('receipt', function (receipt) {
             console.log(receipt.contractAddress) // contains the new contract address
         })
-        .on('confirmation', function(confirmationNumber, receipt) { })
-        .then(function(newContractInstance) {
+        .on('confirmation', function (confirmationNumber, receipt) { })
+        .then(function (newContractInstance) {
             console.log(newContractInstance.options.address) // instance with the new contract address
             contractInstance = newContractInstance
-            podsTokenContractTx.send({ from: ethAccounts[0], gas: 4712388 }, function(error, transactionHash) { }).on('error', function(error) { })
-                .on('transactionHash', function(transactionHash) { })
-                .on('receipt', function(receipt) {
+            podsTokenContractTx.send({ from: ethAccounts[0], gas: 4712388 }, function (error, transactionHash) { }).on('error', function (error) { })
+                .on('transactionHash', function (transactionHash) { })
+                .on('receipt', function (receipt) {
                     console.log(receipt.contractAddress) // contains the new contract address
                 })
-                .on('confirmation', function(confirmationNumber, receipt) { })
-                .then(function(newContractInstance) {
+                .on('confirmation', function (confirmationNumber, receipt) { })
+                .then(function (newContractInstance) {
                     console.log(newContractInstance.options.address) // instance with the new contract address
                     podsTokenContractInstance = newContractInstance
                     podsTokenSaleContract.deploy({ data: podsTokenSaleBytecode, arguments: [newContractInstance.options.address, tokenPrice] }).send({
                         from: ethAccounts[0],
                         gas: 4712388
-                    }, function(error, transactionHash) { })
-                        .on('error', function(error) { })
-                        .on('transactionHash', function(transactionHash) { })
-                        .on('receipt', function(receipt) {
+                    }, function (error, transactionHash) { })
+                        .on('error', function (error) { })
+                        .on('transactionHash', function (transactionHash) { })
+                        .on('receipt', function (receipt) {
                             console.log(receipt.contractAddress) // contains the new contract address
                         })
-                        .on('confirmation', function(confirmationNumber, receipt) { })
-                        .then(function(newContractInstance) {
+                        .on('confirmation', function (confirmationNumber, receipt) { })
+                        .then(function (newContractInstance) {
                             console.log(newContractInstance.options.address) // instance with the new contract address
                             podsTokenSaleContractInstance = newContractInstance;
-                            podsTokenContractInstance.methods.transfer(newContractInstance.options.address, tokensAvailable).send({ from: ethAccounts[0] }).then((receipt)=>{
+                            podsTokenContractInstance.methods.transfer(newContractInstance.options.address, tokensAvailable).send({ from: ethAccounts[0] }).then((receipt) => {
                                 console.log("Transfer 60% of the token to token sale")
                                 console.log(receipt);
                             })
@@ -160,21 +198,15 @@ function deployContract() {
         });
 }
 
-// Load db configurations
-var MongoClient = require('mongodb').MongoClient;
-var DatabaseUrl = "mongodb://podweb1:zyiF9C2bTNt75wpnpuJqpEoA0riWV8izvxINQzKxRHS1dJnE0SZ5otRhUGBEq3CWPmGjN6Rgn0KQrehqGRailA==@podweb1.documents.azure.com:10255/?ssl=true"; //process.env.DatabaseUri;
-var DatabaseName = "podweb1";
-var DatabaseCollectionName = "AppUser";
-
 function login(req, res, next) {
     var userCredentials = JSON.parse(JSON.stringify(req.body));
     // console.log("Inside regulator login");
 
-    MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function(err, database) {
+    MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
         if (err) throw new Error();
         var db = database.db(DatabaseName);
 
-        db.collection(DatabaseCollectionName).findOne({ emailId: userCredentials.emailOfPerson }, function(err, result) {
+        db.collection(DatabaseCollectionName).findOne({ emailId: userCredentials.emailOfPerson }, function (err, result) {
             if (err) throw err;
 
             /*console.log("Get ETH balance");
@@ -214,7 +246,7 @@ function tokenSold() {
 function signup(req, res, next) {
     var result = JSON.parse(JSON.stringify(req.body));
 
-    MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function(err, database) {
+    MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
         if (err) throw new Error();
         var db = database.db(DatabaseName);
         var emailId = result.emailOfPerson;
@@ -250,7 +282,7 @@ var createUserAccount = (userInfo, res) => {
         accountJson["country"] = "";
         accountJson["postalCode"] = "";
 
-        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function(err, database) {
+        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
             if (err) { console.log(err); throw new Error(); }
             var db = database.db(DatabaseName)
             db.collection(DatabaseCollectionName).findAndModify(
@@ -258,19 +290,19 @@ var createUserAccount = (userInfo, res) => {
                 [],
                 accountJson,
                 { "upsert": "true" },
-                function(error, object) {
+                function (error, object) {
                     if (!error) {
                         //console.log(ethAccounts[0]);
-                        contractInstance.methods.storeEmailAddressMapping(accountJson.address, userInfo.emailOfPerson).send({ from: ethAccounts[0] }, function(error, result) {
+                        contractInstance.methods.storeEmailAddressMapping(accountJson.address, userInfo.emailOfPerson).send({ from: ethAccounts[0] }, function (error, result) {
                             console.log(error);
                             console.log(result);
                             if (result !== undefined) {
                                 console.log("Account Address: " + accountJson.address);
                                 contractInstance.methods.emailAddressMapping(accountJson.address).call({ from: ethAccounts[0] }).then(console.log);
                                 //podsTokenContractInstance.methods.balanceOf(ethAccounts[0]).call().then(console.log).catch(console.error);
-                                                                
+
                                 podsTokenContractInstance.methods.transfer(accountJson.address, 10).send({ from: ethAccounts[0] })
-                                    .then(function(receipt) {
+                                    .then(function (receipt) {
                                         //console.log("Inside get Receipt");
                                         //console.log(receipt);
                                         //podsTokenContractInstance.methods.balanceOf(ethAccounts[0]).call().then(console.log).catch(console.error);
@@ -316,10 +348,10 @@ function getEncryptedPassword(password) {
 function forgotPassword(req, res, next) {
     console.log("Inside forgotPassword")
 
-    crypto.randomBytes(20, function(err, buf) {
+    crypto.randomBytes(20, function (err, buf) {
         var token = buf.toString('hex');
         console.log("Token: " + token)
-        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function(err, database) {
+        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
             if (err) { console.log(err); throw new Error(); }
             var db = database.db(DatabaseName)
             db.collection(DatabaseCollectionName).find({ "emailId": req.body.emailOfPerson }).toArray((err, result) => {
@@ -328,7 +360,7 @@ function forgotPassword(req, res, next) {
                     var timeStamp = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
                     var updateRequestPasswordToken = { $push: { requestPassword: { $each: [{ "resetToken": token, "resetDateAndTime": timeStamp }] } } }
 
-                    db.collection(DatabaseCollectionName).update(updateRequestPasswordToken, result[0], { upsert: true }, function(err, obj) {
+                    db.collection(DatabaseCollectionName).update(updateRequestPasswordToken, result[0], { upsert: true }, function (err, obj) {
                         if (err) throw err;
                         db.close();
                         const msg = {
@@ -360,7 +392,7 @@ function forgotPassword(req, res, next) {
 // reset token
 function resetPassword(req, res, next) {
 
-    MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function(err, database) {
+    MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
         if (err) { console.log(err); throw new Error(); }
         var db = database.db(DatabaseName)
         db.collection(DatabaseCollectionName).find({ "emailId": req.body.emailOfPerson }).toArray((err, result) => {
@@ -378,7 +410,7 @@ function resetPassword(req, res, next) {
                     }));
                 }
                 else {
-                    db.collection(DatabaseCollectionName).update({ "password": getEncryptedPassword(req.body.passwordOfPerson) }, result[0], { upsert: true }, function(err, obj) {
+                    db.collection(DatabaseCollectionName).update({ "password": getEncryptedPassword(req.body.passwordOfPerson) }, result[0], { upsert: true }, function (err, obj) {
                         if (err) throw err;
                         db.close();
                         res.status(200).send(JSON.stringify({
@@ -406,14 +438,14 @@ function updateUserDetails(req, res, next) {
         console.log(req.body);
         var userInfo = JSON.parse(JSON.stringify(req.body));
 
-        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function(err, database) {
+        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
             if (err) { console.log(err); throw new Error(); }
             var db = database.db(DatabaseName)
 
             var myquery = { emailId: jwtVerified.emailId };
             var newvalues = { $set: { name: userInfo.userName, userAddress: userInfo.userAddress, secondaryEmailAddress: userInfo.userSecondaryEmail, city: userInfo.userCity, country: userInfo.userCountry, postalCode: userInfo.userPostalCode } };
 
-            db.collection(DatabaseCollectionName).updateOne(myquery, newvalues, function(err, updateResult) {
+            db.collection(DatabaseCollectionName).updateOne(myquery, newvalues, function (err, updateResult) {
                 if (err) throw err;
                 database.close();
 
@@ -436,7 +468,7 @@ function getUserInfo(req, res, next) {
         }));
     }
     else {
-        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function(err, database) {
+        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
             if (err) { console.log(err); throw new Error(); }
             var db = database.db(DatabaseName)
             db.collection(DatabaseCollectionName).find({ "emailId": jwtVerified.emailId }).toArray((err, result) => {
@@ -603,7 +635,7 @@ function stripePurchaseToken(req, res, next) {
 
             var id = jwtVerified.emailId;
 
-            MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function(err, database) {
+            MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
                 if (err) { console.log(err); throw new Error(); }
                 var db = database.db(DatabaseName)
                 db.collection(DatabaseCollectionName).find({ "emailId": id }).toArray((err, result) => {
@@ -616,10 +648,10 @@ function stripePurchaseToken(req, res, next) {
                             console.log(emailId);
                             if (emailId === id) {
                                 // transfer ether
-                                web3.eth.sendTransaction({from:ethAccounts[0], to:address, value: gasCostInString}).then((receipt)=>{
+                                web3.eth.sendTransaction({ from: ethAccounts[0], to: address, value: gasCostInString }).then((receipt) => {
                                     console.log(receipt);
 
-                                    podsTokenSaleContractInstance.methods.buyTokens(address,tokens).send({ from: ethAccounts[0], value:(tokens*tokenPrice)}).then((receipt)=>{
+                                    podsTokenSaleContractInstance.methods.buyTokens(address, tokens).send({ from: ethAccounts[0], value: (tokens * tokenPrice) }).then((receipt) => {
                                         console.log("Call tokenSold()");
                                         tokenSold();
                                         podsTokenContractInstance.methods.balanceOf(address).call().then(console.log).catch(console.error);
@@ -642,6 +674,149 @@ function stripePurchaseToken(req, res, next) {
     }
 }
 
+function uploadfile(req, res, next) {
+    console.log("Inside upload");
+    upload(req, res, function (err) {
+        if (err) throw err;
+
+        console.log("File is uploaded!");
+        var body = JSON.parse(JSON.stringify(req.body));
+        var fileDetail = JSON.parse(JSON.stringify(req.file));
+
+        var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(body.token, serverJWT_Secret)));
+        console.log(jwtVerified);
+
+        if (jwtVerified.emailId !== body.emailAddress) {
+            res.status(400).send(JSON.stringify({
+                status: "Invalid login credentials. Please login again!"
+            }));
+        }
+        else {
+            var filePath = path.join(__dirname, "..", "uploads", fileDetail.originalname);
+
+            detect.fromFile(filePath, function (err, result) {
+                if (err) throw err
+                else if (result.ext !== "mp3") {
+                    res.status(400).send(JSON.stringify({
+                        status: "Only mp3 format are supported!"
+                    }));
+                }
+                else {
+                    fs.readFile(filePath, function (err, data) {
+                        ipfs.add(Buffer.from(data), (err, result) => {
+                            if (err || !result) {
+                                console.log("Unable to upload to IPFS API: " + err);
+                            }
+                            else {
+                                console.log(result);
+                                MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+                                    var db = database.db(DatabaseName)
+                                    db.collection(PodcastCollectionName).find({ "fileHashKey.path": result[0].hash }).toArray((err, docs) => {
+                                        if (docs.length > 0) {
+                                            fs.unlink(filePath, (err) => {
+                                                if (err) throw err;
+
+                                                console.log('successfully deleted' + filePath);
+                                                res.status(400).send(JSON.stringify({
+                                                    status: "File with the same content is already present"
+                                                }));
+                                            });
+                                        }
+                                        else {
+                                            var podcastObject = JSON.parse(JSON.stringify(podcastDetailStructure));
+                                            podcastObject.uploadedBy = body.emailAddress;
+                                            podcastObject.fileHashKey = result;
+                                            podcastObject.title = body.title
+                                            podcastObject.tags = body.tags;
+                                            podcastObject.artistName = body.artist;
+                                            podcastObject.isPodcastPaid = body.isPaidPodcast;
+                                            podcastObject.amount = body.amount;
+                                            podcastObject.comments = [];
+                                            podcastObject.likes = [];
+                                            podcastObject.createdDateTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
+                                            podcastObject.modifiedDataTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
+
+                                            console.log("Podcast object");
+                                            console.log(podcastObject);
+
+                                            db.collection(PodcastCollectionName).findAndModify(
+                                                { "uploadedBy": jwtVerified.emaiId },
+                                                [],
+                                                podcastObject,
+                                                { "upsert": "true" },
+                                                function (error, object) {
+                                                    if (error) {
+                                                        ipfs.files.rm(filePath, (err) => {
+                                                            if (err) {
+                                                                console.log("Error in removing file from ipfs")
+                                                            }
+                                                            console.log("Error in inserting metadata of podcast file detail in mongo db")
+
+                                                            fs.unlink(filePath, (err) => {
+                                                                if (err) throw err;
+                                                                console.log('successfully deleted' + filePath);
+                                                            });
+                                                        });
+                                                    }
+                                                    else {
+                                                        fs.unlink(filePath, (err) => {
+                                                            if (err) throw err;
+
+                                                            console.log('successfully deleted' + filePath);
+                                                            res.status(200).send({
+                                                                status: "File uploaded successfully!"
+                                                            });
+                                                        });
+                                                    }
+                                                }
+                                            )
+                                        }
+                                    });
+                                });
+                            }
+                        })
+                    });
+                }
+            });
+        }
+    })
+}
+
+function getLatestPodcast(req, res, next) {
+    var headers = JSON.parse(JSON.stringify(req.headers));
+    var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
+
+    if (jwtVerified.emailId !== headers.emailaddress) {
+        res.status(400).send(JSON.stringify({
+            status: "Invalid login credentials. Please login again!"
+        }));
+    }
+    else {
+        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+            var db = database.db(DatabaseName)
+            db.collection(PodcastCollectionName).find({}).sort({ "createdDateTime": -1 }).limit(10).toArray((err, docs) => {
+                if (err) throw err;
+                var mainArr = [];
+
+                var podPaid = false;
+
+                for (var i = 0; i < docs.length; i++) {
+                    (docs[i].isPodcastPaid) ? (podPaid = true) : (podPaid = false);
+                    var subArr = [docs[i].title, docs[i].artistName, docs[i].createdDateAndTime, docs[i].tags, podPaid, '', '', docs[i].fileHashKey[0].hash, docs[i].amount]
+                    mainArr.push(subArr);
+                }
+
+                console.log(mainArr);
+
+                res.status(200).send(JSON.stringify({
+                    data: mainArr,
+                    status: "Results fetched successfully"
+                }))
+            });
+        });
+    }
+}
+
 exports.getUserInfo = getUserInfo;
 exports.login = login;
 exports.signup = signup;
@@ -651,3 +826,5 @@ exports.updateUserDetails = updateUserDetails;
 exports.stripePurchaseToken = stripePurchaseToken;
 exports.getTokenList = getTokenList;
 exports.getAmountForTokenValue = getAmountForTokenValue;
+exports.uploadfile = uploadfile;
+exports.getLatestPodcast = getLatestPodcast;

@@ -18,26 +18,35 @@
                             <form #podcastDetailForm="ngForm" (ngSubmit)="editPodcastDetail(podcastDetailForm.value)"
                                 (change)="mark_changed()">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="title" [(ngModel)]="title"
+                                    <input type="text" class="form-control" name="titleName" [(ngModel)]="titleName"
                                         placeholder="Enter Title">
                                     <div *ngIf="!isTitlePresent" class="help-block" style="text-align: right;color:red">Title
                                         for the podcast must be present</div>
                                 </div>
-                                <div class="form-group">
-                                    <tag-input name="tags" [(ngModel)]='tags' placeholder="+ Tag" secondaryPlaceholder="Add Tags"
-                                        aria-placeholder="tags"></tag-input>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="artistName" [(ngModel)]="artistName"
+                                                    placeholder="Enter Artist Name" style="margin-top:25px">
+                                            </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <tag-input [(ngModel)]="tags" name="tags" placeholder="+ Tag" secondaryPlaceholder="Add Tags" aria-placeholder="tags"></tag-input>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group" style="margin-top:3%">
-                                            <mat-radio-group class="example-radio-group" [(ngModel)]="selectedType">
+                                            <mat-radio-group class="example-radio-group" [(ngModel)]="selectedType" name="selectedType">
                                                 <mat-radio-button class="example-radio-button" *ngFor="let type of podcastTypes"
                                                     [value]="type" (change)="radioChange($event)">
                                                     {{type}} &nbsp;&nbsp;&nbsp;&nbsp;
                                                 </mat-radio-button>
                                             </mat-radio-group>
                                             <div *ngIf="!isRadioButtonSelected" class="help-block" style="text-align: left;color:red">Please
-                                                select atleast one type</div>
+                                                select atleast one podcast type</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6" *ngIf="isPaidPodcast">
@@ -55,8 +64,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="btn btn-primary" style="background-color:#e91e63 !important;">
-                                            Browse File <input type="file" style="display: none;" class="form-control" name="single" ng2FileSelect [uploader]="uploader" placeholder="choose Intent ZipFile"/>
+                                            Browse File <input type="file" style="display: none;" class="form-control" name="single" ng2FileSelect [uploader]="uploader" placeholder="choose file"/>
                                         </label>
+                                        <div *ngIf="!selectFileToUpload" class="help-block" style="text-align: left;color:red">Please select a file</div>
                                     </div>
                                     <div class="col-md-12">
                                         <table class="table">
@@ -88,21 +98,21 @@
                                                             <i class="material-icons">cancel</i>
                                                         </span>
                                                         <span *ngIf="item.isError">
-                                                            <span *ngIf="check_for_error(item.isError)">
+                                                            <span *ngIf="item.isError">
                                                                 <i class="material-icons">error</i>
                                                             </span>
                                                         </span>
                                                     </td>
                                                     <td nowrap>
-                                                        <button type="button" class="btn btn-success btn-xs" style="background-color:#3581f2 !important;"
-                                                            (click)="item.upload(); set_flag()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                                                        <!--<button type="button" class="btn btn-success btn-xs" style="background-color:#3581f2 !important;"
+                                                            (click)="item.upload();" [disabled]="item.isReady || item.isUploading || item.isSuccess">
                                                             <i class="material-icons">cloud_upload</i> Upload
-                                                        </button>
+                                                        </button>-->
                                                         <!--<button type="button" class="btn btn-warning btn-xs" (click)="item.cancel()"
                                                             [disabled]="!item.isUploading">
                                                             <i class="material-icons">cancel</i> Cancel
                                                         </button>-->
-                                                        <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">
+                                                        <button type="button" class="btn btn-danger btn-xs" (click)="deleteFile(item)">
                                                             <i class="material-icons">delete_forever</i> Delete
                                                         </button>
                                                     </td>
