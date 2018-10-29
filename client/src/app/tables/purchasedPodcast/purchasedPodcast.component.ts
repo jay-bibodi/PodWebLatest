@@ -1,6 +1,9 @@
 // IMPORTANT: this is a plugin which requires jQuery for initialisation and data manipulation
 
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
+import swal from 'sweetalert2';
 
 declare interface PurchasedPodcastTable {
   headerRow: string[];
@@ -17,8 +20,39 @@ declare const $: any;
 
 export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
     public dataTable: PurchasedPodcastTable;
+    constructor(private http: Http, private router: Router) { }
+    dataRowsFromDB = null;
 
     ngOnInit() {
+      let headers = new Headers();
+      headers.append("token", localStorage.getItem("token"));
+      headers.append("emailAddress", localStorage.getItem("emailAddress"));
+  
+      this.http.get('http://localhost:3000/getPurchasedPodcastList', { headers: headers }).subscribe((data) => {
+        console.log("message sending results", data);
+        this.dataRowsFromDB = data.json();
+        this.dataRowsFromDB = this.dataRowsFromDB.data
+  
+        console.log(this.dataRowsFromDB);
+  
+        this.dataTable = {
+          headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'Like', 'View', 'id', 'amount','Actions'],
+          footerRow: [],
+          dataRows: this.dataRowsFromDB
+        }
+  
+        var body = JSON.parse(data.text());
+  
+        swal({
+          title: body.status,
+          text: "",
+          timer: 3000,
+          showConfirmButton: false
+        }).catch(swal.noop);
+      }, (err) => { console.log("message sending err", err) })
+    }
+
+    /*ngOnInit() {
         this.dataTable = {
             headerRow: [ 'Name', 'Position', 'Office', 'Age', 'Date', 'Actions' ],
             footerRow: [ 'Name', 'Position', 'Office', 'Age', 'Start Date', 'Actions' ],
@@ -67,7 +101,7 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
             ]
          };
 
-    }
+    }*/
 
     ngAfterViewInit() {
       $('#datatables').DataTable({

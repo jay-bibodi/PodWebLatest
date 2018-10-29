@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ElementRef} from '@angular/core';
+import { ActivatedRoute,Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import swal from 'sweetalert2';
 import { FileUploader } from "ng2-file-upload"
@@ -26,6 +26,8 @@ export class PodcastDetailComponent implements OnInit {
   isErrorPresent = false;
   isRadioButtonSelected = true;
   selectFileToUpload = true;
+  fileUploaded = false;
+  fileId: string;
 
   titleName: string;
   errorTextForAmount: string;
@@ -34,6 +36,8 @@ export class PodcastDetailComponent implements OnInit {
   selectedType: string;
   podcastTypes: string[] = ['Paid Podcast', 'Free Podcast'];
   tagsArray = [];
+  showPlayButton = false;
+  isFromEdit = false;
 
   public uploader: FileUploader = new FileUploader({ url: 'http://localhost:3000/uploadfile' });
   public hasBaseDropZoneOver:boolean = false;
@@ -47,7 +51,7 @@ export class PodcastDetailComponent implements OnInit {
     this.hasAnotherDropZoneOver = e;
   }
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(private http: Http, private router: Router,private route: ActivatedRoute) { }
 
   radioChange(event) {
     console.log(event.value);
@@ -66,20 +70,26 @@ export class PodcastDetailComponent implements OnInit {
       this.router.navigate(["tables/userPublishedTable"]);
     }
     else {
-      swal({
-        title: 'Are you sure?',
-        text: "Changes will be lost",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Confirm'
-      }).then((result) => {
-        console.log(result.value);
-        if (result.value) {
-          this.router.navigate(["tables/userPublishedTable"]);
-        }
-      })
+      if(this.fileUploaded)
+      {
+        this.router.navigate(["tables/userPublishedTable"]);
+      }
+      else{
+        swal({
+          title: 'Are you sure?',
+          text: "Changes will be lost",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirm'
+        }).then((result) => {
+          console.log(result.value);
+          if (result.value) {
+            this.router.navigate(["tables/userPublishedTable"]);
+          }
+        })
+      }
     }
   }
 
@@ -112,8 +122,9 @@ export class PodcastDetailComponent implements OnInit {
       this.selectFileToUpload = false;
     }
 
-    if (!this.isErrorPresent) {
+    if (!this.isErrorPresent && !this.isFromEdit) {
       console.log("Inside if");
+      console.log(form.tags);
 
       for (var i = 0; i < form.tags.length; i++) {
         this.tagsArray.push(form.tags[i].display);
@@ -134,6 +145,8 @@ export class PodcastDetailComponent implements OnInit {
       this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
         if (response) {
           //console.log("response" + JSON.stringify(response));
+          this.fileUploaded = true;
+          this.UIChange = false;
           var body = JSON.parse(response);
             swal({
               title: body.status,
@@ -157,6 +170,44 @@ export class PodcastDetailComponent implements OnInit {
         }
       }
     }
+    else if(!this.isErrorPresent && this.isFromEdit)
+    {
+      console.log("Inside else of form submit");
+        let headers = new Headers();
+        headers.append("token",localStorage.getItem("token")); 
+        headers.append("emailAddress",localStorage.getItem("emailAddress"));
+
+        this.tagsArray = [];
+
+        console.log("Tags")
+        console.log(form.tags);
+        for (var i = 0; i < form.tags.length; i++) {
+          this.tagsArray.push(form.tags[i].display);
+        }
+
+        var editedObject = {
+          'title':this.titleName,
+          'artist': this.artistName,
+          'tags': this.tagsArray,
+          'isPaidPodcast': this.isPaidPodcast,
+          'amount': this.amount,
+          'id': this.fileId
+        }
+        
+        console.log("editedObj")
+        console.log(editedObject);
+
+        this.http.post('http://localhost:3000/updatePodcastDetails',editedObject,{headers: headers}).subscribe((data) => {
+          var body = JSON.parse(data.text());
+  
+          swal({
+            title: body.status,
+            text: "",
+            timer: 2000,
+            showConfirmButton: false
+          }).catch(swal.noop);
+        },(err) => { console.log("message sending err", err) }, () => {})
+    }
   }
 
   /*check_for_error(error) {
@@ -172,7 +223,50 @@ export class PodcastDetailComponent implements OnInit {
     this.goBack()
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      console.log(params.id);
+
+      let headers = new Headers();
+        headers.append("token",localStorage.getItem("token")); 
+        headers.append("emailAddress",localStorage.getItem("emailAddress"));
+
+        this.http.post('http://localhost:3000/getPodcastDetailsForView',{"id":params.id},{headers: headers}).subscribe((data) => {
+            console.log("message sending results", data); 
+            this.showPlayButton = true;
+            this.isFromEdit = true;
+
+            var jsonData = data.json();
+            if(jsonData.status !== "Adding Podcast"){
+              
+              jsonData = jsonData.data;
+              
+              this.fileId = jsonData.fileHashKey[0].hash
+              this.titleName = jsonData.title;
+              this.artistName = jsonData.artistName;
+              if(jsonData.amount!=="undefined"){
+                this.selectedType = "Paid Podcast";
+                this.isPaidPodcast = true;
+                this.amount = jsonData.amount
+              }
+              else{
+                this.selectedType = "Free Podcast";
+              }
+
+              var tagsArr = jsonData.tags.split(",");
+              for (var i = 0; i <  tagsArr.length; i++) {
+                this.tags.push({ "display":  tagsArr[i], "value":  tagsArr[i] });
+              }
+            }
+            else{
+              this.showPlayButton = false;
+              this.isFromEdit = false;
+            }
+        }, (err) => { 
+
+        })
+    })
+   }
   myFunc(val: any) {
     // code here
   }

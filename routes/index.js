@@ -50,4 +50,25 @@ router.get('/getLatestPodcast',function(req,res,next){
   regulator.getLatestPodcast(req,res,next);
 })
 
+router.get('/getUserPublishedPodcast',function(req,res,next){
+  regulator.getUserPublishedPodcast(req,res,next);
+})
+
+// view for the publisher 
+router.post('/getPodcastDetailsForView',function(req,res,next){
+  regulator.getPodcastDetailsForView(req,res,next);
+})
+
+router.post('/updatePodcastDetails',function(req,res,next){
+  regulator.updatePodcastDetails(req,res,next);
+})
+
+router.post('/transferPodsToPurchase',function(req,res,next){
+  regulator.transferPodsToPurchase(req,res,next);
+})
+
+router.get('/getPurchasedPodcastList',function(req,res,next){
+  regulator.getPurchasedPodcastList(req,res,next);
+})
+
 module.exports = router;

@@ -850,6 +850,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var PurchaseTokenComponent = /** @class */ (function () {
+    //gasPrice: string;
+    //gas:string;
     function PurchaseTokenComponent(http, router) {
         this.http = http;
         this.router = router;
@@ -893,13 +895,13 @@ var PurchaseTokenComponent = /** @class */ (function () {
             _this.amountForTokenSelected = body.data;
             _this.prices = (body.price).toString();
             _this.tokens = body.tokens;
-            _this.gasPrice = body.gasPrice;
-            _this.gas = body.gas;
+            //this.gasPrice = body.gasPrice;
+            //this.gas = body.gas;
             console.log(_this.prices);
             console.log(_this.tokens);
             console.log(_this.amountForTokenSelected);
-            console.log(_this.gasPrice);
-            console.log(_this.gas);
+            //console.log(this.gasPrice);
+            //console.log(this.gas);
         }, function (err) {
             console.log("message sending err", err);
             localStorage.removeItem("token");
@@ -921,16 +923,16 @@ var PurchaseTokenComponent = /** @class */ (function () {
         console.log(this.tokens);
         var ethPrice = this.prices;
         var tokensToBuy = this.tokens;
-        var gasPrice = this.gasPrice;
-        var gas = this.gas;
-        console.log("Gas:" + gas);
+        //var gasPrice = this.gasPrice;
+        //var gas = this.gas;
+        //console.log("Gas:"+gas);
         var purchaseTokenObj = {
             "stripeId": "",
             "price": ethPrice,
             "tokens": tokensToBuy,
-            "amount": form.amountForTokenSelected,
-            "gasPrice": gasPrice,
-            "gas": gas
+            "amount": form.amountForTokenSelected
+            //"gasPrice":gasPrice,
+            //"gas":gas
         };
         console.log(purchaseTokenObj);
         var handler = window.StripeCheckout.configure({

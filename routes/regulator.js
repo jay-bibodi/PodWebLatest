@@ -25,7 +25,7 @@ var DIR = path.join(__dirname, '..', 'uploads'); //'../uploads/';
 
 // Load user detail collection configurations
 var MongoClient = require('mongodb').MongoClient;
-var DatabaseUrl = "mongodb://podweb1:zyiF9C2bTNt75wpnpuJqpEoA0riWV8izvxINQzKxRHS1dJnE0SZ5otRhUGBEq3CWPmGjN6Rgn0KQrehqGRailA==@podweb1.documents.azure.com:10255/?ssl=true"; //process.env.DatabaseUri;
+var DatabaseUrl = "mongodb://localhost:27017/podweb1"//"mongodb://podweb1:zyiF9C2bTNt75wpnpuJqpEoA0riWV8izvxINQzKxRHS1dJnE0SZ5otRhUGBEq3CWPmGjN6Rgn0KQrehqGRailA==@podweb1.documents.azure.com:10255/?ssl=true"; //process.env.DatabaseUri;
 var DatabaseName = "podweb1";
 var DatabaseCollectionName = "AppUser";
 
@@ -68,6 +68,7 @@ var podcastDetailStructure = {
     "amount": "",
     "comments": [],
     "likes": [],
+    "purchasedUserList":[],
     "createdDateTime": "",
     "modifiedDataTime": ""
 }
@@ -364,7 +365,7 @@ function forgotPassword(req, res, next) {
                         if (err) throw err;
                         db.close();
                         const msg = {
-                            to: user.emaiId,
+                            to: user.emailId,
                             from: 'jay23193@gmail.com',
                             subject: 'PodWeb - Password Reset',
                             text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
@@ -541,7 +542,20 @@ function getAmountForTokenValue(req, res, next) {
             .then(prices => {
                 var price = parseFloat(prices.USD);
 
-                web3.eth.getGasPrice().then(getGasPrice => {
+                var tokenPriceInWei = (tokenPrice * tokens).toString();
+                var tokenPriceInEther = parseFloat(web3.utils.fromWei(tokenPriceInWei, 'ether'));
+                var tokenPriceInDollars = tokenPriceInEther * price;
+
+                res.send(JSON.stringify({
+                    data: Math.ceil(tokenPriceInDollars),
+                    price: prices.USD,
+                    tokens: tokenVal.totalToken,
+                    //gasPrice: gasPrice,
+                    //gas: gas,
+                    status: "amount fetched successfully"
+                }));
+
+                /*web3.eth.getGasPrice().then(getGasPrice => {
                     var gasPrice = getGasPrice;
                     console.log("What is gas price");
                     console.log(gasPrice);
@@ -579,7 +593,7 @@ function getAmountForTokenValue(req, res, next) {
                                 status: "amount fetched successfully"
                             }));
                         });
-                })
+                })*/
             })
             .catch(console.error)
     }
@@ -605,25 +619,26 @@ function stripePurchaseToken(req, res, next) {
         console.log("price:" + price);
         var amount = parseFloat(purchaseTokenObj.amount);
         console.log("amount:" + amount);
-        var gasPrice = parseInt(purchaseTokenObj.gasPrice);
+
+        /*var gasPrice = parseInt(purchaseTokenObj.gasPrice);
         console.log("gasPrice:" + gasPrice);
         var gas = parseInt(purchaseTokenObj.gas);
-        console.log("gas:" + gas);
+        console.log("gas:" + gas);*/
 
         var tokenPriceInWei = (tokenPrice * tokens).toString();
         var tokenPriceInEther = parseFloat(web3.utils.fromWei(tokenPriceInWei, 'ether'));
         var tokenPriceInDollars = tokenPriceInEther * price;
 
-        var gasCostInString = (gas * gasPrice).toString();
+        /*var gasCostInString = (gas * gasPrice).toString();
         console.log(gasCostInString);
 
         var ethers = parseFloat(web3.utils.fromWei(gasCostInString, 'ether'))
         console.log("Ethers: " + ethers);
 
         var etherToDollar = parseFloat(ethers * price);
-        console.log("Ethers TO dollar: " + etherToDollar);
+        console.log("Ethers TO dollar: " + etherToDollar);*/
 
-        var verifyAmount = Math.ceil(tokenPriceInDollars + etherToDollar);
+        var verifyAmount = Math.ceil(tokenPriceInDollars /*+ etherToDollar*/);
 
         if (verifyAmount === amount) {
             const charge = stripe.charges.create({
@@ -647,19 +662,20 @@ function stripePurchaseToken(req, res, next) {
                             console.log("From smart contract");
                             console.log(emailId);
                             if (emailId === id) {
-                                // transfer ether
-                                web3.eth.sendTransaction({ from: ethAccounts[0], to: address, value: gasCostInString }).then((receipt) => {
-                                    console.log(receipt);
 
-                                    podsTokenSaleContractInstance.methods.buyTokens(address, tokens).send({ from: ethAccounts[0], value: (tokens * tokenPrice) }).then((receipt) => {
-                                        console.log("Call tokenSold()");
-                                        tokenSold();
-                                        podsTokenContractInstance.methods.balanceOf(address).call().then(console.log).catch(console.error);
-                                        res.status(200).send({
-                                            status: "Tokens Credited"
-                                        });
-                                    })
-                                });
+                                podsTokenSaleContractInstance.methods.buyTokens(address, tokens).send({ from: ethAccounts[0], value: (tokens * tokenPrice) }).then((receipt) => {
+                                    console.log("Call tokenSold()");
+                                    tokenSold();
+                                    podsTokenContractInstance.methods.balanceOf(address).call().then(console.log).catch(console.error);
+                                    res.status(200).send({
+                                        status: "Tokens Credited"
+                                    });
+                                })
+
+                                // transfer ether
+                                /*web3.eth.sendTransaction({ from: ethAccounts[0], to: address, value: gasCostInString }).then((receipt) => {
+                                    console.log(receipt);    
+                                });*/
                             }
                         })
                     }
@@ -711,7 +727,7 @@ function uploadfile(req, res, next) {
                                 console.log(result);
                                 MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
                                     var db = database.db(DatabaseName)
-                                    db.collection(PodcastCollectionName).find({ "fileHashKey.path": result[0].hash }).toArray((err, docs) => {
+                                    db.collection(PodcastCollectionName).find({ "fileHashKey.hash": result[0].hash }).toArray((err, docs) => {
                                         if (docs.length > 0) {
                                             fs.unlink(filePath, (err) => {
                                                 if (err) throw err;
@@ -740,7 +756,7 @@ function uploadfile(req, res, next) {
                                             console.log(podcastObject);
 
                                             db.collection(PodcastCollectionName).findAndModify(
-                                                { "uploadedBy": jwtVerified.emaiId },
+                                                { "uploadedBy": jwtVerified.emailId },
                                                 [],
                                                 podcastObject,
                                                 { "upsert": "true" },
@@ -796,13 +812,13 @@ function getLatestPodcast(req, res, next) {
             var db = database.db(DatabaseName)
             db.collection(PodcastCollectionName).find({}).sort({ "createdDateTime": -1 }).limit(10).toArray((err, docs) => {
                 if (err) throw err;
-                var mainArr = [];
 
-                var podPaid = false;
+                var mainArr = [];
+                var podPaid = "No";
 
                 for (var i = 0; i < docs.length; i++) {
-                    (docs[i].isPodcastPaid) ? (podPaid = true) : (podPaid = false);
-                    var subArr = [docs[i].title, docs[i].artistName, docs[i].createdDateAndTime, docs[i].tags, podPaid, '', '', docs[i].fileHashKey[0].hash, docs[i].amount]
+                    (docs[i].isPodcastPaid === "true") ? (podPaid = "Yes") : (podPaid = "No");
+                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, podPaid, '', '','', docs[i].fileHashKey[0].hash, docs[i].amount]
                     mainArr.push(subArr);
                 }
 
@@ -817,6 +833,233 @@ function getLatestPodcast(req, res, next) {
     }
 }
 
+function getUserPublishedPodcast(req, res, next) {
+    var headers = JSON.parse(JSON.stringify(req.headers));
+    var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
+
+    if (jwtVerified.emailId !== headers.emailaddress) {
+        res.status(400).send(JSON.stringify({
+            status: "Invalid login credentials. Please login again!"
+        }));
+    }
+    else {
+        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+            var db = database.db(DatabaseName)
+            db.collection(PodcastCollectionName).find({"uploadedBy":jwtVerified.emailId}).toArray((err, docs) => {
+
+                var mainArr = [];
+                var podPaid = "No";
+
+                for (var i = 0; i < docs.length; i++) {
+                    (docs[i].isPodcastPaid === "true") ? (podPaid = "Yes") : (podPaid = "No");
+                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, podPaid, '', '', '',docs[i].fileHashKey[0].hash, docs[i].amount]
+                    mainArr.push(subArr);
+                }
+
+                console.log(mainArr);
+                res.status(200).send(JSON.stringify({
+                    data: mainArr,
+                    status: "Results fetched successfully"
+                }))
+            });    
+        });
+    }
+}
+
+function getPodcastDetailsForView(req,res,next){
+    var headers = JSON.parse(JSON.stringify(req.headers));
+    var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
+
+    if (jwtVerified.emailId !== headers.emailaddress) {
+        res.status(400).send(JSON.stringify({
+            status: "Invalid login credentials. Please login again!"
+        }));
+    }
+    else {
+        var body = JSON.parse(JSON.stringify(req.body));
+        console.log("Inside else of getPodcastDetailsForView: "+body.id);
+        MongoClient.connect(DatabaseUrl,{useNewUrlParser:true},function(err,database){
+            var db = database.db(DatabaseName)
+            db.collection(PodcastCollectionName).find({"fileHashKey.hash":body.id}).toArray((err, docs) => {
+                if(docs.length !== 0){
+
+                    res.status(200).send(JSON.stringify({
+                        data:docs[0],
+                        status: "details fetched successfully!"
+                    }));
+                }
+                else{
+                    res.status(200).send(JSON.stringify({
+                        status: "Adding Podcast"
+                    }));        
+                }
+            })
+        })
+    }
+}
+
+function updatePodcastDetails(req,res,next){
+    var headers = JSON.parse(JSON.stringify(req.headers));
+    var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
+
+    if (jwtVerified.emailId !== headers.emailaddress) {
+        res.status(400).send(JSON.stringify({
+            status: "Invalid login credentials. Please login again!"
+        }));
+    }
+    else {
+        var body = JSON.parse(JSON.stringify(req.body));
+        console.log(body);
+        MongoClient.connect(DatabaseUrl,{useNewUrlParser:true},function(err,database){
+            var db = database.db(DatabaseName)
+
+            var myquery = {"fileHashKey.hash":body.id,"uploadedBy":jwtVerified.emailId};
+            var newvalues = { $set: { title: body.title, artistName: body.artist, tags: body.tags, isPodcastPaid: body.isPaidPodcast, amount: body.amount} };
+
+            db.collection(PodcastCollectionName).updateOne(myquery, newvalues, function (err, updateResult) {
+                if (err) throw err;
+                database.close();
+
+                res.status(200).send(JSON.stringify({
+                    status: "Podcast details updated successfully!"
+                }));
+            });
+        });
+    }
+}
+
+function transferPodsToPurchase(req,res,next){
+    var headers = JSON.parse(JSON.stringify(req.headers));
+    var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
+
+    if (jwtVerified.emailId !== headers.emailaddress) {
+        res.status(400).send(JSON.stringify({
+            status: "Invalid login credentials. Please login again!"
+        }));
+    }
+    else {
+        console.log("Inside transferPodsToPurchase");
+        var body = JSON.parse(JSON.stringify(req.body));
+        console.log(body);
+
+        // validate the amount
+        // validate if user has not purchased this already
+        // validate if user have specific amount
+        // transfer pods to creater of podcast
+        // add emailid to purchased podcast
+        // change isPaidPodcast to Purchased (Not yes or No in UI)
+
+        MongoClient.connect(DatabaseUrl,{useNewUrlParser:true},function(err,database){
+            if(err) throw err;
+
+            var db = database.db(DatabaseName);
+
+            db.collection(PodcastCollectionName).find({"fileHashKey.hash":body.id}).toArray((err, docs) => {
+                console.log("Print docs");
+                console.log(docs);
+
+                if(docs.length !== 0){
+                    if((parseInt(docs[0].amount) !== parseInt(body.amount))){
+                        res.status(400).send(JSON.stringify({
+                            status: "Amount altered! Please refresh your page or contact system administrator"
+                        }));    
+                    }
+                    else{
+                        console.log("Print purchasedUserList")
+                        console.log(docs[0].purchasedUserList)
+                        if((docs[0].purchasedUserList).includes(jwtVerified.emailId)){
+                            res.status(400).send(JSON.stringify({
+                                status: "You already have purchased this podcast! If you cannot access it, Please refresh your page or contact system administrator!"
+                            }));
+                        }
+                        else{
+                            // podcast purchaser user data
+                            db.collection(DatabaseCollectionName).findOne({"emailId":jwtVerified.emailId}, function (err, userDocs) {
+                                if(err) throw err;
+
+                                console.log("Print userDocs");
+                                console.log(userDocs);
+
+                                // validate email Id and address
+                                contractInstance.methods.emailAddressMapping(userDocs.address).call().then((contractEmail)=>{
+                                    console.log("Inside contractInstance")
+                                    console.log(contractEmail);
+                                    if(contractEmail === jwtVerified.emailId){
+
+                                        console.log("Inside contractEmail === jwtVerified.emailId");
+                                        // check balance of the purchaser
+                                        podsTokenContractInstance.methods.balanceOf(userDocs.address).call().then((balance) => {
+                                            console.log("Inside podsTokenCOntractInstance");
+                                            console.log(balance);
+
+                                            if(balance >= body.amount){
+                                                console.log("Inside balance if >= body.amount");
+
+                                                // podcast uploaded user data
+                                                db.collection(DatabaseCollectionName).findOne({"emailId":docs[0].uploadedBy}, function (err, userData) {
+                                                    if(err) throw err;
+
+                                                    console.log("UserData");
+                                                    console.log(userData);
+                                                    podsTokenContractInstance.methods.transferFrom(userDocs.address,userData.address,body.amount).send({from:ethAccounts[0]}).then((receipt) => {
+                                                        console.log("Inside receipt");
+                                                        console.log(receipt);
+                                                        db.collection(PodcastCollectionName).updateOne({"uploadedBy":userData.emailId},{$addToSet: {purchasedUserList: jwtVerified.emailId}}, function (err, updateResult) {
+                                                            if (err) throw err;
+                                            
+                                                            res.status(200).send(JSON.stringify({
+                                                                purchasedStatus:"Purchased",
+                                                                status: "Podcast Purchased Successfully"
+                                                            }));
+                                                        });
+                                                    })
+                                                });      
+                                            }
+                                            else{
+                                                res.status(400).send(JSON.stringify({
+                                                    status: "You don't have sufficient Pods Token! Please purchase token first!"
+                                                }));                
+                                            }
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                    }
+                }
+                else{
+                    res.status(400).send(JSON.stringify({
+                        status: "Podcast Data not Found"
+                    }));        
+                }
+            })
+        })
+    }
+}
+
+function getPurchasedPodcastList(req,res,next){
+    var headers = JSON.parse(JSON.stringify(req.headers));
+    var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
+
+    if (jwtVerified.emailId !== headers.emailaddress) {
+        res.status(400).send(JSON.stringify({
+            status: "Invalid login credentials. Please login again!"
+        }));
+    }
+    else 
+    {
+        MongoClient.connect(DatabaseUrl,{useNewUrlParser:true},function(err,database){
+            if(err) throw err;
+
+            var db = database.db(DatabaseName);
+
+            db.collection(PodcastCollectionName).find({"purchasedUserList":jwtVerified.emailId}).toArray((err, docs) => {
+                
+            });
+        });
+    }    
+}
+
 exports.getUserInfo = getUserInfo;
 exports.login = login;
 exports.signup = signup;
@@ -828,3 +1071,8 @@ exports.getTokenList = getTokenList;
 exports.getAmountForTokenValue = getAmountForTokenValue;
 exports.uploadfile = uploadfile;
 exports.getLatestPodcast = getLatestPodcast;
+exports.getUserPublishedPodcast = getUserPublishedPodcast;
+exports.getPodcastDetailsForView = getPodcastDetailsForView;
+exports.updatePodcastDetails = updatePodcastDetails;
+exports.transferPodsToPurchase = transferPodsToPurchase;
+exports.getPurchasedPodcastList = getPurchasedPodcastList;

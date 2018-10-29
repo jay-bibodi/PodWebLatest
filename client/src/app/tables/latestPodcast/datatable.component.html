@@ -25,8 +25,9 @@
                                         <th>{{ dataTable.headerRow[4] }}</th>
                                         <th class="disabled-sorting">{{ dataTable.headerRow[5] }}</th>
                                         <th class="disabled-sorting">{{ dataTable.headerRow[6] }}</th>
-                                        <th [hidden]="true">{{dataTable.headerRow[7]}}</th>
+                                        <th class="disabled-sorting">{{ dataTable.headerRow[7] }}</th>
                                         <th [hidden]="true">{{dataTable.headerRow[8]}}</th>
+                                        <th [hidden]="true">{{dataTable.headerRow[9]}}</th>
                                     </tr>
                                 </thead>
                                 <!--<tfoot>
@@ -40,7 +41,7 @@
                                     </tr>
                                 </tfoot>-->
                                 <tbody>
-                                    <tr *ngFor="let row of dataTable.dataRows">
+                                    <tr *ngFor="let row of dataTable.dataRows; let i=index;">
                                         <td>{{row[0]}}</td>
                                         <td>{{row[1]}}</td>
                                         <td>{{row[2]}}</td>
@@ -50,17 +51,19 @@
                                             <!--<a href="#" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">favorite</i></a>
                                           <a href="#" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>
                                           <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>-->
-                                            <a href="#" class="btn btn-link btn-warning btn-just-icon play" style="color:rgb(171, 71, 188)"><i
-                                                    class="material-icons" style="font-size:18px">play_circle_outline</i></a>
+                                            <button (click)="clickOnPlay(i)" class="btn btn-link btn-warning btn-just-icon"
+                                                style="color:rgb(171, 71, 188)"><i class="material-icons" style="font-size:18px">play_circle_outline</i></button>
 
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-link btn-warning btn-just-icon view" style="color:rgb(171, 71, 188)"
-                                                [routerLink]="['/tables/latestPodcast','12345']"><i class="material-icons"
-                                                    style="font-size:18px">remove_red_eye</i></a>
+                                            <a href="#" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">favorite</i></a>
                                         </td>
-                                        <td [hidden]="true">{{row[7]}}</td>
+                                        <td>
+                                            <a [routerLink]="['/tables/latestPodcast/'+row[8]]" class="btn btn-link btn-warning btn-just-icon"
+                                                style="color:rgb(171, 71, 188)"><i class="material-icons" style="font-size:18px">remove_red_eye</i></a>
+                                        </td>
                                         <td [hidden]="true">{{row[8]}}</td>
+                                        <td [hidden]="true">{{row[9]}}</td>
                                     </tr>
                                 </tbody>
                             </table>

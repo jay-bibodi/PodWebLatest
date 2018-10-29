@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
+                                <div *ngIf="!showPlayButton">
                                     <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
                                         [uploader]="uploader" style="border: dotted 3px lightgray;min-height: 20px;padding: 19px;margin-bottom: 20px;background-color: #f5f5f5;border-radius:4px;box-shadow:inset 0px 1px 1px rgba(0,0,0,0.05)">
                                         Drop the File Here
@@ -122,6 +122,9 @@
                                         <div>
                                         </div>
                                     </div>
+                                </div>
+                                <div *ngIf="showPlayButton">
+                                    <button mat-raised-button type="submit" class="btn btn-rose pull-left">Play</button>    
                                 </div>
                                 <button mat-raised-button type="submit" (click)="loadPublishedPodcast()" class="btn btn-rose pull-right">Cancel</button>
                                 <button mat-raised-button type="submit" class="btn btn-rose pull-right">Save</button>

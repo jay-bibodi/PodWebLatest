@@ -36,7 +36,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       console.log(this.dataRowsFromDB);
 
       this.dataTable = {
-        headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'View', 'id', 'amount'],
+        headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'Like', 'View', 'id', 'amount'],
         footerRow: [],
         dataRows: this.dataRowsFromDB
       }
@@ -70,12 +70,36 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     const table = $('#datatables').DataTable();
 
     // Edit record
-    table.on('click', '.play', function (e) {
+    /*table.on('click', '.play', function (e) {
+      
       const $tr = $(this).closest('tr');
       const data = table.row($tr).data();
-      alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+      console.log('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+      
       e.preventDefault();
-    });
+      if(data[4] !== "No"){
+        console.log("Inside play inside No")
+        swal({
+          title: 'Paid Podcast',
+          text: "Do you want to purchase "+data[0]+" podcast by "+data[1]+" for "+data[9]+" pods token?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirm'
+        }).then((result) => {
+          console.log(result.value);
+          if (result.value) {
+            
+            self.http.post('http://localhost:3000/signup', this.model).subscribe((data) => {
+
+            })
+            
+            // when confirms make an api call 
+          }
+        })
+      }
+    });*/
 
     // Edit record
     table.on('click', '.view', function (e) {
@@ -99,5 +123,53 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     });
 
     $('.card .material-datatables label').addClass('form-group');
+  }
+
+  clickOnPlay(index) {
+    console.log("clickOnPlay")
+    var rowData = this.dataTable.dataRows[index];
+    console.log(rowData);
+    if (rowData[4] !== "No") {
+      console.log("Inside play inside No")
+      swal({
+        title: 'Paid Podcast',
+        text: "Do you want to purchase " + rowData[0] + " podcast by " + rowData[1] + " for " + rowData[9] + " pods token?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirm'
+      }).then((result) => {
+        console.log(result.value);
+        if (result.value === true) {
+          console.log("Inside if result.value")
+
+          let headers = new Headers();
+          headers.append("token", localStorage.getItem("token"));
+          headers.append("emailAddress", localStorage.getItem("emailAddress"));
+
+          console.log(this);
+
+          this.http.post('http://localhost:3000/transferPodsToPurchase',{"id":rowData[8],"amount":rowData[9]},{ headers: headers }).subscribe((data) => {
+            console.log(data);
+            var body = JSON.parse(data.text());
+            this.dataTable.dataRows[index][4] = body.purchasedStatus;
+            swal({
+              title: body.status,
+              text: "",
+              timer: 1000,
+              showConfirmButton: false
+            }).catch(swal.noop);
+            // play podcast
+            // pass src to audio control
+          }, (err) => { console.log("message sending err", err) }, () => { })
+
+          // when confirms make an api call 
+        }
+      })
+    } else {
+      // play podcast
+      // pass src to audio control
+    }
   }
 }
