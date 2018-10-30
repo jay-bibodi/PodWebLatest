@@ -439,7 +439,7 @@ var AppRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"wrapper\">\n    <div class=\"sidebar\" data-color=\"white\" data-background-color=\"black\" data-image=\"./assets/img/sidebar-1.jpg\">\n        <app-sidebar-cmp></app-sidebar-cmp>\n        <div class=\"sidebar-background\" style=\"background-image: url(assets/img/sidebar-1.jpg)\"></div>\n    </div>\n    <div class=\"main-panel\">\n        <app-navbar-cmp></app-navbar-cmp>\n        <router-outlet></router-outlet>\n        <div *ngIf=\"!isMap()\">\n            <app-footer-cmp></app-footer-cmp>\n        </div>\n    </div>\n    <app-fixedplugin></app-fixedplugin>\n</div>\n"
+module.exports = "\n<div class=\"wrapper\">\n    <div class=\"sidebar\" data-color=\"white\" data-background-color=\"black\" data-image=\"./assets/img/sidebar-1.jpg\">\n        <app-sidebar-cmp></app-sidebar-cmp>\n        <div class=\"sidebar-background\" style=\"background-image: url(assets/img/sidebar-1.jpg)\"></div>\n    </div>\n    <div class=\"main-panel\">\n        <app-navbar-cmp></app-navbar-cmp>\n        <router-outlet (getPodcastIdPath)=\"passPodcastIdPath($event)\"></router-outlet>\n        <div *ngIf=\"!isMap()\">\n            <app-footer-cmp [pathOfPodcastId] = \"globalPodcastId\"></app-footer-cmp>\n        </div>\n    </div>\n    <app-fixedplugin></app-fixedplugin>\n</div>\n"
 
 /***/ }),
 
@@ -591,6 +591,10 @@ var AdminLayoutComponent = /** @class */ (function () {
             bool = true;
         }
         return bool;
+    };
+    AdminLayoutComponent.prototype.passPodcastIdPath = function ($event) {
+        console.log($event);
+        this.globalPodcastId = $event;
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('sidebar'),
@@ -1225,7 +1229,7 @@ var FixedpluginModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<footer class=\"footer \">\n  <div class=\"container-fluid\">\n      <audio controls=\"controls\" src=\"https://ipfs.io/ipfs/QmdZdSsxp7oW1oQV9qAhyQLweVmRo85KFiUUWZdJAZrqqC\" style=\"width:100%\">\n        Your browser does not support the <a href=\"http://caniuse.com/#search=audio\"><code>audio</code></a> element.\n      </audio>\n    <nav class=\"pull-left\">\n      <ul>\n        <!--<li>\n          <a href=\"https://www.creative-tim.com\">\n            Creative Tim\n          </a>\n        </li>-->\n        <li>\n          <a [routerLink]=\"['/about']\">\n            About Us\n          </a>\n        </li>\n        <li>\n          <a href=\"http://blog.creative-tim.com\">\n            Blog\n          </a>\n        </li>\n        <!--<li>\n          <a href=\"https://www.creative-tim.com/license\">\n            Licenses\n          </a>\n        </li>-->\n      </ul>\n    </nav>\n    <div class=\"copyright pull-right\">\n      &copy;\n      {{test | date: 'yyyy'}}, made with <i class=\"material-icons\">favorite</i> by Jay Bibodi, CSU Sacramento.\n    </div>\n  </div>\n</footer>\n"
+module.exports = "<footer class=\"footer \">\n  <div class=\"container-fluid\">\n      <audio controls=\"controls\" src=\"https://ipfs.io/ipfs/{{pathOfPodcastId}}\" style=\"width:100%\">\n        Your browser does not support the <a href=\"http://caniuse.com/#search=audio\"><code>audio</code></a> element.\n      </audio>\n    <nav class=\"pull-left\">\n      <ul>\n        <li>\n          <a [routerLink]=\"['/about']\">\n            About Us\n          </a>\n        </li>\n        <li>\n          <a href=\"http://blog.creative-tim.com\">\n            Blog\n          </a>\n        </li>\n      </ul>\n    </nav>\n    <div class=\"copyright pull-right\">\n      &copy;\n      {{test | date: 'yyyy'}}, made with <i class=\"material-icons\">favorite</i> by Jay Bibodi, CSU Sacramento.\n    </div>\n  </div>\n</footer>\n"
 
 /***/ }),
 
@@ -1246,11 +1250,21 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
 var FooterComponent = /** @class */ (function () {
     function FooterComponent() {
         this.test = new Date();
     }
+    FooterComponent.prototype.ngOnInit = function () {
+        console.log(this.pathOfPodcastId);
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], FooterComponent.prototype, "pathOfPodcastId", void 0);
     FooterComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-footer-cmp',

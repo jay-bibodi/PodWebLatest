@@ -21,6 +21,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
     private yScrollStack: number[] = [];
     url: string;
     location: Location;
+    globalPodcastId: string;
 
     @ViewChild('sidebar') sidebar: any;
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
@@ -137,5 +138,10 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
             bool = true;
         }
         return bool;
+    }
+
+    passPodcastIdPath($event){
+        console.log($event);
+        this.globalPodcastId = $event;
     }
 }

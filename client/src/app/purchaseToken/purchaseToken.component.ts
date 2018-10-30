@@ -22,12 +22,14 @@ export class PurchaseTokenComponent implements OnInit {
   tokens: string;
   //gasPrice: string;
   //gas:string;
-
+  panelOpenState = false; 
   constructor(private http: Http,private router: Router){}
 
   tokenList: null;
 
   amountForTokenSelected: string;
+
+  purchaseHistoryAcc = [];
 
     ngOnInit() {
       let headers = new Headers();
@@ -36,7 +38,8 @@ export class PurchaseTokenComponent implements OnInit {
 
         this.http.get('http://localhost:3000/getTokenList',{headers: headers}).subscribe((data) => {
             console.log("message sending results", data); 
-            this.tokenList = data.json().data
+            this.tokenList = data.json().data;
+            this.purchaseHistoryAcc = data.json().purchaseHistory
         }, (err) => { 
           console.log("message sending err", err);
           localStorage.removeItem("token");
@@ -142,11 +145,10 @@ export class PurchaseTokenComponent implements OnInit {
 
                 self.http.post('http://localhost:3000/stripePurchaseToken', purchaseTokenObj,{headers: headers}).subscribe((data) => {
                     console.log("message sending results stripePurchaseToken", data); 
-                        console.log(data.status);
-                        var body = JSON.parse(data.text());
-                        console.log(body);
+                        console.log("Inside success of stripePurchaseToken")
+                        self.purchaseHistoryAcc = data.json().purchaseHistory;
                         swal({
-                            title: body.status,
+                            title: data.json().status,
                             text: "",
                             timer: 3000,
                             showConfirmButton: false

@@ -1,6 +1,6 @@
 // IMPORTANT: this is a plugin which requires jQuery for initialisation and data manipulation
 
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output,EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import swal from 'sweetalert2';
@@ -22,6 +22,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
   public dataTable: DataTable;
   constructor(private http: Http, private router: Router) { }
   dataRowsFromDB = null;
+  @Output() getPodcastIdPath = new EventEmitter<any>();
 
   ngOnInit() {
     let headers = new Headers();
@@ -168,6 +169,9 @@ export class DataTableComponent implements OnInit, AfterViewInit {
         }
       })
     } else {
+      console.log("Inside else of click on play")
+      console.log(this.getPodcastIdPath.emit(rowData[8]));
+      this.getPodcastIdPath.emit(rowData[8]);
       // play podcast
       // pass src to audio control
     }
