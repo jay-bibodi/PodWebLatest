@@ -190,8 +190,8 @@ function deployContract() {
                             console.log(newContractInstance.options.address) // instance with the new contract address
                             podsTokenSaleContractInstance = newContractInstance;
                             podsTokenContractInstance.methods.transfer(newContractInstance.options.address, tokensAvailable).send({ from: ethAccounts[0] }).then((receipt) => {
-                                console.log("Transfer 60% of the token to token sale")
-                                console.log(receipt);
+                                //console.log("Transfer 60% of the token to token sale")
+                                //console.log(receipt);
                             })
                         });
                 });
@@ -740,6 +740,8 @@ function uploadfile(req, res, next) {
                                         }
                                         else {
                                             var podcastObject = JSON.parse(JSON.stringify(podcastDetailStructure));
+                                            console.log("Inside podcastObject get tags");
+                                            console.log(body.tags);
                                             podcastObject.uploadedBy = body.emailAddress;
                                             podcastObject.fileHashKey = result;
                                             podcastObject.title = body.title
@@ -992,7 +994,7 @@ function transferPodsToPurchase(req,res,next){
                                             console.log("Inside podsTokenCOntractInstance");
                                             console.log(balance);
 
-                                            if(balance >= body.amount){
+                                            if(parseInt(balance) >= parseInt(body.amount)){
                                                 console.log("Inside balance if >= body.amount");
 
                                                 // podcast uploaded user data
@@ -1001,7 +1003,7 @@ function transferPodsToPurchase(req,res,next){
 
                                                     console.log("UserData");
                                                     console.log(userData);
-                                                    podsTokenContractInstance.methods.transferFrom(userDocs.address,userData.address,body.amount).send({from:ethAccounts[0]}).then((receipt) => {
+                                                    podsTokenContractInstance.methods.transferFrom(userDocs.address,userData.address,parseInt(body.amount)).send({from:ethAccounts[0]}).then((receipt) => {
                                                         console.log("Inside receipt");
                                                         console.log(receipt);
                                                         db.collection(PodcastCollectionName).updateOne({"uploadedBy":userData.emailId},{$addToSet: {purchasedUserList: jwtVerified.emailId}}, function (err, updateResult) {
@@ -1054,7 +1056,19 @@ function getPurchasedPodcastList(req,res,next){
             var db = database.db(DatabaseName);
 
             db.collection(PodcastCollectionName).find({"purchasedUserList":jwtVerified.emailId}).toArray((err, docs) => {
-                
+                var mainArr = [];
+
+                for (var i = 0; i < docs.length; i++) {
+                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, "Purchased", '', '', '',docs[i].fileHashKey[0].hash, docs[i].amount,'']
+                    mainArr.push(subArr);
+                }
+
+                console.log(mainArr);
+
+                res.status(200).send(JSON.stringify({
+                    data: mainArr,
+                    status: "Results fetched successfully"
+                }))
             });
         });
     }    

@@ -1199,7 +1199,7 @@ var PodcastDetailComponent = /** @class */ (function () {
             this.isErrorPresent = true;
             this.isRadioButtonSelected = false;
         }
-        if (this.uploader.queue.length === 0) {
+        if (!this.isFromEdit && this.uploader.queue.length === 0) {
             this.isErrorPresent = true;
             this.selectFileToUpload = false;
         }
@@ -1257,6 +1257,7 @@ var PodcastDetailComponent = /** @class */ (function () {
             for (var i = 0; i < form.tags.length; i++) {
                 this.tagsArray.push(form.tags[i].display);
             }
+            console.log(this.tagsArray);
             var editedObject = {
                 'title': this.titleName,
                 'artist': this.artistName,
@@ -1630,7 +1631,7 @@ var DataTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                  <div class=\"card-header card-header-primary card-header-icon\">\n                    <div class=\"card-icon\">\n                      <i class=\"material-icons\">assignment</i>\n                    </div>\n                    <h4 class=\"card-title\">Purchased Podcast</h4>\n                  </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                          <table id=\"datatables\" class=\"table table-striped table-no-bordered table-hover\" cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                      <th>{{ dataTable.headerRow[0] }}</th>\n                                      <th>{{ dataTable.headerRow[1] }}</th>\n                                      <th>{{ dataTable.headerRow[2] }}</th>\n                                      <th>{{ dataTable.headerRow[3] }}</th>\n                                      <th>{{ dataTable.headerRow[4] }}</th>\n                                      <th class=\"disabled-sorting text-right\">{{ dataTable.headerRow[5] }}</th>\n                                    </tr>\n                                </thead>\n                                <tfoot>\n                                    <tr>\n                                      <th>{{ dataTable.footerRow[0] }}</th>\n                                      <th>{{ dataTable.footerRow[1] }}</th>\n                                      <th>{{ dataTable.footerRow[2] }}</th>\n                                      <th>{{ dataTable.footerRow[3] }}</th>\n                                      <th>{{ dataTable.footerRow[4] }}</th>\n                                      <th class=\"text-right\">{{ dataTable.footerRow[5] }}</th>\n                                    </tr>\n                                </tfoot>\n                                <tbody>\n                                    <tr *ngFor=\"let row of dataTable.dataRows\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td class=\"text-right\">\n                                          <a href=\"#\" class=\"btn btn-link btn-info btn-just-icon like\"><i class=\"material-icons\">favorite</i></a>\n                                          <a href=\"#\" class=\"btn btn-link btn-warning btn-just-icon edit\"><i class=\"material-icons\">dvr</i></a>\n                                          <a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a>\n                                        </td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>\n"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                  <div class=\"card-header card-header-primary card-header-icon\">\n                    <div class=\"card-icon\">\n                      <i class=\"material-icons\">assignment</i>\n                    </div>\n                    <h4 class=\"card-title\">Purchased Podcast</h4>\n                  </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                          <table id=\"datatables\" class=\"table table-striped table-no-bordered table-hover\" cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th>{{ dataTable.headerRow[4] }}</th>\n                                        <th class=\"disabled-sorting\">{{ dataTable.headerRow[5] }}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[6]}}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[7]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[8]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[9]}}</th>\n                                        <th>{{ dataTable.headerRow[10] }}</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of dataTable.dataRows; let i=index;\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td><button (click)=\"clickOnPlay(i)\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">play_circle_outline</i><i\n                                                    class=\"material-icons\" style=\"font-size:18px\">play_circle_outline</i></button></td>\n                                        <td>\n                                            <a class=\"btn btn-link btn-warning btn-just-icon like\" style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">favorite</i></a>\n                                        </td>\n                                        <td>\n                                            <a [routerLink]=\"['/tables/'+row[8]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[8]}}</td>\n                                        <td [hidden]=\"true\">{{row[9]}}</td>\n                                        <td><a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a></td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -1758,12 +1759,12 @@ var PurchasedPodcastTableComponent = /** @class */ (function () {
         });
         var table = $('#datatables').DataTable();
         // Edit record
-        table.on('click', '.edit', function (e) {
-            var $tr = $(this).closest('tr');
-            var data = table.row($tr).data();
-            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-            e.preventDefault();
-        });
+        /*table.on('click', '.edit', function(e) {
+          const $tr = $(this).closest('tr');
+          const data = table.row($tr).data();
+          alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+          e.preventDefault();
+        });*/
         // Delete a record
         table.on('click', '.remove', function (e) {
             var $tr = $(this).closest('tr');
@@ -1771,11 +1772,17 @@ var PurchasedPodcastTableComponent = /** @class */ (function () {
             e.preventDefault();
         });
         //Like record
-        table.on('click', '.like', function (e) {
-            alert('You clicked on Like button');
-            e.preventDefault();
-        });
+        /*table.on('click', '.like', function(e) {
+          alert('You clicked on Like button');
+          e.preventDefault();
+        });*/
         $('.card .material-datatables label').addClass('form-group');
+    };
+    PurchasedPodcastTableComponent.prototype.clickOnPlay = function (index) {
+        console.log("clickOnPlay");
+        var rowData = this.dataTable.dataRows[index];
+        console.log(rowData);
+        // play podcast
     };
     PurchasedPodcastTableComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({

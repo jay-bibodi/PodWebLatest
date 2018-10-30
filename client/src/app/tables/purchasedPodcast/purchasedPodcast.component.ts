@@ -121,12 +121,12 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
       const table = $('#datatables').DataTable();
 
       // Edit record
-      table.on('click', '.edit', function(e) {
+      /*table.on('click', '.edit', function(e) {
         const $tr = $(this).closest('tr');
         const data = table.row($tr).data();
         alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
         e.preventDefault();
-      });
+      });*/
 
       // Delete a record
       table.on('click', '.remove', function(e) {
@@ -136,11 +136,18 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
       });
 
       //Like record
-      table.on('click', '.like', function(e) {
+      /*table.on('click', '.like', function(e) {
         alert('You clicked on Like button');
         e.preventDefault();
-      });
+      });*/
 
       $('.card .material-datatables label').addClass('form-group');
+    }
+
+    clickOnPlay(index) {
+      console.log("clickOnPlay")
+      var rowData = this.dataTable.dataRows[index];
+      console.log(rowData);
+      // play podcast
     }
 }

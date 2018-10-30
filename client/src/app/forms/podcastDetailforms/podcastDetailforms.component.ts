@@ -117,7 +117,7 @@ export class PodcastDetailComponent implements OnInit {
       this.isRadioButtonSelected = false;
     }
 
-    if (this.uploader.queue.length === 0) {
+    if (!this.isFromEdit && this.uploader.queue.length === 0) {
       this.isErrorPresent = true;
       this.selectFileToUpload = false;
     }
@@ -184,7 +184,8 @@ export class PodcastDetailComponent implements OnInit {
         for (var i = 0; i < form.tags.length; i++) {
           this.tagsArray.push(form.tags[i].display);
         }
-
+        console.log(this.tagsArray);
+        
         var editedObject = {
           'title':this.titleName,
           'artist': this.artistName,
