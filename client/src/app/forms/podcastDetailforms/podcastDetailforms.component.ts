@@ -39,6 +39,7 @@ export class PodcastDetailComponent implements OnInit {
   showPlayButton = false;
   isFromEdit = false;
 
+  podcastPurchasedByDetail = [];
   public uploader: FileUploader = new FileUploader({ url: 'http://localhost:3000/uploadfile' });
   public hasBaseDropZoneOver:boolean = false;
   public hasAnotherDropZoneOver:boolean = false;
@@ -253,6 +254,8 @@ export class PodcastDetailComponent implements OnInit {
               else{
                 this.selectedType = "Free Podcast";
               }
+
+              this.podcastPurchasedByDetail = jsonData.purchasedUserList;
 
               var tagsArr = jsonData.tags.split(",");
               for (var i = 0; i <  tagsArr.length; i++) {

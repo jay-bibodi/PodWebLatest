@@ -726,7 +726,7 @@ function stripePurchaseToken(req, res, next) {
                                             console.log('find and modified  ' + updatedDoc);
 
                                             if (err) throw err;
-                                            
+
                                             console.log("Inside updatedDoc")
                                             console.log(updatedDoc);
                                             res.status(200).send(JSON.stringify({
@@ -1051,7 +1051,17 @@ function transferPodsToPurchase(req, res, next) {
                     else {
                         console.log("Print purchasedUserList")
                         console.log(docs[0].purchasedUserList)
-                        if ((docs[0].purchasedUserList).includes(jwtVerified.emailId)) {
+
+                        var isAlreadyPurchased = false;
+                        for(var i=0;i<(docs[0].purchasedUserList).length;i++){
+                            var obj = docs[0].purchasedUserList[i];
+                            if(obj.emailId === jwtVerified.emailId){
+                                isAlreadyPurchased = true;
+                                break;
+                            }
+                        }
+
+                        if (isAlreadyPurchased) {
                             res.status(400).send(JSON.stringify({
                                 status: "You already have purchased this podcast! If you cannot access it, Please refresh your page or contact system administrator!"
                             }));
@@ -1088,13 +1098,39 @@ function transferPodsToPurchase(req, res, next) {
                                                     podsTokenContractInstance.methods.transferFrom(userDocs.address, userData.address, parseInt(body.amount)).send({ from: ethAccounts[0] }).then((receipt) => {
                                                         console.log("Inside receipt");
                                                         console.log(receipt);
-                                                        db.collection(PodcastCollectionName).updateOne({ "uploadedBy": userData.emailId }, { $addToSet: { purchasedUserList: jwtVerified.emailId } }, function (err, updateResult) {
+                                                        db.collection(PodcastCollectionName).updateOne({ "uploadedBy": userData.emailId }, { $addToSet: { purchasedUserList: {"name":userDocs.name,"emailId":jwtVerified.emailId} } }, function (err, updateResult) {
                                                             if (err) throw err;
 
-                                                            res.status(200).send(JSON.stringify({
-                                                                purchasedStatus: "Purchased",
-                                                                status: "Podcast Purchased Successfully"
-                                                            }));
+                                                            var tokenObject = JSON.parse(JSON.stringify(tokenPurchasedDetail));
+                                                            tokenObject.amountPaid = body.amount+" Pods Token";
+                                                            tokenObject.blockHash = receipt.blockHash;
+                                                            tokenObject.blockNumber = receipt.blockNumber;
+                                                            tokenObject.podsPurchased = body.amount + " Pods Token Received";
+                                                            tokenObject.reason = "Tokens Received for "+docs[0].title+" from "+userDocs.name;
+                                                            tokenObject.transactionHash = receipt.transactionHash;
+                                                            tokenObject.createdDateTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
+
+                                                            var updatePurchaseTokenList = { $push: { purchaseTokenHistory: tokenObject } }
+
+                                                            // for podcast publisher
+                                                            db.collection(TokenPurchasedDetailCollectionName).updateOne({"emailId":userData.emailId},updatePurchaseTokenList,function(err,updatedPodcastPublisherData){
+                                                                // for podcast purchaser
+                                                                var tokenObject = JSON.parse(JSON.stringify(tokenPurchasedDetail));
+                                                                tokenObject.amountPaid = body.amount+" Pods Token";
+                                                                tokenObject.blockHash = receipt.blockHash;
+                                                                tokenObject.blockNumber = receipt.blockNumber;
+                                                                tokenObject.podsPurchased = body.amount + " Pods Token Transferred";
+                                                                tokenObject.reason = "Tokens transferred for "+docs[0].title+" Podcast to "+userData.name;
+                                                                tokenObject.transactionHash = receipt.transactionHash;
+                                                                tokenObject.createdDateTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
+                                                                updatePurchaseTokenList = { $push: { purchaseTokenHistory: tokenObject } }
+                                                                db.collection(TokenPurchasedDetailCollectionName).updateOne({"emailId":userDocs.emailId},updatePurchaseTokenList,function(err,updatedPodcastPurchaserData){
+                                                                    res.status(200).send(JSON.stringify({
+                                                                        purchasedStatus: "Purchased",
+                                                                        status: "Podcast Purchased Successfully"
+                                                                    }));
+                                                                })
+                                                            })
                                                         });
                                                     })
                                                 });
@@ -1136,7 +1172,7 @@ function getPurchasedPodcastList(req, res, next) {
 
             var db = database.db(DatabaseName);
 
-            db.collection(PodcastCollectionName).find({ "purchasedUserList": jwtVerified.emailId }).toArray((err, docs) => {
+            db.collection(PodcastCollectionName).find({ "purchasedUserList.emailId": jwtVerified.emailId }).toArray((err, docs) => {
                 var mainArr = [];
 
                 for (var i = 0; i < docs.length; i++) {
