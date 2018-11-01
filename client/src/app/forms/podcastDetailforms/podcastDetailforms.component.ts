@@ -9,7 +9,7 @@ declare const require: any;
 declare const $: any;
 
 @Component({
-  selector: 'app-extendedforms-cmp',
+  selector: 'app-podcastDetailforms-cmp',
   templateUrl: 'podcastDetailforms.component.html',
   styles: [`md-calendar {
       width: 300px;
@@ -38,6 +38,8 @@ export class PodcastDetailComponent implements OnInit {
   tagsArray = [];
   showPlayButton = false;
   isFromEdit = false;
+  
+  pathOfPodcastId = null;
 
   podcastPurchasedByDetail = [];
   public uploader: FileUploader = new FileUploader({ url: 'http://localhost:3000/uploadfile' });
@@ -237,6 +239,8 @@ export class PodcastDetailComponent implements OnInit {
             console.log("message sending results", data); 
             this.showPlayButton = true;
             this.isFromEdit = true;
+
+            this.pathOfPodcastId = params.id;
 
             var jsonData = data.json();
             if(jsonData.status !== "Adding Podcast"){

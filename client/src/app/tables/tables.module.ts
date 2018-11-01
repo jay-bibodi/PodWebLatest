@@ -13,6 +13,7 @@ import { UserPublishedTableComponent } from './userPublishedTable/userPublishedT
 import { PurchasedPodcastTableComponent } from './purchasedPodcast/purchasedPodcast.component';
 import { PodcastDetailComponent } from '../forms/podcastDetailforms/podcastDetailforms.component';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import { DetailForLatestAndPurchasedPodcastComponent } from '../forms/detailForLatestAndPurchasedPodcast/detailForLatestAndPurchasedPodcast.component'
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
       PurchasedPodcastTableComponent,
       PodcastDetailComponent,
       FileSelectDirective,
-      FileDropDirective
+      FileDropDirective,
+      DetailForLatestAndPurchasedPodcastComponent
   ]
 })
 

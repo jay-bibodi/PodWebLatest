@@ -71,4 +71,8 @@ router.get('/getPurchasedPodcastList',function(req,res,next){
   regulator.getPurchasedPodcastList(req,res,next);
 })
 
+router.post('/getPodcastForCurrUser',function(req,res,next){
+  regulator.getPodcastForCurrUser(req,res,next);
+})
+
 module.exports = router;

@@ -124,7 +124,9 @@
                                     </div>
                                 </div>
                                 <div *ngIf="showPlayButton">
-                                    <button mat-raised-button type="submit" class="btn btn-rose pull-left">Play</button>    
+                                    <audio controls="controls" src="https://ipfs.io/ipfs/{{pathOfPodcastId}}" style="width:100%">
+                                        Your browser does not support the <a href="http://caniuse.com/#search=audio"><code>audio</code></a> element.
+                                    </audio>
                                 </div>
                                 <button mat-raised-button type="submit" (click)="loadPublishedPodcast()" class="btn btn-rose pull-right">Cancel</button>
                                 <button mat-raised-button type="submit" class="btn btn-rose pull-right">Save</button>

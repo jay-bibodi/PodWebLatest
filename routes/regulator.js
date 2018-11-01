@@ -936,7 +936,7 @@ function getUserPublishedPodcast(req, res, next) {
 
                 for (var i = 0; i < docs.length; i++) {
                     (docs[i].isPodcastPaid === "true") ? (podPaid = "Yes") : (podPaid = "No");
-                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, podPaid, '', '', '', docs[i].fileHashKey[0].hash, docs[i].amount]
+                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, podPaid, '', '', docs[i].fileHashKey[0].hash, docs[i].amount]
                     mainArr.push(subArr);
                 }
 
@@ -1176,7 +1176,7 @@ function getPurchasedPodcastList(req, res, next) {
                 var mainArr = [];
 
                 for (var i = 0; i < docs.length; i++) {
-                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, "Purchased", '', '', '', docs[i].fileHashKey[0].hash, docs[i].amount, '']
+                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, "Purchased",'', docs[i].fileHashKey[0].hash, '']
                     mainArr.push(subArr);
                 }
 
@@ -1189,6 +1189,56 @@ function getPurchasedPodcastList(req, res, next) {
             });
         });
     }
+}
+
+function getPodcastForCurrUser(req,res,next){
+    var headers = JSON.parse(JSON.stringify(req.headers));
+    var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
+
+    if (jwtVerified.emailId !== headers.emailaddress) {
+        res.status(400).send(JSON.stringify({
+            status: "Invalid login credentials. Please login again!"
+        }));
+    }
+    else {
+        var body = JSON.parse(JSON.stringify(req.body));
+        console.log("Inside else of getPodcastDetailsForView: " + body.id);
+        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+            var db = database.db(DatabaseName)
+            db.collection(PodcastCollectionName).find({ "fileHashKey.hash": body.id }).toArray((err, docs) => {
+                if (docs.length !== 0) {
+                    
+                    var purchasedUserList = docs[0].purchasedUserList;
+                    var isPurchasedPodcast = false;
+
+                    for(var i=0;i<purchasedUserList.length;i++){
+                        if(purchasedUserList[i].emailId === jwtVerified.emailId){
+                            isPurchasedPodcast = true;
+                            break;
+                        }
+                    }
+
+                    res.status(200).send(JSON.stringify({
+                        uploadedByValue: docs[0].uploadedBy,
+                        titleValue: docs[0].title,
+                        tagsValue: docs[0].tags,
+                        artistNameValue: docs[0].artistName,
+                        createdDateTimeValue: moment(docs[0].createdDateTime).format('L'),
+                        likesValue: (docs[0].likes).length,
+                        amountValue: docs[0].amount, 
+                        isPaidPodcast: docs[0].isPodcastPaid,
+                        isPurchasedPodcast: isPurchasedPodcast,
+                        status: "Details fetched successfully!"
+                    }));
+                }
+                else {
+                    res.status(400).send(JSON.stringify({
+                        status: "No file present with file id: "+body.id
+                    }));
+                }
+            })
+        })
+    }        
 }
 
 exports.getUserInfo = getUserInfo;
@@ -1207,3 +1257,4 @@ exports.getPodcastDetailsForView = getPodcastDetailsForView;
 exports.updatePodcastDetails = updatePodcastDetails;
 exports.transferPodsToPurchase = transferPodsToPurchase;
 exports.getPurchasedPodcastList = getPurchasedPodcastList;
+exports.getPodcastForCurrUser = getPodcastForCurrUser;

@@ -1,0 +1,75 @@
+<div class="main-content">
+    <div class="row">
+        <button mat-raised-button type="submit" (click)="goBack()" style="margin-left: 20px;" class="btn btn-sm btn-rose pull-left"><i
+                aria-hidden="true" class="fa fa-arrow-circle-left" style="padding-bottom: 3px;"></i>&nbsp;&nbsp;Back to
+            list
+        </button>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-rose">
+                            <div class="card-icon">
+                                <i class="material-icons">info</i>
+                            </div>
+                            <h4 class="card-title">Podcast Detail
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <p><b>Title:</b>
+                                            {{titleValue}}
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><b>Uploaded By:</b>
+                                            {{uploadedByValue}}
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><b>Tags:</b>
+                                            {{tagsValue}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <p><b>Artist Name:</b>
+                                            {{artistNameValue}}
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><b>Created On:</b>
+                                            {{createdDateTimeValue}}
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><b>Amount:</b>
+                                            {{amountValue}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <br />
+                                    <audio controls="controls" src="https://ipfs.io/ipfs/{{podcastId}}" style="width:100%">
+                                        Your browser does not support the <a href="http://caniuse.com/#search=audio"><code>audio</code></a>
+                                        element.
+                                    </audio>
+                                    <br />
+                                    <br />
+                                    <br />                                    
+                                        <b>Likes:&nbsp;&nbsp;&nbsp;</b>{{likesValue}}
+                                        <button mat-raised-button type="submit" (click)="callLikeFunc()" class="btn btn-rose pull-right">{{likeButtonValue}}</button>
+                                        <button mat-raised-button type="submit" *ngIf="isPaidPodcast && !isPurchasedPodcast" (click)="callPurchasePodcast()" class="btn btn-rose pull-right">Purchase</button>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

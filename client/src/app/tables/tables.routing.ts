@@ -6,25 +6,17 @@ import { DataTableComponent } from './latestPodcast/datatable.component';
 import { UserPublishedTableComponent } from './userPublishedTable/userPublishedTable.component';
 import { PurchasedPodcastTableComponent } from './purchasedPodcast/purchasedPodcast.component';
 import { PodcastDetailComponent } from '../forms/podcastDetailforms/podcastDetailforms.component';
+import { DetailForLatestAndPurchasedPodcastComponent } from '../forms/detailForLatestAndPurchasedPodcast/detailForLatestAndPurchasedPodcast.component';
 
 export const TablesRoutes: Routes = [
-    /*{
-      path: '',
-      children: [ {
-        path: 'regular',
-        component: RegularTableComponent
-    }]
-    }, {
-    path: '',
-    children: [ {
-      path: 'extended',
-      component: ExtendedTableComponent
-    }]
-    },*/ {
+  {
     path: '',
     children: [{
       path: 'latestPodcast',
       component: DataTableComponent
+    },{
+      path: 'latestPodcast/:id',
+      component: DetailForLatestAndPurchasedPodcastComponent
     }]
   },
   {
@@ -43,6 +35,9 @@ export const TablesRoutes: Routes = [
     children: [{
       path: 'purchasedPodcast',
       component: PurchasedPodcastTableComponent
+    },{
+      path: 'purchasedPodcast/:id',
+      component: DetailForLatestAndPurchasedPodcastComponent
     }]
   },
 ];

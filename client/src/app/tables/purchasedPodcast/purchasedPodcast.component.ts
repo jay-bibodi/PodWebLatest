@@ -36,7 +36,7 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
         console.log(this.dataRowsFromDB);
   
         this.dataTable = {
-          headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'Like', 'View', 'id', 'amount','Actions'],
+          headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id','Actions'],
           footerRow: [],
           dataRows: this.dataRowsFromDB
         }
@@ -53,6 +53,7 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
     }
 
     /*ngOnInit() {
+      headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'Like', 'View', 'id', 'amount','Actions'],
         this.dataTable = {
             headerRow: [ 'Name', 'Position', 'Office', 'Age', 'Date', 'Actions' ],
             footerRow: [ 'Name', 'Position', 'Office', 'Age', 'Start Date', 'Actions' ],

@@ -42,7 +42,7 @@ export class UserPublishedTableComponent implements OnInit, AfterViewInit {
       console.log(this.dataRowsFromDB);
  
       this.dataTable = {
-        headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'View', 'Actions','id', 'amount'],
+        headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'Actions','id', 'amount'],
         footerRow: [],
         dataRows: this.dataRowsFromDB
       }
