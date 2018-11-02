@@ -4,11 +4,11 @@ var jwt = require('jsonwebtoken');
 var async = require('async');
 var crypto = require('crypto');
 var bcrypt = require('bcrypt');
-var sgMail = require('@sendgrid/mail');
+//var sgMail = require('@sendgrid/mail');
 var detect = require('detect-file-type');
 const IPFS = require('ipfs-api');
 const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
-sgMail.setApiKey("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");
+//sgMail.setApiKey("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");
 var serverJWT_Secret = 'kpTxN=)7mX3W3SEJ58Ubt8-';
 // Publishable key: pk_test_CoMBkQnIgd8vejmt3EsQTasU
 // Secret key: sk_test_F2JU8TVN1he8TAAh90ByLXbr
@@ -98,6 +98,8 @@ let solc = require('solc');
 //connection establishing
 web3.setProvider(new web3.providers.HttpProvider('http://127.0.0.1:7545'));
 
+//let web3 = new Web3(new Web3.providers.WebsocketProvider('wss://kovan.infura.io/ws/'))
+
 // mapping user to account, user to file contract
 var contractInstance;
 var input = {
@@ -132,34 +134,10 @@ let podsTokenSaleBytecode = '0x' + podsTokenSaleCompiledContract.contracts['Pods
 var podsTokenSaleContract = new web3.eth.Contract(JSON.parse(podsTokenSaleAbi));
 var podsTokenSaleContractTx;// = podsTokenSaleContract.deploy({data:podsTokenSaleBytecode,arguments:[1000000]});
 
-/*addFileToIpfs();
-
-function addFileToIpfs() {
-
-    fs.readFile("../uploads/file-1540458990081", function (err, data) {
-        if (err) throw err;
-        console.log(data);
-        detect.fromFile('../uploads/file-1540458990081', function (err, result) {
-
-            if (err) {
-                return console.log(err);
-            }
-
-            console.log(result); // { ext: 'jpg', mime: 'image/jpeg' }
-        });
-        /*ipfs.add(Buffer.from(data), (err, result) => {
-            if (err || !result) {
-              console.log("Unable to upload to IPFS API: "+err);
-            } else {
-                console.log(result);
-            }
-          })
-    });
-}*/
-
 //  getEthAccounts and deployContract
 var ethAccounts = [];
 getEthAccounts(deployContract);
+
 function getEthAccounts(callback) {
     web3.eth.getAccounts(function (error, result) {
         if (error != null)
@@ -791,9 +769,15 @@ function uploadfile(req, res, next) {
         }
         else {
             var filePath = path.join(__dirname, "..", "uploads", fileDetail.originalname);
+            console.log(filePath);
 
             detect.fromFile(filePath, function (err, result) {
-                if (err) throw err
+                console.log("Inside detect file");
+                console.log(result);
+                if (err) 
+                {
+                    console.log(err);
+                }
                 else if (result.ext !== "mp3") {
                     res.status(400).send(JSON.stringify({
                         status: "Only mp3 format are supported!"
@@ -830,7 +814,7 @@ function uploadfile(req, res, next) {
                                             podcastObject.tags = body.tags;
                                             podcastObject.artistName = body.artist;
                                             podcastObject.isPodcastPaid = body.isPaidPodcast;
-                                            podcastObject.amount = body.amount;
+                                            podcastObject.amount = (body.amount !== undefined? body.amount : 0);
                                             podcastObject.comments = [];
                                             podcastObject.likes = [];
                                             podcastObject.createdDateTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
@@ -839,37 +823,46 @@ function uploadfile(req, res, next) {
                                             console.log("Podcast object");
                                             console.log(podcastObject);
 
-                                            db.collection(PodcastCollectionName).findAndModify(
+
+                                            db.collection(PodcastCollectionName).insertOne(podcastObject).then((result) => {
+                                                console.log("find error of insertOne");
+                                                
+                                                fs.unlink(filePath, (err) => {
+                                                    if (err) throw err;
+
+                                                    console.log('successfully deleted' + filePath);
+                                                    res.status(200).send({
+                                                        status: "File uploaded successfully!"
+                                                    });
+                                                });
+                                                
+                                                /*if (error) {
+                                                    ipfs.files.rm(filePath, (err) => {
+                                                        if (err) {
+                                                            console.log("Error in removing file from ipfs")
+                                                        }
+                                                        console.log("Error in inserting metadata of podcast file detail in mongo db")
+
+                                                        fs.unlink(filePath, (err) => {
+                                                            if (err) throw err;
+                                                            console.log('successfully deleted' + filePath);
+                                                        });
+                                                    });
+                                                }
+                                                else {
+                                                    
+                                                }*/
+                                            })
+
+                                            /*db.collection(PodcastCollectionName).findAndModify(
                                                 { "uploadedBy": jwtVerified.emailId },
                                                 [],
                                                 podcastObject,
                                                 { "upsert": "true" },
                                                 function (error, object) {
-                                                    if (error) {
-                                                        ipfs.files.rm(filePath, (err) => {
-                                                            if (err) {
-                                                                console.log("Error in removing file from ipfs")
-                                                            }
-                                                            console.log("Error in inserting metadata of podcast file detail in mongo db")
-
-                                                            fs.unlink(filePath, (err) => {
-                                                                if (err) throw err;
-                                                                console.log('successfully deleted' + filePath);
-                                                            });
-                                                        });
-                                                    }
-                                                    else {
-                                                        fs.unlink(filePath, (err) => {
-                                                            if (err) throw err;
-
-                                                            console.log('successfully deleted' + filePath);
-                                                            res.status(200).send({
-                                                                status: "File uploaded successfully!"
-                                                            });
-                                                        });
-                                                    }
+                                                    
                                                 }
-                                            )
+                                            )*/
                                         }
                                     });
                                 });
@@ -902,7 +895,7 @@ function getLatestPodcast(req, res, next) {
 
                 for (var i = 0; i < docs.length; i++) {
                     (docs[i].isPodcastPaid === "true") ? (podPaid = "Yes") : (podPaid = "No");
-                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, podPaid, '', '', '', docs[i].fileHashKey[0].hash, docs[i].amount]
+                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, podPaid, '', docs[i].fileHashKey[0].hash, docs[i].amount]
                     mainArr.push(subArr);
                 }
 
@@ -1225,9 +1218,9 @@ function getPodcastForCurrUser(req,res,next){
                         artistNameValue: docs[0].artistName,
                         createdDateTimeValue: moment(docs[0].createdDateTime).format('L'),
                         likesValue: (docs[0].likes).length,
-                        amountValue: docs[0].amount, 
-                        isPaidPodcast: docs[0].isPodcastPaid,
-                        isPurchasedPodcast: isPurchasedPodcast,
+                        amountValue: (docs[0].amount !== "undefined"? docs[0].amount : 0), 
+                        isPaidPodcast: ((docs[0].uploadedBy !== jwtVerified.emailId) ? docs[0].isPodcastPaid : "false"),
+                        isPurchasedPodcast: ((docs[0].uploadedBy !== jwtVerified.emailId) ? isPurchasedPodcast:"false"),
                         status: "Details fetched successfully!"
                     }));
                 }

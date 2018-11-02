@@ -37,7 +37,8 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       console.log(this.dataRowsFromDB);
 
       this.dataTable = {
-        headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'Like', 'View', 'id', 'amount'],
+        //headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'Like', 'View', 'id', 'amount'],
+        headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id', 'amount'],
         footerRow: [],
         dataRows: this.dataRowsFromDB
       }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import PerfectScrollbar from 'perfect-scrollbar';
+import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
 
 declare const $: any;
 
@@ -146,6 +148,7 @@ export const ROUTES: RouteInfo[] = [
 })
 
 export class SidebarComponent implements OnInit {
+    constructor(private http: Http, private router: Router) { }
     public menuItems: any[];
 
     isMobileMenu() {
@@ -170,5 +173,13 @@ export class SidebarComponent implements OnInit {
             bool = true;
         }
         return bool;
+    }
+
+    callLogOut(){
+        console.log("Inside callLogOut");
+        
+        localStorage.removeItem("emailAddress");
+        localStorage.removeItem("token");
+        this.router.navigate(["pages/login"]);
     }
 }
