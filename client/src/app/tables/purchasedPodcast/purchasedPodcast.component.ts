@@ -20,19 +20,18 @@ declare const $: any;
 })
 
 export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
-    public purchasedTable: PurchasedPodcastTable;
+    public dataTable: PurchasedPodcastTable;
     constructor(private http: Http, private router: Router,private spinner:NgxSpinnerService) { }
     dataRowsFromDB = null;
 
     ngOnInit() {
-
       this.spinner.show();
       let headers = new Headers();
       headers.append("token", localStorage.getItem("token"));
       headers.append("emailAddress", localStorage.getItem("emailAddress"));
   
       this.http.get(Global.API_ENDPOINT+'/getPurchasedPodcastList', { headers: headers }).subscribe((data) => {
-        this.purchasedTable = {
+        this.dataTable = {
           headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id','Actions'],
           dataRows: data.json().data
         }       
@@ -50,7 +49,7 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-      $('#datatables').DataTable({
+      $('#purchasedTable').DataTable({
         "pagingType": "full_numbers",
         "lengthMenu": [
           [10, 25, 50, -1],
@@ -64,7 +63,7 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
 
       });
 
-      const table = $('#datatables').DataTable();
+      const table = $('#purchasedTable').DataTable();
 
       // Delete a record
       table.on('click', '.remove', function(e) {

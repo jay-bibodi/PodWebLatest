@@ -1510,91 +1510,6 @@ var PodcastDetailComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/tables/extendedtable/extendedtable.component.html":
-/*!*******************************************************************!*\
-  !*** ./src/app/tables/extendedtable/extendedtable.component.html ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                  <div class=\"card-header card-header-rose card-header-icon\">\n                    <div class=\"card-icon\">\n                      <i class=\"material-icons\">assignment</i>\n                    </div>\n                    <h4 class=\"card-title\">Simple Table</h4>\n                  </div>\n                    <div class=\"card-body\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table\">\n                                    <thead>\n                                        <tr>\n                                          <th class=\"text-center\">{{ tableData1.headerRow[0] }}</th>\n                                          <th>{{ tableData1.headerRow[1] }}</th>\n                                          <th>{{ tableData1.headerRow[2] }}</th>\n                                          <th>{{ tableData1.headerRow[3] }}</th>\n                                          <th class=\"text-right\">{{ tableData1.headerRow[4] }}</th>\n                                          <th class=\"text-right\">{{ tableData1.headerRow[5] }}</th>\n                                        </tr>\n                                    </thead>\n                                  <tbody>\n                                      <tr *ngFor=\"let row of tableData1.dataRows\">\n                                          <td class=\"text-center\">{{row[0]}}</td>\n                                          <td>{{row[1]}}</td>\n                                          <td>{{row[2]}}</td>\n                                          <td>{{row[3]}}</td>\n                                          <td class=\"text-right\">&euro; {{row[4]}}</td>\n                                          <td class=\"td-actions text-right\">\n                                              <button mat-raised-button type=\"button\" class=\"btn btn-info {{row[5]}}\">\n                                                  <i class=\"material-icons\">person</i>\n                                              </button>\n                                              <button mat-raised-button type=\"button\" class=\"btn btn-success {{row[5]}}\">\n                                                  <i class=\"material-icons\">edit</i>\n                                              </button>\n                                              <button mat-raised-button type=\"button\" class=\"btn btn-danger {{row[5]}}\">\n                                                  <i class=\"material-icons\">close</i>\n                                              </button>\n                                          </td>\n                                      </tr>\n                                  </tbody>\n                            </table>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                  <div class=\"card-header card-header-rose card-header-icon\">\n                    <div class=\"card-icon\">\n                      <i class=\"material-icons\">assignment</i>\n                    </div>\n                    <h4 class=\"card-title\">Striped Table</h4>\n                  </div>\n                    <div class=\"card-body\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table table-striped\">\n                                    <thead>\n                                        <tr>\n                                          <th class=\"text-center\">{{ tableData2.headerRow[0] }}</th>\n                                          <th>{{ tableData2.headerRow[1] }}</th>\n                                          <th>{{ tableData2.headerRow[2] }}</th>\n                                          <th>{{ tableData2.headerRow[3] }}</th>\n                                          <th>{{ tableData2.headerRow[4] }}</th>\n                                          <th class=\"text-right\">{{ tableData2.headerRow[5] }}</th>\n                                          <th class=\"text-right\">{{ tableData2.headerRow[6] }}</th>\n                                        </tr>\n                                    </thead>\n                                  <tbody>\n                                    <tr *ngFor=\"let row of tableData2.dataRows\">\n                                      <td class=\"text-center\">{{row.id}}</td>\n                                      <td>\n                                        <div [ngSwitch]=\"row.ischecked\">\n                                            <div *ngSwitchCase=\"true\">\n                                              <div class=\"form-check\">\n                                                <label class=\"form-check-label\">\n                                                  <input class=\"form-check-input\" type=\"checkbox\" value=\"\" checked>\n                                                  <span class=\"form-check-sign\">\n                                                    <span class=\"check\"></span>\n                                                  </span>\n                                                </label>\n                                              </div>\n                                            </div>\n                                            <div *ngSwitchDefault>\n                                              <div class=\"form-check\">\n                                                <label class=\"form-check-label\">\n                                                  <input class=\"form-check-input\" type=\"checkbox\" value=\"\">\n                                                  <span class=\"form-check-sign\">\n                                                    <span class=\"check\"></span>\n                                                  </span>\n                                                </label>\n                                              </div>\n                                            </div>\n                                        </div>\n                                      </td>\n                                      <td>{{row.product_name}}</td>\n                                      <td>{{row.type}}</td>\n                                      <td>{{row.quantity}}</td>\n                                      <td class=\"text-right\">€{{ row.price }}</td>\n                                      <td class=\"text-right\">\n                                          &euro; {{row.amount}}\n                                      </td>\n                                    </tr>\n                                    <tr>\n                                        <td colspan=\"5\"></td>\n                                        <td class=\"td-total\">\n                                            Total\n                                        </td>\n                                        <td class=\"td-price\">\n                                            <small>&euro;</small>12,999\n                                        </td>\n                                    </tr>\n                                  </tbody>\n                            </table>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                  <div class=\"card-header card-header-rose card-header-icon\">\n                    <div class=\"card-icon\">\n                      <i class=\"material-icons\">assignment</i>\n                    </div>\n                    <h4 class=\"card-title\">Shopping Cart Table</h4>\n                  </div>\n                    <div class=\"card-body\">\n                        <div class=\"table-responsive\">\n                            <table class=\"table table-shopping\">\n                                    <thead>\n                                        <tr>\n                                          <th class=\"text-center\">{{ tableData3.headerRow[0] }}</th>\n                                          <th>{{ tableData3.headerRow[1] }}</th>\n                                          <th class=\"th-description\">{{ tableData3.headerRow[2] }}</th>\n                                          <th class=\"th-description\">{{ tableData3.headerRow[3] }}</th>\n                                          <th class=\"text-right\">{{ tableData3.headerRow[4] }}</th>\n                                          <th class=\"text-right\">{{ tableData3.headerRow[5] }}</th>\n                                          <th class=\"text-right\">{{ tableData3.headerRow[6] }}</th>\n                                          <th></th>\n                                        </tr>\n                                    </thead>\n                                  <tbody>\n                                      <tr *ngFor=\"let row of tableData3.dataRows\">\n                                          <td>\n                                              <div class=\"img-container\">\n                                                  <img src=\"./assets/img/{{row[0]}}.jpg\" alt=\"...\">\n                                              </div>\n                                          </td>\n                                          <td class=\"td-name\">\n                                              <a href=\"{{row[1]}}\">{{row[2]}}</a>\n                                              <br />\n                                              <small>{{row[3]}}</small>\n                                          </td>\n                                          <td>{{row[4]}}</td>\n                                          <td>\n                                              {{row[5]}}\n                                          </td>\n                                          <td class=\"td-number text-right\"><small>&euro;</small> {{row[6]}}</td>\n                                          <td class=\"td-number\">\n                                              {{row[7]}}\n                                              <div class=\"btn-group btn-group-sm\">\n                                                  <button mat-raised-button class=\"btn btn-round btn-info btn-xs\"> <i class=\"material-icons\">remove</i> </button>\n                                                  <button mat-raised-button class=\"btn btn-round btn-info btn-xs\"> <i class=\"material-icons\">add</i> </button>\n                                              </div>\n                                          </td>\n                                          <td class=\"td-number\">\n                                              <small>&euro;</small>{{row[8]}}\n                                          </td>\n                                          <td class=\"td-actions\">\n                                              <button mat-button type=\"button\"  matTooltip=\"Remove item\" [matTooltipPosition]=\"'left'\" class=\"btn btn-link\">\n                                                  <i class=\"material-icons\">close</i>\n                                              </button>\n                                          </td>\n                                      </tr>\n                                      <tr>\n                                          <td colspan=\"5\"></td>\n                                          <td class=\"td-total\">\n                                              Total\n                                          </td>\n                                          <td colspan=\"1\" class=\"td-price\">\n                                              <small>&euro;</small>{{getTotal()}}\n                                          </td>\n                                          <td></td>\n                                      </tr>\n                                      <tr>\n                                          <td colspan=\"6\"></td>\n                                          <td colspan=\"2\" class=\"text-right\">\n                                              <button mat-raised-button type=\"button\" class=\"btn btn-info btn-round\">Complete Purchase <i class=\"material-icons\">keyboard_arrow_right</i></button>\n                                          </td>\n                                      </tr>\n                                  </tbody>\n                            </table>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/tables/extendedtable/extendedtable.component.ts":
-/*!*****************************************************************!*\
-  !*** ./src/app/tables/extendedtable/extendedtable.component.ts ***!
-  \*****************************************************************/
-/*! exports provided: ExtendedTableComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExtendedTableComponent", function() { return ExtendedTableComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var ExtendedTableComponent = /** @class */ (function () {
-    function ExtendedTableComponent() {
-    }
-    ExtendedTableComponent.prototype.ngOnInit = function () {
-        this.tableData1 = {
-            headerRow: ['#', 'Name', 'Job Position', 'Since', 'Salary', 'Actions'],
-            dataRows: [
-                ['1', 'Andrew Mike', 'Develop', '2013', '99,225', ''],
-                ['2', 'John Doe', 'Design', '2012', '89,241', 'btn-round'],
-                ['3', 'Alex Mike', 'Design', '2010', '92,144', 'btn-link'],
-                ['4', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['5', 'Paul Dickens', 'Communication', '2015', '69,201', '']
-            ]
-        };
-        this.tableData2 = {
-            headerRow: ['#', '', 'Product Name', 'Type', 'Qty', 'Price', 'Amount'],
-            dataRows: [
-                { id: 1, ischecked: true, product_name: 'Moleskine Agenda', type: 'Office', quantity: 25, price: 49, amount: '1,225' },
-                { id: 2, ischecked: true, product_name: 'Stabilo Pen', type: 'Office', quantity: 30, price: 10.99, amount: '109' },
-                { id: 3, ischecked: true, product_name: 'A4 Paper Pack', type: 'Office', quantity: 50, price: 49, amount: '1,225' },
-                { id: 4, ischecked: false, product_name: 'Apple iPad', type: 'Meeting', quantity: 10, price: 499.00, amount: '4,990' },
-                { id: 5, ischecked: false, product_name: 'Apple iPhone', type: 'Communication', quantity: 10,
-                    price: 599.00, amount: '5,999' }
-            ]
-        };
-        this.tableData3 = {
-            headerRow: ['', 'PRODUCT', 'COLOR', 'SIZE', 'PRICE', 'QTY', 'AMOUNT'],
-            dataRows: [
-                ['product1', '#jacket', 'Spring Jacket', 'by Dolce&Gabbana', 'Red', 'M', '549', '1', '549'],
-                ['product2', '#pants', 'Short Pants', 'by Pucci', 'Purple', 'M', '499', '2', '998'],
-                ['product3', '#nothing', 'Pencil Skirt', 'by Valentino', 'White', 'XL', '799', '1', '799']
-            ]
-        };
-    };
-    ExtendedTableComponent.prototype.getTotal = function () {
-        var total = 0;
-        for (var i = 0; i < this.tableData3.dataRows.length; i++) {
-            var integer = parseInt(this.tableData3.dataRows[i][8], 10);
-            total += integer;
-        }
-        return total;
-    };
-    ;
-    ExtendedTableComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-extended-table-cmp',
-            template: __webpack_require__(/*! ./extendedtable.component.html */ "./src/app/tables/extendedtable/extendedtable.component.html")
-        })
-    ], ExtendedTableComponent);
-    return ExtendedTableComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/tables/latestPodcast/datatable.component.html":
 /*!***************************************************************!*\
   !*** ./src/app/tables/latestPodcast/datatable.component.html ***!
@@ -1705,7 +1620,7 @@ var DataTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary card-header-icon\">\n                        <div class=\"card-icon\">\n                            <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title\">Purchased Podcast</h4>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                            <table id=\"datatables\" class=\"table table-striped table-no-bordered table-hover\"\n                                cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th class=\"disabled-sorting\">{{ dataTable.headerRow[4] }}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[5]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[6]}}</th>\n                                        <th>{{ dataTable.headerRow[7] }}</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of purchasedTable.dataRows; let i=index;\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td>\n                                            <a [routerLink]=\"['/tables/purchasedPodcast/'+row[6]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[6]}}</td>\n                                        <td><a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a></td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary card-header-icon\">\n                        <div class=\"card-icon\">\n                            <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title\">Purchased Podcast</h4>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                            <table id=\"purchasedTable\" class=\"table table-striped table-no-bordered table-hover\"\n                                cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th class=\"disabled-sorting\">{{ dataTable.headerRow[4] }}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[5]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[6]}}</th>\n                                        <th>{{ dataTable.headerRow[7] }}</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of dataTable.dataRows; let i=index;\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td>\n                                            <a [routerLink]=\"['/tables/purchasedPodcast/'+row[6]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[6]}}</td>\n                                        <td><a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a></td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
 
 /***/ }),
 
@@ -1756,7 +1671,7 @@ var PurchasedPodcastTableComponent = /** @class */ (function () {
         headers.append("token", localStorage.getItem("token"));
         headers.append("emailAddress", localStorage.getItem("emailAddress"));
         this.http.get(_global__WEBPACK_IMPORTED_MODULE_5__["Global"].API_ENDPOINT + '/getPurchasedPodcastList', { headers: headers }).subscribe(function (data) {
-            _this.purchasedTable = {
+            _this.dataTable = {
                 headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id', 'Actions'],
                 dataRows: data.json().data
             };
@@ -1773,7 +1688,7 @@ var PurchasedPodcastTableComponent = /** @class */ (function () {
         });
     };
     PurchasedPodcastTableComponent.prototype.ngAfterViewInit = function () {
-        $('#datatables').DataTable({
+        $('#purchasedTable').DataTable({
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],
@@ -1785,7 +1700,7 @@ var PurchasedPodcastTableComponent = /** @class */ (function () {
                 searchPlaceholder: "Search records",
             }
         });
-        var table = $('#datatables').DataTable();
+        var table = $('#purchasedTable').DataTable();
         // Delete a record
         table.on('click', '.remove', function (e) {
             var $tr = $(this).closest('tr');
@@ -1802,87 +1717,6 @@ var PurchasedPodcastTableComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"]])
     ], PurchasedPodcastTableComponent);
     return PurchasedPodcastTableComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/tables/regulartable/regulartable.component.html":
-/*!*****************************************************************!*\
-  !*** ./src/app/tables/regulartable/regulartable.component.html ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                  <div class=\"card-header card-header-icon card-header-rose\">\n                    <div class=\"card-icon\">\n                      <i class=\"material-icons\">assignment</i>\n                    </div>\n                    <h4 class=\"card-title \">Simple Table</h4>\n                  </div>\n                    <div class=\"card-body\">\n                        <div class=\"table-responsive\">\n                          <table class=\"table\">\n                                  <thead class=\"text-primary\">\n                                      <tr>\n                                        <th *ngFor=\"let cell of tableData1.headerRow\">{{ cell }}</th>\n                                      </tr>\n                                  </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of tableData1.dataRows\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td class=\"text-primary\">{{row[3]}}</td>\n\n                                    </tr>\n                                </tbody>\n                          </table>\n\n                        </div>\n                    </div>\n                </div>\n                <div class=\"col-md-12\">\n                    <div class=\"card card-plain\">\n                      <div class=\"card-header card-header-icon card-header-rose\">\n                        <div class=\"card-icon\">\n                          <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title mt-0\"> Table on Plain Background</h4>\n                        <p class=\"card-category\"> Here is a subtitle for this table</p>\n                      </div>\n                        <div class=\"card-body\">\n                          <div class=\"table-responsive\">\n                            <table class=\"table table-hover\">\n                                <thead>\n                                    <tr>\n                                      <th *ngFor=\"let cell of tableData2.headerRow\">{{ cell }}</th>\n                                    </tr>\n                                </thead>\n                              <tbody>\n                                      <tr *ngFor=\"let row of tableData2.dataRows\">\n                                          <td *ngFor=\"let cell of row\">{{cell}}</td>\n                                      </tr>\n                              </tbody>\n                            </table>\n                          </div>\n\n\n                        </div>\n                    </div>\n                </div>\n                <div class=\"col-md-12\">\n                    <div class=\"card\">\n                      <div class=\"card-header card-header-icon card-header-rose\">\n                        <div class=\"card-icon\">\n                          <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title \"> Regular Table with Colors</h4>\n                      </div>\n                        <div class=\"card-body table-full-width\">\n                            <div class=\"table-responsive\">\n                                <table class=\"table table-hover\">\n                                    <thead>\n                                        <tr>\n                                          <th *ngFor=\"let cell of tableData3.headerRow\">{{ cell }}</th>\n                                        </tr>\n                                    </thead>\n                                    <tbody>\n                                          <tr class=\"table-success\">\n                                              <td *ngFor=\"let cell of tableData3.dataRows[0]\">{{cell}}</td>\n                                          </tr>\n                                          <tr>\n                                              <td *ngFor=\"let cell of tableData3.dataRows[1]\">{{cell}}</td>\n                                          </tr>\n                                          <tr class=\"table-info\">\n                                              <td *ngFor=\"let cell of tableData3.dataRows[2]\">{{cell}}</td>\n                                          </tr>\n                                          <tr>\n                                              <td *ngFor=\"let cell of tableData3.dataRows[3]\">{{cell}}</td>\n                                          </tr>\n                                          <tr class=\"table-danger\">\n                                              <td *ngFor=\"let cell of tableData3.dataRows[4]\">{{cell}}</td>\n                                          </tr>\n                                          <tr>\n                                              <td *ngFor=\"let cell of tableData3.dataRows[5]\">{{cell}}</td>\n                                          </tr>\n                                          <tr class=\"table-warning\">\n                                              <td *ngFor=\"let cell of tableData3.dataRows[6]\">{{cell}}</td>\n                                          </tr>\n                                    </tbody>\n                                </table>\n                            </div>\n\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/tables/regulartable/regulartable.component.ts":
-/*!***************************************************************!*\
-  !*** ./src/app/tables/regulartable/regulartable.component.ts ***!
-  \***************************************************************/
-/*! exports provided: RegularTableComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegularTableComponent", function() { return RegularTableComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var RegularTableComponent = /** @class */ (function () {
-    function RegularTableComponent() {
-    }
-    RegularTableComponent.prototype.ngOnInit = function () {
-        this.tableData1 = {
-            headerRow: ['Name', 'Country', 'City', 'Salary'],
-            dataRows: [
-                ['Dakota Rice', 'Niger', 'Oud-Turnhout', '$36,738'],
-                ['Minerva Hooper', 'Curaçao', 'Sinaai-Waas', '$23,789'],
-                ['Sage Rodriguez', 'Netherlands', 'Baileux', '$56,142'],
-                ['Philip Chaney', 'Korea, South', 'Overland Park', '$38,735'],
-                ['Doris Greene', 'Malawi', 'Feldkirchen in Kärnten', '$63,542'],
-                ['Mason Porter', 'Chile', 'Gloucester', '$78,615']
-            ]
-        };
-        this.tableData2 = {
-            headerRow: ['ID', 'Name', 'Salary', 'Country', 'City'],
-            dataRows: [
-                ['1', 'Dakota Rice', '$36,738', 'Niger', 'Oud-Turnhout'],
-                ['2', 'Minerva Hooper', '$23,789', 'Curaçao', 'Sinaai-Waas'],
-                ['3', 'Sage Rodriguez', '$56,142', 'Netherlands', 'Baileux'],
-                ['4', 'Philip Chaney', '$38,735', 'Korea, South', 'Overland Park'],
-                ['5', 'Doris Greene', '$63,542', 'Malawi', 'Feldkirchen in Kärnten',],
-                ['6', 'Mason Porter', '$78,615', 'Chile', 'Gloucester']
-            ]
-        };
-        this.tableData3 = {
-            headerRow: ['ID', 'Name', 'Salary', 'Country', 'City'],
-            dataRows: [
-                ['1', 'Dakota Rice (Success)', '$36,738', 'Niger', 'Oud-Turnhout'],
-                ['2', 'Minerva Hooper', '$23,789', 'Curaçao', 'Sinaai-Waas'],
-                ['3', 'Sage Rodriguez (Info)', '$56,142', 'Netherlands', 'Baileux'],
-                ['4', 'Philip Chaney', '$38,735', 'Korea, South', 'Overland Park'],
-                ['5', 'Doris Greene (Danger)', '$63,542', 'Malawi', 'Feldkirchen in Kärnten',],
-                ['6', 'Mason Porter', '$78,615', 'Chile', 'Gloucester'],
-                ['7', 'Mike Chaney (Warning)', '$38,735', 'Romania', 'Bucharest']
-            ]
-        };
-    };
-    RegularTableComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-regular-table-cmp',
-            template: __webpack_require__(/*! ./regulartable.component.html */ "./src/app/tables/regulartable/regulartable.component.html")
-        })
-    ], RegularTableComponent);
-    return RegularTableComponent;
 }());
 
 
@@ -1906,24 +1740,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../app.module */ "./src/app/app.module.ts");
 /* harmony import */ var _tables_routing__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tables.routing */ "./src/app/tables/tables.routing.ts");
 /* harmony import */ var ngx_chips__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-chips */ "./node_modules/ngx-chips/esm5/ngx-chips.js");
-/* harmony import */ var _extendedtable_extendedtable_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./extendedtable/extendedtable.component */ "./src/app/tables/extendedtable/extendedtable.component.ts");
-/* harmony import */ var _regulartable_regulartable_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./regulartable/regulartable.component */ "./src/app/tables/regulartable/regulartable.component.ts");
-/* harmony import */ var _latestPodcast_datatable_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./latestPodcast/datatable.component */ "./src/app/tables/latestPodcast/datatable.component.ts");
-/* harmony import */ var _userPublishedTable_userPublishedTable_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./userPublishedTable/userPublishedTable.component */ "./src/app/tables/userPublishedTable/userPublishedTable.component.ts");
-/* harmony import */ var _purchasedPodcast_purchasedPodcast_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./purchasedPodcast/purchasedPodcast.component */ "./src/app/tables/purchasedPodcast/purchasedPodcast.component.ts");
-/* harmony import */ var _forms_podcastDetailforms_podcastDetailforms_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../forms/podcastDetailforms/podcastDetailforms.component */ "./src/app/forms/podcastDetailforms/podcastDetailforms.component.ts");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _forms_detailForLatestAndPurchasedPodcast_detailForLatestAndPurchasedPodcast_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../forms/detailForLatestAndPurchasedPodcast/detailForLatestAndPurchasedPodcast.component */ "./src/app/forms/detailForLatestAndPurchasedPodcast/detailForLatestAndPurchasedPodcast.component.ts");
-/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _latestPodcast_datatable_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./latestPodcast/datatable.component */ "./src/app/tables/latestPodcast/datatable.component.ts");
+/* harmony import */ var _userPublishedTable_userPublishedTable_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./userPublishedTable/userPublishedTable.component */ "./src/app/tables/userPublishedTable/userPublishedTable.component.ts");
+/* harmony import */ var _purchasedPodcast_purchasedPodcast_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./purchasedPodcast/purchasedPodcast.component */ "./src/app/tables/purchasedPodcast/purchasedPodcast.component.ts");
+/* harmony import */ var _forms_podcastDetailforms_podcastDetailforms_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../forms/podcastDetailforms/podcastDetailforms.component */ "./src/app/forms/podcastDetailforms/podcastDetailforms.component.ts");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _forms_detailForLatestAndPurchasedPodcast_detailForLatestAndPurchasedPodcast_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../forms/detailForLatestAndPurchasedPodcast/detailForLatestAndPurchasedPodcast.component */ "./src/app/forms/detailForLatestAndPurchasedPodcast/detailForLatestAndPurchasedPodcast.component.ts");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
-
 
 
 
@@ -1949,18 +1779,16 @@ var TablesModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 ngx_chips__WEBPACK_IMPORTED_MODULE_6__["TagInputModule"],
                 _app_module__WEBPACK_IMPORTED_MODULE_4__["MaterialModule"],
-                ngx_spinner__WEBPACK_IMPORTED_MODULE_15__["NgxSpinnerModule"]
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_13__["NgxSpinnerModule"]
             ],
             declarations: [
-                _extendedtable_extendedtable_component__WEBPACK_IMPORTED_MODULE_7__["ExtendedTableComponent"],
-                _latestPodcast_datatable_component__WEBPACK_IMPORTED_MODULE_9__["DataTableComponent"],
-                _regulartable_regulartable_component__WEBPACK_IMPORTED_MODULE_8__["RegularTableComponent"],
-                _userPublishedTable_userPublishedTable_component__WEBPACK_IMPORTED_MODULE_10__["UserPublishedTableComponent"],
-                _purchasedPodcast_purchasedPodcast_component__WEBPACK_IMPORTED_MODULE_11__["PurchasedPodcastTableComponent"],
-                _forms_podcastDetailforms_podcastDetailforms_component__WEBPACK_IMPORTED_MODULE_12__["PodcastDetailComponent"],
-                ng2_file_upload__WEBPACK_IMPORTED_MODULE_13__["FileSelectDirective"],
-                ng2_file_upload__WEBPACK_IMPORTED_MODULE_13__["FileDropDirective"],
-                _forms_detailForLatestAndPurchasedPodcast_detailForLatestAndPurchasedPodcast_component__WEBPACK_IMPORTED_MODULE_14__["DetailForLatestAndPurchasedPodcastComponent"]
+                _latestPodcast_datatable_component__WEBPACK_IMPORTED_MODULE_7__["DataTableComponent"],
+                _userPublishedTable_userPublishedTable_component__WEBPACK_IMPORTED_MODULE_8__["UserPublishedTableComponent"],
+                _purchasedPodcast_purchasedPodcast_component__WEBPACK_IMPORTED_MODULE_9__["PurchasedPodcastTableComponent"],
+                _forms_podcastDetailforms_podcastDetailforms_component__WEBPACK_IMPORTED_MODULE_10__["PodcastDetailComponent"],
+                ng2_file_upload__WEBPACK_IMPORTED_MODULE_11__["FileSelectDirective"],
+                ng2_file_upload__WEBPACK_IMPORTED_MODULE_11__["FileDropDirective"],
+                _forms_detailForLatestAndPurchasedPodcast_detailForLatestAndPurchasedPodcast_component__WEBPACK_IMPORTED_MODULE_12__["DetailForLatestAndPurchasedPodcastComponent"]
             ]
         })
     ], TablesModule);
@@ -2035,7 +1863,7 @@ var TablesRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary card-header-icon\">\n                        <div class=\"card-icon\">\n                            <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title\">User Published Podcast </h4>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <button mat-raised-button type=\"submit\" [routerLink]=\"['/tables/userPublishedTable', podcastId]\"\n                                class=\"btn btn-sm btn-rose pull-right\">Add Podcast</button>\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                            <table id=\"datatables\" class=\"table table-striped table-no-bordered table-hover\"\n                                cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th>{{ dataTable.headerRow[4] }}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[5]}}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[6]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[7]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[8]}}</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of publishedTable.dataRows; let i=index;\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td>\n                                            <a [routerLink]=\"['/tables/userPublishedTable/'+row[7]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td>\n                                            <a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[7]}}</td>\n                                        <td [hidden]=\"true\">{{row[8]}}</td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary card-header-icon\">\n                        <div class=\"card-icon\">\n                            <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title\">User Published Podcast </h4>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <button mat-raised-button type=\"submit\" [routerLink]=\"['/tables/userPublishedTable', podcastId]\"\n                                class=\"btn btn-sm btn-rose pull-right\">Add Podcast</button>\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                            <table id=\"publishedTable\" class=\"table table-striped table-no-bordered table-hover\"\n                                cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th>{{ dataTable.headerRow[4] }}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[5]}}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[6]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[7]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[8]}}</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of dataTable.dataRows; let i=index;\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td>\n                                            <a [routerLink]=\"['/tables/userPublishedTable/'+row[7]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td>\n                                            <a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[7]}}</td>\n                                        <td [hidden]=\"true\">{{row[8]}}</td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
 
 /***/ }),
 
@@ -2090,7 +1918,7 @@ var UserPublishedTableComponent = /** @class */ (function () {
         headers.append("token", localStorage.getItem("token"));
         headers.append("emailAddress", localStorage.getItem("emailAddress"));
         this.http.get(_global__WEBPACK_IMPORTED_MODULE_6__["Global"].API_ENDPOINT + '/getUserPublishedPodcast', { headers: headers }).subscribe(function (data) {
-            _this.publishedTable = {
+            _this.dataTable = {
                 headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'Actions', 'id', 'amount'],
                 dataRows: data.json().data
             };
@@ -2107,7 +1935,7 @@ var UserPublishedTableComponent = /** @class */ (function () {
         });
     };
     UserPublishedTableComponent.prototype.ngAfterViewInit = function () {
-        $('#datatables').DataTable({
+        $('#publishedTable').DataTable({
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],
@@ -2119,7 +1947,7 @@ var UserPublishedTableComponent = /** @class */ (function () {
                 searchPlaceholder: "Search records",
             }
         });
-        var table = $('#datatables').DataTable();
+        var table = $('#publishedTable').DataTable();
         // Delete a record
         table.on('click', '.remove', function (e) {
             var $tr = $(this).closest('tr');

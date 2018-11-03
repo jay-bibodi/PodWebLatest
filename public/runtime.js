@@ -61,7 +61,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24":"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24","common":"common","calendar-calendar-module":"calendar-calendar-module","pages-pages-module":"pages-pages-module","tables-tables-module":"tables-tables-module","userpage-user-module":"userpage-user-module","forms-forms-module~purchaseToken-purchaseToken-module":"forms-forms-module~purchaseToken-purchaseToken-module","purchaseToken-purchaseToken-module":"purchaseToken-purchaseToken-module","charts-charts-module":"charts-charts-module","forms-forms-module":"forms-forms-module","maps-maps-module":"maps-maps-module","timeline-timeline-module":"timeline-timeline-module","widgets-widgets-module":"widgets-widgets-module"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"forms-forms-module~purchaseToken-purchaseToken-module":"forms-forms-module~purchaseToken-purchaseToken-module","forms-forms-module":"forms-forms-module","pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~userpage-user-module":"pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~userpage-user-module","purchaseToken-purchaseToken-module":"purchaseToken-purchaseToken-module","pages-pages-module":"pages-pages-module","tables-tables-module":"tables-tables-module","userpage-user-module":"userpage-user-module"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function

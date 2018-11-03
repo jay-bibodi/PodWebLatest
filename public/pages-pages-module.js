@@ -155,13 +155,9 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-// import { FlexLayoutModule } from '@angular/flex-layout';
 
 
-//import { PricingComponent } from './pricing/pricing.component';
-//import { LockComponent } from './lock/lock.component';
 
-//import { AboutComponent } from './about/about.component';
 
 var PagesModule = /** @class */ (function () {
     function PagesModule() {
@@ -179,9 +175,6 @@ var PagesModule = /** @class */ (function () {
             declarations: [
                 _login_login_component__WEBPACK_IMPORTED_MODULE_7__["LoginComponent"],
                 _register_register_component__WEBPACK_IMPORTED_MODULE_6__["RegisterComponent"]
-                //,AboutComponent
-                //  PricingComponent,
-                //LockComponent
             ]
         })
     ], PagesModule);
@@ -212,21 +205,10 @@ var PagesRoutes = [
         children: [{
                 path: 'login',
                 component: _login_login_component__WEBPACK_IMPORTED_MODULE_1__["LoginComponent"]
-            } /*, {
-                path: 'lock',
-                component: LockComponent
-            }*/,
-            {
+            }, {
                 path: 'register',
                 component: _register_register_component__WEBPACK_IMPORTED_MODULE_0__["RegisterComponent"]
-            } /* {
-                path: 'pricing',
-                component: PricingComponent
-            },{
-                path: 'about',
-                component: AboutComponent
-            }*/
-        ]
+            }]
     }
 ];
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, HostListener, AfterViewInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { NavItem, NavItemType } from '../../md/md.module';
+//import { NavItem, NavItemType } from '../../md/md.module';
 import { Subscription } from 'rxjs/Subscription';
 import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
 import 'rxjs/add/operator/filter';
@@ -15,7 +15,7 @@ declare const $: any;
 })
 
 export class AdminLayoutComponent implements OnInit, AfterViewInit {
-    public navItems: NavItem[];
+    //public navItems: NavItem[];
     private _router: Subscription;
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
@@ -64,7 +64,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
           this.navbar.sidebarClose();
         });
 
-        this.navItems = [
+        /*this.navItems = [
           { type: NavItemType.NavbarLeft, title: 'Dashboard', iconClass: 'fa fa-dashboard' },
 
           {
@@ -111,7 +111,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
             ]
           },
           { type: NavItemType.NavbarLeft, title: 'Log out' }
-        ];
+        ];*/
     }
     ngAfterViewInit() {
         this.runOnRouteChange();

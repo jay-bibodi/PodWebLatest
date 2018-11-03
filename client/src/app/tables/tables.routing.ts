@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { ExtendedTableComponent } from './extendedtable/extendedtable.component';
-import { RegularTableComponent } from './regulartable/regulartable.component';
 import { DataTableComponent } from './latestPodcast/datatable.component';
 import { UserPublishedTableComponent } from './userPublishedTable/userPublishedTable.component';
 import { PurchasedPodcastTableComponent } from './purchasedPodcast/purchasedPodcast.component';

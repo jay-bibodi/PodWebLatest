@@ -19,7 +19,7 @@ declare const $: any;
 })
 
 export class UserPublishedTableComponent implements OnInit, AfterViewInit {
-  public publishedTable: UserPublishedTable;
+  public dataTable: UserPublishedTable;
   podcastId = UUID.UUID();
   public self = null;
 
@@ -27,7 +27,6 @@ export class UserPublishedTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     
-
     this.spinner.show();
     this.self = this;
     let headers = new Headers();
@@ -35,7 +34,7 @@ export class UserPublishedTableComponent implements OnInit, AfterViewInit {
     headers.append("emailAddress", localStorage.getItem("emailAddress"));
  
     this.http.get(Global.API_ENDPOINT+'/getUserPublishedPodcast', { headers: headers }).subscribe((data) => {
-      this.publishedTable = {
+      this.dataTable = {
         headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'Actions','id', 'amount'],
         dataRows: data.json().data
       }
@@ -54,7 +53,7 @@ export class UserPublishedTableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    $('#datatables').DataTable({
+    $('#publishedTable').DataTable({
       "pagingType": "full_numbers",
       "lengthMenu": [
         [10, 25, 50, -1],
@@ -67,7 +66,7 @@ export class UserPublishedTableComponent implements OnInit, AfterViewInit {
       }
     });
 
-    const table = $('#datatables').DataTable();
+    const table = $('#publishedTable').DataTable();
 
     // Delete a record
     table.on('click', '.remove', function (e) {

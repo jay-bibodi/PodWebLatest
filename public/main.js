@@ -8,58 +8,31 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./calendar/calendar.module": [
-		"./src/app/calendar/calendar.module.ts",
-		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
-		"common",
-		"calendar-calendar-module"
-	],
-	"./charts/charts.module": [
-		"./src/app/charts/charts.module.ts",
-		"charts-charts-module"
-	],
 	"./forms/forms.module": [
 		"./src/app/forms/forms.module.ts",
 		"forms-forms-module~purchaseToken-purchaseToken-module",
-		"common",
 		"forms-forms-module"
-	],
-	"./maps/maps.module": [
-		"./src/app/maps/maps.module.ts",
-		"maps-maps-module"
 	],
 	"./pages/pages.module": [
 		"./src/app/pages/pages.module.ts",
-		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
-		"common",
+		"pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~userpage-user-module",
 		"pages-pages-module"
 	],
 	"./purchaseToken/purchaseToken.module": [
 		"./src/app/purchaseToken/purchaseToken.module.ts",
-		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
+		"pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~userpage-user-module",
 		"forms-forms-module~purchaseToken-purchaseToken-module",
-		"common",
 		"purchaseToken-purchaseToken-module"
 	],
 	"./tables/tables.module": [
 		"./src/app/tables/tables.module.ts",
-		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
-		"common",
+		"pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~userpage-user-module",
 		"tables-tables-module"
-	],
-	"./timeline/timeline.module": [
-		"./src/app/timeline/timeline.module.ts",
-		"timeline-timeline-module"
 	],
 	"./userpage/user.module": [
 		"./src/app/userpage/user.module.ts",
-		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
-		"common",
+		"pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~userpage-user-module",
 		"userpage-user-module"
-	],
-	"./widgets/widgets.module": [
-		"./src/app/widgets/widgets.module.ts",
-		"widgets-widgets-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -397,11 +370,8 @@ var AppRoutes = [
         children: [
             {
                 path: 'tables',
-                //loadChildren: './dashboard/dashboard.module#DashboardModule'
                 loadChildren: './tables/tables.module#TablesModule'
             }, {
-                //path: 'components',
-                //loadChildren: './components/components.module#ComponentsModule'
                 path: '',
                 loadChildren: './userpage/user.module#UserModule'
             }, {
@@ -411,24 +381,6 @@ var AppRoutes = [
             {
                 path: 'forms',
                 loadChildren: './forms/forms.module#Forms'
-            }, {
-                path: 'tables',
-                loadChildren: './tables/tables.module#TablesModule'
-            }, {
-                path: 'maps',
-                loadChildren: './maps/maps.module#MapsModule'
-            }, {
-                path: 'widgets',
-                loadChildren: './widgets/widgets.module#WidgetsModule'
-            }, {
-                path: 'charts',
-                loadChildren: './charts/charts.module#ChartsModule'
-            }, {
-                path: 'calendar',
-                loadChildren: './calendar/calendar.module#CalendarModule'
-            }, {
-                path: '',
-                loadChildren: './timeline/timeline.module#TimelineModule'
             }
         ]
     }, {
@@ -510,7 +462,7 @@ var CustExtBrowserXhr = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"wrapper\">\n    <div class=\"sidebar\" data-color=\"white\" data-background-color=\"black\" data-image=\"./assets/img/sidebar-1.jpg\">\n        <app-sidebar-cmp></app-sidebar-cmp>\n        <div class=\"sidebar-background\" style=\"background-image: url(assets/img/sidebar-1.jpg)\"></div>\n    </div>\n    <div class=\"main-panel\">\n        <app-navbar-cmp></app-navbar-cmp>\n        <router-outlet (getPodcastIdPath)=\"passPodcastIdPath($event)\"></router-outlet>\n        <div *ngIf=\"!isMap()\">\n            <app-footer-cmp [pathOfPodcastId] = \"globalPodcastId\"></app-footer-cmp>\n        </div>\n    </div>\n    <app-fixedplugin></app-fixedplugin>\n</div>\n"
+module.exports = "\r\n<div class=\"wrapper\">\r\n    <div class=\"sidebar\" data-color=\"white\" data-background-color=\"black\" data-image=\"./assets/img/sidebar-1.jpg\">\r\n        <app-sidebar-cmp></app-sidebar-cmp>\r\n        <div class=\"sidebar-background\" style=\"background-image: url(assets/img/sidebar-1.jpg)\"></div>\r\n    </div>\r\n    <div class=\"main-panel\">\r\n        <app-navbar-cmp></app-navbar-cmp>\r\n        <router-outlet (getPodcastIdPath)=\"passPodcastIdPath($event)\"></router-outlet>\r\n        <div *ngIf=\"!isMap()\">\r\n            <app-footer-cmp [pathOfPodcastId] = \"globalPodcastId\"></app-footer-cmp>\r\n        </div>\r\n    </div>\r\n    <app-fixedplugin></app-fixedplugin>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -526,11 +478,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminLayoutComponent", function() { return AdminLayoutComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _md_md_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../md/md.module */ "./src/app/md/md.module.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var rxjs_add_operator_filter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/add/operator/filter */ "./node_modules/rxjs-compat/_esm5/add/operator/filter.js");
-/* harmony import */ var _shared_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/navbar/navbar.component */ "./src/app/shared/navbar/navbar.component.ts");
-/* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var rxjs_add_operator_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/add/operator/filter */ "./node_modules/rxjs-compat/_esm5/add/operator/filter.js");
+/* harmony import */ var _shared_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/navbar/navbar.component */ "./src/app/shared/navbar/navbar.component.ts");
+/* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -540,7 +491,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -580,8 +530,8 @@ var AdminLayoutComponent = /** @class */ (function () {
         });
         var html = document.getElementsByTagName('html')[0];
         if (window.matchMedia("(min-width: 960px)").matches && !this.isMac()) {
-            var ps = new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_6__["default"](elemMainPanel);
-            ps = new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_6__["default"](elemSidebar);
+            var ps = new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_5__["default"](elemMainPanel);
+            ps = new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_5__["default"](elemSidebar);
             html.classList.add('perfect-scrollbar-on');
         }
         else {
@@ -590,51 +540,54 @@ var AdminLayoutComponent = /** @class */ (function () {
         this._router = this.router.events.filter(function (event) { return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]; }).subscribe(function (event) {
             _this.navbar.sidebarClose();
         });
-        this.navItems = [
-            { type: _md_md_module__WEBPACK_IMPORTED_MODULE_2__["NavItemType"].NavbarLeft, title: 'Dashboard', iconClass: 'fa fa-dashboard' },
-            {
-                type: _md_md_module__WEBPACK_IMPORTED_MODULE_2__["NavItemType"].NavbarRight,
-                title: '',
-                iconClass: 'fa fa-bell-o',
-                numNotifications: 5,
-                dropdownItems: [
-                    { title: 'Notification 1' },
-                    { title: 'Notification 2' },
-                    { title: 'Notification 3' },
-                    { title: 'Notification 4' },
-                    { title: 'Another Notification' }
-                ]
-            },
-            {
-                type: _md_md_module__WEBPACK_IMPORTED_MODULE_2__["NavItemType"].NavbarRight,
-                title: '',
-                iconClass: 'fa fa-list',
-                dropdownItems: [
-                    { iconClass: 'pe-7s-mail', title: 'Messages' },
-                    { iconClass: 'pe-7s-help1', title: 'Help Center' },
-                    { iconClass: 'pe-7s-tools', title: 'Settings' },
-                    'separator',
-                    { iconClass: 'pe-7s-lock', title: 'Lock Screen' },
-                    { iconClass: 'pe-7s-close-circle', title: 'Log Out' }
-                ]
-            },
-            { type: _md_md_module__WEBPACK_IMPORTED_MODULE_2__["NavItemType"].NavbarLeft, title: 'Search', iconClass: 'fa fa-search' },
-            { type: _md_md_module__WEBPACK_IMPORTED_MODULE_2__["NavItemType"].NavbarLeft, title: 'Account' },
-            {
-                type: _md_md_module__WEBPACK_IMPORTED_MODULE_2__["NavItemType"].NavbarLeft,
-                title: 'Dropdown',
-                dropdownItems: [
-                    { title: 'Action' },
-                    { title: 'Another action' },
-                    { title: 'Something' },
-                    { title: 'Another action' },
-                    { title: 'Something' },
-                    'separator',
-                    { title: 'Separated link' },
-                ]
-            },
-            { type: _md_md_module__WEBPACK_IMPORTED_MODULE_2__["NavItemType"].NavbarLeft, title: 'Log out' }
-        ];
+        /*this.navItems = [
+          { type: NavItemType.NavbarLeft, title: 'Dashboard', iconClass: 'fa fa-dashboard' },
+
+          {
+            type: NavItemType.NavbarRight,
+            title: '',
+            iconClass: 'fa fa-bell-o',
+            numNotifications: 5,
+            dropdownItems: [
+              { title: 'Notification 1' },
+              { title: 'Notification 2' },
+              { title: 'Notification 3' },
+              { title: 'Notification 4' },
+              { title: 'Another Notification' }
+            ]
+          },
+          {
+            type: NavItemType.NavbarRight,
+            title: '',
+            iconClass: 'fa fa-list',
+
+            dropdownItems: [
+              { iconClass: 'pe-7s-mail', title: 'Messages' },
+              { iconClass: 'pe-7s-help1', title: 'Help Center' },
+              { iconClass: 'pe-7s-tools', title: 'Settings' },
+               'separator',
+              { iconClass: 'pe-7s-lock', title: 'Lock Screen' },
+              { iconClass: 'pe-7s-close-circle', title: 'Log Out' }
+            ]
+          },
+          { type: NavItemType.NavbarLeft, title: 'Search', iconClass: 'fa fa-search' },
+
+          { type: NavItemType.NavbarLeft, title: 'Account' },
+          {
+            type: NavItemType.NavbarLeft,
+            title: 'Dropdown',
+            dropdownItems: [
+              { title: 'Action' },
+              { title: 'Another action' },
+              { title: 'Something' },
+              { title: 'Another action' },
+              { title: 'Something' },
+              'separator',
+              { title: 'Separated link' },
+            ]
+          },
+          { type: NavItemType.NavbarLeft, title: 'Log out' }
+        ];*/
     };
     AdminLayoutComponent.prototype.ngAfterViewInit = function () {
         this.runOnRouteChange();
@@ -651,8 +604,8 @@ var AdminLayoutComponent = /** @class */ (function () {
         if (window.matchMedia("(min-width: 960px)").matches && !this.isMac()) {
             var elemSidebar = document.querySelector('.sidebar .sidebar-wrapper');
             var elemMainPanel = document.querySelector('.main-panel');
-            var ps = new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_6__["default"](elemMainPanel);
-            ps = new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_6__["default"](elemSidebar);
+            var ps = new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_5__["default"](elemMainPanel);
+            ps = new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_5__["default"](elemSidebar);
             ps.update();
         }
     };
@@ -672,15 +625,15 @@ var AdminLayoutComponent = /** @class */ (function () {
         __metadata("design:type", Object)
     ], AdminLayoutComponent.prototype, "sidebar", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_shared_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_5__["NavbarComponent"]),
-        __metadata("design:type", _shared_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_5__["NavbarComponent"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_shared_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_4__["NavbarComponent"]),
+        __metadata("design:type", _shared_navbar_navbar_component__WEBPACK_IMPORTED_MODULE_4__["NavbarComponent"])
     ], AdminLayoutComponent.prototype, "navbar", void 0);
     AdminLayoutComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-layout',
             template: __webpack_require__(/*! ./admin-layout.component.html */ "./src/app/layouts/admin/admin-layout.component.html")
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["Location"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"]])
     ], AdminLayoutComponent);
     return AdminLayoutComponent;
 }());
@@ -696,7 +649,7 @@ var AdminLayoutComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-lg bg-primary navbar-transparent navbar-absolute\" color-on-scroll=\"500\">\n  <div class=\"container\">\n    <div class=\"navbar-wrapper\">\n      <a class=\"navbar-brand d-none d-sm-none d-md-block\">PodWeb - The Decentralized Application</a>\n    </div>\n    <button mat-button class=\"navbar-toggler\" type=\"button\" (click)=\"sidebarToggle()\">\n      <span class=\"sr-only\">Toggle navigation</span>\n      <span class=\"navbar-toggler-icon icon-bar\"></span>\n      <span class=\"navbar-toggler-icon icon-bar\"></span>\n      <span class=\"navbar-toggler-icon icon-bar\"></span>\n    </button>\n    <div class=\"collapse navbar-collapse justify-content-end\">\n      <ul class=\"navbar-nav\">\n        <!--<li class=\"nav-item\" routerLinkActive=\"active\">\n          <a class=\"nav-link\" [routerLink]=\"['/dashboard']\">\n            <i class=\"material-icons\">dashboard</i> Dashboard\n          </a>\n        </li>-->\n        <li class=\"nav-item\" routerLinkActive=\"active\">\n          <a class=\"nav-link\" [routerLink]=\"['/pages/register']\">\n            <i class=\"material-icons\">person_add</i> Register\n          </a>\n        </li>\n        <li class=\"nav-item\" routerLinkActive=\"active\">\n          <a class=\"nav-link\" [routerLink]=\"['/pages/login']\">\n            <i class=\"material-icons\">fingerprint</i> Login\n          </a>\n        </li>\n        <!--<li class=\"nav-item\" routerLinkActive=\"active\">\n          <a class=\"nav-link\" [routerLink]=\"['/pages/lock']\">\n            <i class=\"material-icons\">lock_open</i> Lock\n          </a>\n        </li>-->\n      </ul>\n    </div>\n  </div>\n</nav>\n  <router-outlet></router-outlet>"
+module.exports = "<nav class=\"navbar navbar-expand-lg bg-primary navbar-transparent navbar-absolute\" color-on-scroll=\"500\">\r\n  <div class=\"container\">\r\n    <div class=\"navbar-wrapper\">\r\n      <a class=\"navbar-brand d-none d-sm-none d-md-block\">PodWeb - The Decentralized Application</a>\r\n    </div>\r\n    <button mat-button class=\"navbar-toggler\" type=\"button\" (click)=\"sidebarToggle()\">\r\n      <span class=\"sr-only\">Toggle navigation</span>\r\n      <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n      <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n      <span class=\"navbar-toggler-icon icon-bar\"></span>\r\n    </button>\r\n    <div class=\"collapse navbar-collapse justify-content-end\">\r\n      <ul class=\"navbar-nav\">\r\n        <!--<li class=\"nav-item\" routerLinkActive=\"active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/dashboard']\">\r\n            <i class=\"material-icons\">dashboard</i> Dashboard\r\n          </a>\r\n        </li>-->\r\n        <li class=\"nav-item\" routerLinkActive=\"active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/pages/register']\">\r\n            <i class=\"material-icons\">person_add</i> Register\r\n          </a>\r\n        </li>\r\n        <li class=\"nav-item\" routerLinkActive=\"active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/pages/login']\">\r\n            <i class=\"material-icons\">fingerprint</i> Login\r\n          </a>\r\n        </li>\r\n        <!--<li class=\"nav-item\" routerLinkActive=\"active\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/pages/lock']\">\r\n            <i class=\"material-icons\">lock_open</i> Lock\r\n          </a>\r\n        </li>-->\r\n      </ul>\r\n    </div>\r\n  </div>\r\n</nav>\r\n  <router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -791,265 +744,6 @@ var AuthLayoutComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
     ], AuthLayoutComponent);
     return AuthLayoutComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/md/md-chart/md-chart.component.css":
-/*!****************************************************!*\
-  !*** ./src/app/md/md-chart/md-chart.component.css ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
-/***/ "./src/app/md/md-chart/md-chart.component.html":
-/*!*****************************************************!*\
-  !*** ./src/app/md/md-chart/md-chart.component.html ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"card\">\n  <div class=\"header\">\n    <h4 class=\"title\">{{ title }}</h4>\n    <p class=\"category\">{{ subtitle }}</p>\n  </div>\n  <div class=\"content\">\n    <div [attr.id]=\"chartId\" class=\"ct-chart {{ chartClass }}\"></div>\n\n    <div class=\"footer\">\n      <div class=\"legend\">\n        <span *ngFor=\"let item of legendItems\">\n          <i [ngClass]=\"item.imageClass\"></i> {{ item.title }}\n        </span>\n      </div>\n      <hr *ngIf=\"withHr\">\n      <div class=\"stats\">\n        <i [ngClass]=\"footerIconClass\"></i> {{ footerText }}\n      </div>\n    </div>\n  </div>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/md/md-chart/md-chart.component.ts":
-/*!***************************************************!*\
-  !*** ./src/app/md/md-chart/md-chart.component.ts ***!
-  \***************************************************/
-/*! exports provided: ChartType, MdChartComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChartType", function() { return ChartType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MdChartComponent", function() { return MdChartComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var chartist__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! chartist */ "./node_modules/chartist/dist/chartist.js");
-/* harmony import */ var chartist__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(chartist__WEBPACK_IMPORTED_MODULE_1__);
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var ChartType;
-(function (ChartType) {
-    ChartType[ChartType["Pie"] = 0] = "Pie";
-    ChartType[ChartType["Line"] = 1] = "Line";
-    ChartType[ChartType["Bar"] = 2] = "Bar";
-})(ChartType || (ChartType = {}));
-var MdChartComponent = /** @class */ (function () {
-    function MdChartComponent() {
-    }
-    MdChartComponent_1 = MdChartComponent;
-    MdChartComponent.prototype.ngOnInit = function () {
-        this.chartId = "md-chart-" + MdChartComponent_1.currentId++;
-    };
-    MdChartComponent.prototype.ngAfterViewInit = function () {
-        switch (this.chartType) {
-            case ChartType.Pie:
-                new chartist__WEBPACK_IMPORTED_MODULE_1__["Pie"]("#" + this.chartId, this.chartData, this.chartOptions, this.chartResponsive);
-                break;
-            case ChartType.Line:
-                new chartist__WEBPACK_IMPORTED_MODULE_1__["Line"]("#" + this.chartId, this.chartData, this.chartOptions, this.chartResponsive);
-                break;
-            case ChartType.Bar:
-                new chartist__WEBPACK_IMPORTED_MODULE_1__["Bar"]("#" + this.chartId, this.chartData, this.chartOptions, this.chartResponsive);
-                break;
-        }
-    };
-    MdChartComponent.currentId = 1;
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], MdChartComponent.prototype, "title", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], MdChartComponent.prototype, "subtitle", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], MdChartComponent.prototype, "chartClass", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Number)
-    ], MdChartComponent.prototype, "chartType", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
-    ], MdChartComponent.prototype, "chartData", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
-    ], MdChartComponent.prototype, "chartOptions", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Array)
-    ], MdChartComponent.prototype, "chartResponsive", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], MdChartComponent.prototype, "footerIconClass", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], MdChartComponent.prototype, "footerText", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Array)
-    ], MdChartComponent.prototype, "legendItems", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Boolean)
-    ], MdChartComponent.prototype, "withHr", void 0);
-    MdChartComponent = MdChartComponent_1 = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-md-chart',
-            template: __webpack_require__(/*! ./md-chart.component.html */ "./src/app/md/md-chart/md-chart.component.html"),
-            styles: [__webpack_require__(/*! ./md-chart.component.css */ "./src/app/md/md-chart/md-chart.component.css")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], MdChartComponent);
-    return MdChartComponent;
-    var MdChartComponent_1;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/md/md-table/md-table.component.html":
-/*!*****************************************************!*\
-  !*** ./src/app/md/md-table/md-table.component.html ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n  <div class=\"content table-responsive\">\n    <table class=\"table\">\n      <tbody>\n          <tr *ngFor=\"let row of data.dataRows\">\n            <!-- <td *ngFor=\"let cell of row\">{{ cell }}</td> -->\n            <td>\n                <div class=\"flag\">\n                    <img src=\"./assets/img/flags/{{row[0]}}.png\" alt=\"\">\n                </div>\n            </td>\n            <td>\n                {{row[1]}}\n            </td>\n            <td class=\"text-right\">\n                {{row[2]}}\n            </td>\n            <td class=\"text-right\">\n                {{row[3]}}\n            </td>\n          </tr>\n      </tbody>\n    </table>\n\n  </div>\n"
-
-/***/ }),
-
-/***/ "./src/app/md/md-table/md-table.component.ts":
-/*!***************************************************!*\
-  !*** ./src/app/md/md-table/md-table.component.ts ***!
-  \***************************************************/
-/*! exports provided: MdTableComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MdTableComponent", function() { return MdTableComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var MdTableComponent = /** @class */ (function () {
-    function MdTableComponent() {
-    }
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], MdTableComponent.prototype, "title", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], MdTableComponent.prototype, "subtitle", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], MdTableComponent.prototype, "cardClass", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
-    ], MdTableComponent.prototype, "data", void 0);
-    MdTableComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-md-table',
-            template: __webpack_require__(/*! ./md-table.component.html */ "./src/app/md/md-table/md-table.component.html"),
-            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush
-        }),
-        __metadata("design:paramtypes", [])
-    ], MdTableComponent);
-    return MdTableComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/md/md.module.ts":
-/*!*********************************!*\
-  !*** ./src/app/md/md.module.ts ***!
-  \*********************************/
-/*! exports provided: NavItemType, MdModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavItemType", function() { return NavItemType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MdModule", function() { return MdModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _md_table_md_table_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./md-table/md-table.component */ "./src/app/md/md-table/md-table.component.ts");
-/* harmony import */ var _md_chart_md_chart_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./md-chart/md-chart.component */ "./src/app/md/md-chart/md-chart.component.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-var NavItemType;
-(function (NavItemType) {
-    NavItemType[NavItemType["Sidebar"] = 1] = "Sidebar";
-    NavItemType[NavItemType["NavbarLeft"] = 2] = "NavbarLeft";
-    NavItemType[NavItemType["NavbarRight"] = 3] = "NavbarRight"; // Right-aligned link on navbar in desktop mode, shown above sidebar items on collapsed sidebar in mobile mode
-})(NavItemType || (NavItemType = {}));
-var MdModule = /** @class */ (function () {
-    function MdModule() {
-    }
-    MdModule = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]
-            ],
-            declarations: [
-                _md_table_md_table_component__WEBPACK_IMPORTED_MODULE_3__["MdTableComponent"],
-                _md_chart_md_chart_component__WEBPACK_IMPORTED_MODULE_4__["MdChartComponent"]
-            ],
-            exports: [
-                _md_table_md_table_component__WEBPACK_IMPORTED_MODULE_3__["MdTableComponent"],
-                _md_chart_md_chart_component__WEBPACK_IMPORTED_MODULE_4__["MdChartComponent"]
-            ]
-        })
-    ], MdModule);
-    return MdModule;
 }());
 
 

@@ -6,8 +6,6 @@ import { MaterialModule } from '../app.module';
 
 import { TablesRoutes } from './tables.routing';
 import { TagInputModule } from 'ngx-chips';
-import { ExtendedTableComponent } from './extendedtable/extendedtable.component';
-import { RegularTableComponent } from './regulartable/regulartable.component';
 import { DataTableComponent } from './latestPodcast/datatable.component';
 import { UserPublishedTableComponent } from './userPublishedTable/userPublishedTable.component';
 import { PurchasedPodcastTableComponent } from './purchasedPodcast/purchasedPodcast.component';
@@ -26,9 +24,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxSpinnerModule
   ],
   declarations: [
-      ExtendedTableComponent,
       DataTableComponent,
-      RegularTableComponent,
       UserPublishedTableComponent,
       PurchasedPodcastTableComponent,
       PodcastDetailComponent,
