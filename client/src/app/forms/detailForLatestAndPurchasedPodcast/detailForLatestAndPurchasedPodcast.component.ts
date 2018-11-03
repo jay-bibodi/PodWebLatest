@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef} from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import swal from 'sweetalert2';
+import {NgxSpinnerService} from 'ngx-spinner'
+import {Global} from '../../global';
 
 @Component({
   selector: 'app-detailForLatestAndPurchasedPodcast-cmp',
@@ -24,7 +26,7 @@ export class DetailForLatestAndPurchasedPodcastComponent implements OnInit {
   podcastId:string;
   private id: string;
 
-  constructor(private http: Http, private router: Router,private route: ActivatedRoute) { }
+  constructor(private http: Http, private router: Router,private route: ActivatedRoute,private spinner:NgxSpinnerService) { }
 
   goBack() 
   {
@@ -32,25 +34,16 @@ export class DetailForLatestAndPurchasedPodcastComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.route.params.subscribe(params => {
-      console.log(params.id);
       this.id = params.id;
 
       let headers = new Headers();
         headers.append("token",localStorage.getItem("token")); 
         headers.append("emailAddress",localStorage.getItem("emailAddress"));
 
-        this.http.post('http://localhost:3000/getPodcastForCurrUser',{"id":this.id},{headers: headers}).subscribe((data) => {
-            console.log("Inside getPodcastForCurrUser")
+        this.http.post(Global.API_ENDPOINT+'/getPodcastForCurrUser',{"id":this.id},{headers: headers}).subscribe((data) => {
             var body = JSON.parse(data.text());
-            console.log(body);
-
-            swal({
-              title: body.status,
-              text: "",
-              timer: 2000,
-              showConfirmButton: false
-          }).catch(swal.noop)
 
             this.isPaidPodcast = (body.isPaidPodcast === "false" ? false:true);
             this.isPurchasedPodcast = body.isPurchasedPodcast;
@@ -68,11 +61,19 @@ export class DetailForLatestAndPurchasedPodcastComponent implements OnInit {
             else{
               this.podcastId = "";
             }
-
+            this.spinner.hide();
         }, (err) => {
-           
+          this.spinner.hide();
+          var body = JSON.parse(err.text());
+            swal({
+              title: body.status,
+              text: "",
+              timer: 2000,
+              showConfirmButton: false
+            }).catch(swal.noop);
         })
     })
+    
    }
 
    callLikeFunc(){
@@ -98,34 +99,30 @@ export class DetailForLatestAndPurchasedPodcastComponent implements OnInit {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Confirm'
       }).then((result) => {
-        console.log(result.value);
+        
         if (result.value === true) {
-          
-          console.log("Inside if result.value")
-
+          this.spinner.show();
           let headers = new Headers();
           headers.append("token", localStorage.getItem("token"));
           headers.append("emailAddress", localStorage.getItem("emailAddress"));
 
-          console.log(this);
-
-          this.http.post('http://localhost:3000/transferPodsToPurchase',{"id":this.id,"amount":this.amountValue},{ headers: headers }).subscribe((data) => {
-            console.log(data);
+          this.http.post(Global.API_ENDPOINT+'/transferPodsToPurchase',{"id":this.id,"amount":this.amountValue},{ headers: headers }).subscribe((data) => {
             var body = JSON.parse(data.text());
             
             this.isPurchasedPodcast = true;
             this.podcastId = this.id;
 
+            this.spinner.hide();
+          }, (err) => { 
+            this.spinner.hide();
+            var body = JSON.parse(err.text());
             swal({
               title: body.status,
               text: "",
-              timer: 1000,
+              timer: 2000,
               showConfirmButton: false
             }).catch(swal.noop);
-            // play podcast
-            // pass src to audio control
-          }, (err) => { console.log("message sending err", err) }, () => { })
-
+          })
           }
         });
      }

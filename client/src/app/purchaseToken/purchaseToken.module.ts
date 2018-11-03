@@ -9,6 +9,7 @@ import { SelectModule } from 'ng2-select';
 import { MaterialModule } from '../app.module';
 import { PurchaseTokenComponent } from './purchaseToken.component';
 import { PurchaseTokenRoutes } from './purchaseToken.routing';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { PurchaseTokenRoutes } from './purchaseToken.routing';
         NouisliderModule,
         TagInputModule,
         SelectModule,
-        MaterialModule
+        MaterialModule,
+        NgxSpinnerModule
     ],
     declarations: [PurchaseTokenComponent]
 })

@@ -32,10 +32,6 @@ export const AppRoutes: Routes = [
                 loadChildren: './purchaseToken/purchaseToken.module#PurchaseTokenModule'
             },
             {
-                path: '',
-                loadChildren: './songDetails/songDetails.module#SongDetailsModule'
-            },
-            {
                 path: 'forms',
                 loadChildren: './forms/forms.module#Forms'
             }, {

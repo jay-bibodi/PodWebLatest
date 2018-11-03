@@ -1075,7 +1075,7 @@ exports.FileUploadModule = file_upload_module_1.FileUploadModule;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\r\n    <div class=\"row\">\r\n        <button mat-raised-button type=\"submit\" (click)=\"goBack()\" style=\"margin-left: 20px;\" class=\"btn btn-sm btn-rose pull-left\"><i\r\n                aria-hidden=\"true\" class=\"fa fa-arrow-circle-left\" style=\"padding-bottom: 3px;\"></i>&nbsp;&nbsp;Back to\r\n            list\r\n        </button>\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-12\">\r\n                    <div class=\"card\">\r\n                        <div class=\"card-header card-header-icon card-header-rose\">\r\n                            <div class=\"card-icon\">\r\n                                <i class=\"material-icons\">info</i>\r\n                            </div>\r\n                            <h4 class=\"card-title\">Podcast Detail\r\n                            </h4>\r\n                        </div>\r\n                        <div class=\"card-body\">\r\n                            <div class=\"row\">\r\n                                <div class=\"col-md-3\">\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Title:</b>\r\n                                            {{titleValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Uploaded By:</b>\r\n                                            {{uploadedByValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Tags:</b>\r\n                                            {{tagsValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"col-md-3\">\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Artist Name:</b>\r\n                                            {{artistNameValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Created On:</b>\r\n                                            {{createdDateTimeValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Amount:</b>\r\n                                            {{amountValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"col-md-6\">\r\n                                    <br />\r\n                                    <audio controls=\"controls\" src=\"https://ipfs.io/ipfs/{{podcastId}}\" style=\"width:100%\">\r\n                                        Your browser does not support the <a href=\"http://caniuse.com/#search=audio\"><code>audio</code></a>\r\n                                        element.\r\n                                    </audio>\r\n                                    <br />\r\n                                    <br />\r\n                                    <br />                                    \r\n                                        <b>Likes:&nbsp;&nbsp;&nbsp;</b>{{likesValue}}\r\n                                        <button mat-raised-button type=\"submit\" (click)=\"callLikeFunc()\" class=\"btn btn-rose pull-right\">{{likeButtonValue}}</button>\r\n                                        <button mat-raised-button type=\"submit\" *ngIf=\"isPaidPodcast && !isPurchasedPodcast\" (click)=\"callPurchasePodcast()\" class=\"btn btn-rose pull-right\">Purchase</button>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"clearfix\"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"main-content\">\r\n    <div class=\"row\">\r\n        <button mat-raised-button type=\"submit\" (click)=\"goBack()\" style=\"margin-left: 20px;\" class=\"btn btn-sm btn-rose pull-left\"><i\r\n                aria-hidden=\"true\" class=\"fa fa-arrow-circle-left\" style=\"padding-bottom: 3px;\"></i>&nbsp;&nbsp;Back to\r\n            list\r\n        </button>\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-12\">\r\n                    <div class=\"card\">\r\n                        <div class=\"card-header card-header-icon card-header-rose\">\r\n                            <div class=\"card-icon\">\r\n                                <i class=\"material-icons\">info</i>\r\n                            </div>\r\n                            <h4 class=\"card-title\">Podcast Detail\r\n                            </h4>\r\n                        </div>\r\n                        <div class=\"card-body\">\r\n                            <div class=\"row\">\r\n                                <div class=\"col-md-3\">\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Title:</b>\r\n                                            {{titleValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Uploaded By:</b>\r\n                                            {{uploadedByValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Tags:</b>\r\n                                            {{tagsValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"col-md-3\">\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Artist Name:</b>\r\n                                            {{artistNameValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Created On:</b>\r\n                                            {{createdDateTimeValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                    <div class=\"form-group\">\r\n                                        <p><b>Amount:</b>\r\n                                            {{amountValue}}\r\n                                        </p>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"col-md-6\">\r\n                                    <br />\r\n                                    <audio controls=\"controls\" src=\"https://ipfs.io/ipfs/{{podcastId}}\" style=\"width:100%\">\r\n                                        Your browser does not support the <a href=\"http://caniuse.com/#search=audio\"><code>audio</code></a>\r\n                                        element.\r\n                                    </audio>\r\n                                    <br />\r\n                                    <br />\r\n                                    <br />                                    \r\n                                        <b>Likes:&nbsp;&nbsp;&nbsp;</b>{{likesValue}}\r\n                                        <button mat-raised-button type=\"submit\" (click)=\"callLikeFunc()\" class=\"btn btn-rose pull-right\">{{likeButtonValue}}</button>\r\n                                        <button mat-raised-button type=\"submit\" *ngIf=\"isPaidPodcast && !isPurchasedPodcast\" (click)=\"callPurchasePodcast()\" class=\"btn btn-rose pull-right\">Purchase</button>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"clearfix\"></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
 
 /***/ }),
 
@@ -1094,6 +1094,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../global */ "./src/app/global.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1107,11 +1109,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var DetailForLatestAndPurchasedPodcastComponent = /** @class */ (function () {
-    function DetailForLatestAndPurchasedPodcastComponent(http, router, route) {
+    function DetailForLatestAndPurchasedPodcastComponent(http, router, route, spinner) {
         this.http = http;
         this.router = router;
         this.route = route;
+        this.spinner = spinner;
         this.isPaidPodcast = false;
         this.likesValue = 0;
         this.likeButtonValue = "Like";
@@ -1122,22 +1127,14 @@ var DetailForLatestAndPurchasedPodcastComponent = /** @class */ (function () {
     };
     DetailForLatestAndPurchasedPodcastComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.spinner.show();
         this.route.params.subscribe(function (params) {
-            console.log(params.id);
             _this.id = params.id;
             var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
             headers.append("token", localStorage.getItem("token"));
             headers.append("emailAddress", localStorage.getItem("emailAddress"));
-            _this.http.post('http://localhost:3000/getPodcastForCurrUser', { "id": _this.id }, { headers: headers }).subscribe(function (data) {
-                console.log("Inside getPodcastForCurrUser");
+            _this.http.post(_global__WEBPACK_IMPORTED_MODULE_5__["Global"].API_ENDPOINT + '/getPodcastForCurrUser', { "id": _this.id }, { headers: headers }).subscribe(function (data) {
                 var body = JSON.parse(data.text());
-                console.log(body);
-                sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
-                    title: body.status,
-                    text: "",
-                    timer: 2000,
-                    showConfirmButton: false
-                }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.noop);
                 _this.isPaidPodcast = (body.isPaidPodcast === "false" ? false : true);
                 _this.isPurchasedPodcast = body.isPurchasedPodcast;
                 _this.uploadedByValue = body.uploadedByValue;
@@ -1153,7 +1150,16 @@ var DetailForLatestAndPurchasedPodcastComponent = /** @class */ (function () {
                 else {
                     _this.podcastId = "";
                 }
+                _this.spinner.hide();
             }, function (err) {
+                _this.spinner.hide();
+                var body = JSON.parse(err.text());
+                sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
+                    title: body.status,
+                    text: "",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.noop);
             });
         });
     };
@@ -1179,27 +1185,26 @@ var DetailForLatestAndPurchasedPodcastComponent = /** @class */ (function () {
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Confirm'
             }).then(function (result) {
-                console.log(result.value);
                 if (result.value === true) {
-                    console.log("Inside if result.value");
+                    _this.spinner.show();
                     var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
                     headers.append("token", localStorage.getItem("token"));
                     headers.append("emailAddress", localStorage.getItem("emailAddress"));
-                    console.log(_this);
-                    _this.http.post('http://localhost:3000/transferPodsToPurchase', { "id": _this.id, "amount": _this.amountValue }, { headers: headers }).subscribe(function (data) {
-                        console.log(data);
+                    _this.http.post(_global__WEBPACK_IMPORTED_MODULE_5__["Global"].API_ENDPOINT + '/transferPodsToPurchase', { "id": _this.id, "amount": _this.amountValue }, { headers: headers }).subscribe(function (data) {
                         var body = JSON.parse(data.text());
                         _this.isPurchasedPodcast = true;
                         _this.podcastId = _this.id;
+                        _this.spinner.hide();
+                    }, function (err) {
+                        _this.spinner.hide();
+                        var body = JSON.parse(err.text());
                         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
                             title: body.status,
                             text: "",
-                            timer: 1000,
+                            timer: 2000,
                             showConfirmButton: false
                         }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.noop);
-                        // play podcast
-                        // pass src to audio control
-                    }, function (err) { console.log("message sending err", err); }, function () { });
+                    });
                 }
             });
         }
@@ -1210,7 +1215,7 @@ var DetailForLatestAndPurchasedPodcastComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./detailForLatestAndPurchasedPodcast.component.html */ "./src/app/forms/detailForLatestAndPurchasedPodcast/detailForLatestAndPurchasedPodcast.component.html"),
             styles: []
         }),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"]])
     ], DetailForLatestAndPurchasedPodcastComponent);
     return DetailForLatestAndPurchasedPodcastComponent;
 }());
@@ -1226,7 +1231,7 @@ var DetailForLatestAndPurchasedPodcastComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\r\n    <div class=\"row\">\r\n        <button mat-raised-button type=\"submit\" (click)=\"goBack()\" style=\"margin-left: 20px;\" class=\"btn btn-sm btn-rose pull-left\"><i\r\n                aria-hidden=\"true\" class=\"fa fa-arrow-circle-left\" style=\"padding-bottom: 3px;\"></i>&nbsp;&nbsp;Back to list\r\n        </button>\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-12\">\r\n                    <div class=\"card\">\r\n                        <div class=\"card-header card-header-icon card-header-rose\">\r\n                            <div class=\"card-icon\">\r\n                                <i class=\"material-icons\">cloud_upload</i>\r\n                            </div>\r\n                            <h4 class=\"card-title\">Upload Podcast\r\n                            </h4>\r\n                        </div>\r\n                        <div class=\"card-body\">\r\n                            <form #podcastDetailForm=\"ngForm\" (ngSubmit)=\"editPodcastDetail(podcastDetailForm.value)\"\r\n                                (change)=\"mark_changed()\">\r\n                                <div class=\"form-group\">\r\n                                    <input type=\"text\" class=\"form-control\" name=\"titleName\" [(ngModel)]=\"titleName\"\r\n                                        placeholder=\"Enter Title\">\r\n                                    <div *ngIf=\"!isTitlePresent\" class=\"help-block\" style=\"text-align: right;color:red\">Title\r\n                                        for the podcast must be present</div>\r\n                                </div>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                            <div class=\"form-group\">\r\n                                                <input type=\"text\" class=\"form-control\" name=\"artistName\" [(ngModel)]=\"artistName\"\r\n                                                    placeholder=\"Enter Artist Name\" style=\"margin-top:25px\">\r\n                                            </div>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <div class=\"form-group\">\r\n                                            <tag-input [(ngModel)]=\"tags\" name=\"tags\" placeholder=\"+ Tag\" secondaryPlaceholder=\"Add Tags\" aria-placeholder=\"tags\"></tag-input>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                        <div class=\"form-group\" style=\"margin-top:3%\">\r\n                                            <mat-radio-group class=\"example-radio-group\" [(ngModel)]=\"selectedType\" name=\"selectedType\">\r\n                                                <mat-radio-button class=\"example-radio-button\" *ngFor=\"let type of podcastTypes\"\r\n                                                    [value]=\"type\" (change)=\"radioChange($event)\">\r\n                                                    {{type}} &nbsp;&nbsp;&nbsp;&nbsp;\r\n                                                </mat-radio-button>\r\n                                            </mat-radio-group>\r\n                                            <div *ngIf=\"!isRadioButtonSelected\" class=\"help-block\" style=\"text-align: left;color:red\">Please\r\n                                                select atleast one podcast type</div>\r\n                                        </div>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\" *ngIf=\"isPaidPodcast\">\r\n                                        <div class=\"form-group\">\r\n                                            <input type=\"text\" class=\"form-control\" name=\"amount\" [(ngModel)]=\"amount\"\r\n                                                placeholder=\"Number of Pods Token Required to purchase podcast\">\r\n                                            <div *ngIf=\"!isAmountPresent && isPaidPodcast\" class=\"help-block\" style=\"text-align: right;color:red\">{{errorTextForAmount}}</div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div *ngIf=\"!showPlayButton\">\r\n                                    <div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\"\r\n                                        [uploader]=\"uploader\" style=\"border: dotted 3px lightgray;min-height: 20px;padding: 19px;margin-bottom: 20px;background-color: #f5f5f5;border-radius:4px;box-shadow:inset 0px 1px 1px rgba(0,0,0,0.05)\">\r\n                                        Drop the File Here\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <label class=\"btn btn-primary\" style=\"background-color:#e91e63 !important;\">\r\n                                            Browse File <input type=\"file\" style=\"display: none;\" class=\"form-control\" name=\"single\" ng2FileSelect [uploader]=\"uploader\" placeholder=\"choose file\"/>\r\n                                        </label>\r\n                                        <div *ngIf=\"!selectFileToUpload\" class=\"help-block\" style=\"text-align: left;color:red\">Please select a file</div>\r\n                                    </div>\r\n                                    <div class=\"col-md-12\">\r\n                                        <table class=\"table\">\r\n                                            <thead>\r\n                                                <tr>\r\n                                                    <th width=\"50%\">Name</th>\r\n                                                    <th>Size</th>\r\n                                                    <th>Progress</th>\r\n                                                    <th>Status</th>\r\n                                                    <th>Actions</th>\r\n                                                </tr>\r\n                                            </thead>\r\n                                            <tbody>\r\n                                                <tr *ngFor=\"let item of uploader.queue\">\r\n                                                    <td>\r\n                                                        <strong>{{ item.file.name }}</strong>\r\n                                                    </td>\r\n                                                    <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>\r\n                                                    <td>\r\n                                                        <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                                            <div class=\"progress-bar\" role=\"progressbar\" [ngStyle]=\"{ 'width': item.progress + '%' }\"></div>\r\n                                                        </div>\r\n                                                    </td>\r\n                                                    <td class=\"text-center\">\r\n                                                        <span *ngIf=\"item.isSuccess\">\r\n                                                            <i class=\"material-icons\">check_circle</i>\r\n                                                        </span>\r\n                                                        <span *ngIf=\"item.isCancel\">\r\n                                                            <i class=\"material-icons\">cancel</i>\r\n                                                        </span>\r\n                                                        <span *ngIf=\"item.isError\">\r\n                                                            <span *ngIf=\"item.isError\">\r\n                                                                <i class=\"material-icons\">error</i>\r\n                                                            </span>\r\n                                                        </span>\r\n                                                    </td>\r\n                                                    <td nowrap>\r\n                                                        <!--<button type=\"button\" class=\"btn btn-success btn-xs\" style=\"background-color:#3581f2 !important;\"\r\n                                                            (click)=\"item.upload();\" [disabled]=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                                            <i class=\"material-icons\">cloud_upload</i> Upload\r\n                                                        </button>-->\r\n                                                        <!--<button type=\"button\" class=\"btn btn-warning btn-xs\" (click)=\"item.cancel()\"\r\n                                                            [disabled]=\"!item.isUploading\">\r\n                                                            <i class=\"material-icons\">cancel</i> Cancel\r\n                                                        </button>-->\r\n                                                        <button type=\"button\" class=\"btn btn-danger btn-xs\" (click)=\"deleteFile(item)\">\r\n                                                            <i class=\"material-icons\">delete_forever</i> Delete\r\n                                                        </button>\r\n                                                    </td>\r\n                                                </tr>\r\n                                            </tbody>\r\n                                        </table>\r\n                                        <div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div *ngIf=\"showPlayButton\">\r\n                                    <audio controls=\"controls\" src=\"https://ipfs.io/ipfs/{{pathOfPodcastId}}\" style=\"width:100%\">\r\n                                        Your browser does not support the <a href=\"http://caniuse.com/#search=audio\"><code>audio</code></a> element.\r\n                                    </audio>\r\n                                </div>\r\n                                <button mat-raised-button type=\"submit\" (click)=\"loadPublishedPodcast()\" class=\"btn btn-rose pull-right\">Cancel</button>\r\n                                <button mat-raised-button type=\"submit\" class=\"btn btn-rose pull-right\">Save</button>\r\n                                <div class=\"clearfix\"></div>\r\n                            </form>\r\n                        </div>\r\n                    </div>\r\n                    <!--Accordian here-->\r\n                    <div class=\"card\" *ngIf=\"isPaidPodcast && isFromEdit\">\r\n                            <div class=\"card-header card-header-rose card-header-icon\">\r\n                                <div class=\"card-icon\">\r\n                                    <i class=\"material-icons\">shop</i>\r\n                                </div>\r\n                                <h4 class=\"card-title\">Podcast Purchased By:</h4>\r\n                            </div>\r\n                            <br /><br />\r\n                            <div class=\"col-lg-12\" style=\"padding-top:2%;padding-bottom:2%\">\r\n                                <mat-accordion *ngFor=\"let data of podcastPurchasedByDetail\">\r\n                                    <mat-expansion-panel (opened)=\"panelOpenState = true\" (closed)=\"panelOpenState = false\">\r\n                                        <mat-expansion-panel-header>\r\n                                            <mat-panel-title>\r\n                                                {{data.name}}\r\n                                            </mat-panel-title>\r\n                                        </mat-expansion-panel-header>\r\n                                        <p>Email Id: {{data.emailId}}</p>\r\n                                    </mat-expansion-panel>\r\n                                </mat-accordion>\r\n                            </div>\r\n                        </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"main-content\">\r\n    <div class=\"row\">\r\n        <button mat-raised-button type=\"submit\" (click)=\"goBack()\" style=\"margin-left: 20px;\" class=\"btn btn-sm btn-rose pull-left\"><i\r\n                aria-hidden=\"true\" class=\"fa fa-arrow-circle-left\" style=\"padding-bottom: 3px;\"></i>&nbsp;&nbsp;Back to list\r\n        </button>\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-12\">\r\n                    <div class=\"card\">\r\n                        <div class=\"card-header card-header-icon card-header-rose\">\r\n                            <div class=\"card-icon\">\r\n                                <i class=\"material-icons\">cloud_upload</i>\r\n                            </div>\r\n                            <h4 class=\"card-title\">Upload Podcast\r\n                            </h4>\r\n                        </div>\r\n                        <div class=\"card-body\">\r\n                            <form #podcastDetailForm=\"ngForm\" (ngSubmit)=\"editPodcastDetail(podcastDetailForm.value)\"\r\n                                (change)=\"mark_changed()\">\r\n                                <div class=\"form-group\">\r\n                                    <input type=\"text\" class=\"form-control\" name=\"titleName\" [(ngModel)]=\"titleName\"\r\n                                        placeholder=\"Enter Title\">\r\n                                    <div *ngIf=\"!isTitlePresent\" class=\"help-block\" style=\"text-align: right;color:red\">Title\r\n                                        for the podcast must be present</div>\r\n                                </div>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                            <div class=\"form-group\">\r\n                                                <input type=\"text\" class=\"form-control\" name=\"artistName\" [(ngModel)]=\"artistName\"\r\n                                                    placeholder=\"Enter Artist Name\" style=\"margin-top:25px\">\r\n                                            </div>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <div class=\"form-group\">\r\n                                            <tag-input [(ngModel)]=\"tags\" name=\"tags\" placeholder=\"+ Tag\" secondaryPlaceholder=\"Add Tags\" aria-placeholder=\"tags\"></tag-input>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                        <div class=\"form-group\" style=\"margin-top:3%\">\r\n                                            <mat-radio-group class=\"example-radio-group\" [(ngModel)]=\"selectedType\" name=\"selectedType\">\r\n                                                <mat-radio-button class=\"example-radio-button\" *ngFor=\"let type of podcastTypes\"\r\n                                                    [value]=\"type\" (change)=\"radioChange($event)\">\r\n                                                    {{type}} &nbsp;&nbsp;&nbsp;&nbsp;\r\n                                                </mat-radio-button>\r\n                                            </mat-radio-group>\r\n                                            <div *ngIf=\"!isRadioButtonSelected\" class=\"help-block\" style=\"text-align: left;color:red\">Please\r\n                                                select atleast one podcast type</div>\r\n                                        </div>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\" *ngIf=\"isPaidPodcast\">\r\n                                        <div class=\"form-group\">\r\n                                            <input type=\"text\" class=\"form-control\" name=\"amount\" [(ngModel)]=\"amount\"\r\n                                                placeholder=\"Number of Pods Token Required to purchase podcast\">\r\n                                            <div *ngIf=\"!isAmountPresent && isPaidPodcast\" class=\"help-block\" style=\"text-align: right;color:red\">{{errorTextForAmount}}</div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div *ngIf=\"!showPlayButton\">\r\n                                    <div ng2FileDrop [ngClass]=\"{'nv-file-over': hasBaseDropZoneOver}\" (fileOver)=\"fileOverBase($event)\"\r\n                                        [uploader]=\"uploader\" style=\"border: dotted 3px lightgray;min-height: 20px;padding: 19px;margin-bottom: 20px;background-color: #f5f5f5;border-radius:4px;box-shadow:inset 0px 1px 1px rgba(0,0,0,0.05)\">\r\n                                        Drop the File Here\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <label class=\"btn btn-primary\" style=\"background-color:#e91e63 !important;\">\r\n                                            Browse File <input type=\"file\" style=\"display: none;\" class=\"form-control\" name=\"single\" ng2FileSelect [uploader]=\"uploader\" placeholder=\"choose file\"/>\r\n                                        </label>\r\n                                        <div *ngIf=\"!selectFileToUpload\" class=\"help-block\" style=\"text-align: left;color:red\">Please select a file</div>\r\n                                    </div>\r\n                                    <div class=\"col-md-12\">\r\n                                        <table class=\"table\">\r\n                                            <thead>\r\n                                                <tr>\r\n                                                    <th width=\"50%\">Name</th>\r\n                                                    <th>Size</th>\r\n                                                    <th>Progress</th>\r\n                                                    <th>Status</th>\r\n                                                    <th>Actions</th>\r\n                                                </tr>\r\n                                            </thead>\r\n                                            <tbody>\r\n                                                <tr *ngFor=\"let item of uploader.queue\">\r\n                                                    <td>\r\n                                                        <strong>{{ item.file.name }}</strong>\r\n                                                    </td>\r\n                                                    <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>\r\n                                                    <td>\r\n                                                        <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                                            <div class=\"progress-bar\" role=\"progressbar\" [ngStyle]=\"{ 'width': item.progress + '%' }\"></div>\r\n                                                        </div>\r\n                                                    </td>\r\n                                                    <td class=\"text-center\">\r\n                                                        <span *ngIf=\"item.isSuccess\">\r\n                                                            <i class=\"material-icons\">check_circle</i>\r\n                                                        </span>\r\n                                                        <span *ngIf=\"item.isCancel\">\r\n                                                            <i class=\"material-icons\">cancel</i>\r\n                                                        </span>\r\n                                                        <span *ngIf=\"item.isError\">\r\n                                                            <span *ngIf=\"item.isError\">\r\n                                                                <i class=\"material-icons\">error</i>\r\n                                                            </span>\r\n                                                        </span>\r\n                                                    </td>\r\n                                                    <td nowrap>\r\n                                                        <!--<button type=\"button\" class=\"btn btn-success btn-xs\" style=\"background-color:#3581f2 !important;\"\r\n                                                            (click)=\"item.upload();\" [disabled]=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                                            <i class=\"material-icons\">cloud_upload</i> Upload\r\n                                                        </button>-->\r\n                                                        <!--<button type=\"button\" class=\"btn btn-warning btn-xs\" (click)=\"item.cancel()\"\r\n                                                            [disabled]=\"!item.isUploading\">\r\n                                                            <i class=\"material-icons\">cancel</i> Cancel\r\n                                                        </button>-->\r\n                                                        <button type=\"button\" class=\"btn btn-danger btn-xs\" (click)=\"deleteFile(item)\">\r\n                                                            <i class=\"material-icons\">delete_forever</i> Delete\r\n                                                        </button>\r\n                                                    </td>\r\n                                                </tr>\r\n                                            </tbody>\r\n                                        </table>\r\n                                        <div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div *ngIf=\"showPlayButton\">\r\n                                    <audio controls=\"controls\" src=\"https://ipfs.io/ipfs/{{pathOfPodcastId}}\" style=\"width:100%\">\r\n                                        Your browser does not support the <a href=\"http://caniuse.com/#search=audio\"><code>audio</code></a> element.\r\n                                    </audio>\r\n                                </div>\r\n                                <button mat-raised-button type=\"submit\" (click)=\"loadPublishedPodcast()\" class=\"btn btn-rose pull-right\">Cancel</button>\r\n                                <button mat-raised-button type=\"submit\" class=\"btn btn-rose pull-right\">Save</button>\r\n                                <div class=\"clearfix\"></div>\r\n                            </form>\r\n                        </div>\r\n                    </div>\r\n                    <!--Accordian here-->\r\n                    <div class=\"card\" *ngIf=\"isPaidPodcast && isFromEdit\">\r\n                            <div class=\"card-header card-header-rose card-header-icon\">\r\n                                <div class=\"card-icon\">\r\n                                    <i class=\"material-icons\">shop</i>\r\n                                </div>\r\n                                <h4 class=\"card-title\">Podcast Purchased By:</h4>\r\n                            </div>\r\n                            <br /><br />\r\n                            <div class=\"col-lg-12\" style=\"padding-top:2%;padding-bottom:2%\">\r\n                                <mat-accordion *ngFor=\"let data of podcastPurchasedByDetail\">\r\n                                    <mat-expansion-panel (opened)=\"panelOpenState = true\" (closed)=\"panelOpenState = false\">\r\n                                        <mat-expansion-panel-header>\r\n                                            <mat-panel-title>\r\n                                                {{data.name}}\r\n                                            </mat-panel-title>\r\n                                        </mat-expansion-panel-header>\r\n                                        <p>Email Id: {{data.emailId}}</p>\r\n                                    </mat-expansion-panel>\r\n                                </mat-accordion>\r\n                            </div>\r\n                        </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
 
 /***/ }),
 
@@ -1247,6 +1252,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../global */ "./src/app/global.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1261,11 +1268,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var PodcastDetailComponent = /** @class */ (function () {
-    function PodcastDetailComponent(http, router, route) {
+    function PodcastDetailComponent(http, router, route, spinner) {
         this.http = http;
         this.router = router;
         this.route = route;
+        this.spinner = spinner;
         this.UIChange = false;
         this.tags = [];
         this.isPaidPodcast = false;
@@ -1281,7 +1291,7 @@ var PodcastDetailComponent = /** @class */ (function () {
         this.isFromEdit = false;
         this.pathOfPodcastId = null;
         this.podcastPurchasedByDetail = [];
-        this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_4__["FileUploader"]({ url: 'http://localhost:3000/uploadfile' });
+        this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_4__["FileUploader"]({ url: _global__WEBPACK_IMPORTED_MODULE_6__["Global"].API_ENDPOINT + '/uploadfile' });
         this.hasBaseDropZoneOver = false;
         this.hasAnotherDropZoneOver = false;
     }
@@ -1292,7 +1302,6 @@ var PodcastDetailComponent = /** @class */ (function () {
         this.hasAnotherDropZoneOver = e;
     };
     PodcastDetailComponent.prototype.radioChange = function (event) {
-        console.log(event.value);
         if (event.value === "Paid Podcast") {
             this.selectedType = "Paid Podcast";
             this.isPaidPodcast = true;
@@ -1321,7 +1330,6 @@ var PodcastDetailComponent = /** @class */ (function () {
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Confirm'
                 }).then(function (result) {
-                    console.log(result.value);
                     if (result.value) {
                         _this.router.navigate(["tables/userPublishedTable"]);
                     }
@@ -1357,8 +1365,6 @@ var PodcastDetailComponent = /** @class */ (function () {
             this.selectFileToUpload = false;
         }
         if (!this.isErrorPresent && !this.isFromEdit) {
-            console.log("Inside if");
-            console.log(form.tags);
             for (var i = 0; i < form.tags.length; i++) {
                 this.tagsArray.push(form.tags[i].display);
             }
@@ -1374,7 +1380,6 @@ var PodcastDetailComponent = /** @class */ (function () {
             this.uploader.uploadAll();
             this.uploader.onSuccessItem = function (item, response, status, headers) {
                 if (response) {
-                    //console.log("response" + JSON.stringify(response));
                     _this.fileUploaded = true;
                     _this.UIChange = false;
                     var body = JSON.parse(response);
@@ -1388,7 +1393,6 @@ var PodcastDetailComponent = /** @class */ (function () {
             };
             this.uploader.onErrorItem = function (item, response, status, headers) {
                 if (response) {
-                    //console.log("response" + JSON.stringify(response));
                     var body = JSON.parse(response);
                     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
                         title: body.status,
@@ -1400,17 +1404,14 @@ var PodcastDetailComponent = /** @class */ (function () {
             };
         }
         else if (!this.isErrorPresent && this.isFromEdit) {
-            console.log("Inside else of form submit");
+            this.spinner.show();
             var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
             headers.append("token", localStorage.getItem("token"));
             headers.append("emailAddress", localStorage.getItem("emailAddress"));
             this.tagsArray = [];
-            console.log("Tags");
-            console.log(form.tags);
             for (var i = 0; i < form.tags.length; i++) {
                 this.tagsArray.push(form.tags[i].display);
             }
-            console.log(this.tagsArray);
             var editedObject = {
                 'title': this.titleName,
                 'artist': this.artistName,
@@ -1419,9 +1420,8 @@ var PodcastDetailComponent = /** @class */ (function () {
                 'amount': this.amount,
                 'id': this.fileId
             };
-            console.log("editedObj");
-            console.log(editedObject);
-            this.http.post('http://localhost:3000/updatePodcastDetails', editedObject, { headers: headers }).subscribe(function (data) {
+            this.http.post(_global__WEBPACK_IMPORTED_MODULE_6__["Global"].API_ENDPOINT + '/updatePodcastDetails', editedObject, { headers: headers }).subscribe(function (data) {
+                _this.spinner.hide();
                 var body = JSON.parse(data.text());
                 sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
                     title: body.status,
@@ -1429,12 +1429,18 @@ var PodcastDetailComponent = /** @class */ (function () {
                     timer: 2000,
                     showConfirmButton: false
                 }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.noop);
-            }, function (err) { console.log("message sending err", err); }, function () { });
+            }, function (err) {
+                _this.spinner.hide();
+                var body = JSON.parse(err.text());
+                sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
+                    title: body.status,
+                    text: "",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.noop);
+            });
         }
     };
-    /*check_for_error(error) {
-      console.log(error)
-    }*/
     PodcastDetailComponent.prototype.deleteFile = function (item) {
         console.log(item);
         this.uploader.removeFromQueue(item);
@@ -1444,13 +1450,12 @@ var PodcastDetailComponent = /** @class */ (function () {
     };
     PodcastDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.spinner.show();
         this.route.params.subscribe(function (params) {
-            console.log(params.id);
             var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
             headers.append("token", localStorage.getItem("token"));
             headers.append("emailAddress", localStorage.getItem("emailAddress"));
-            _this.http.post('http://localhost:3000/getPodcastDetailsForView', { "id": params.id }, { headers: headers }).subscribe(function (data) {
-                console.log("message sending results", data);
+            _this.http.post(_global__WEBPACK_IMPORTED_MODULE_6__["Global"].API_ENDPOINT + '/getPodcastDetailsForView', { "id": params.id }, { headers: headers }).subscribe(function (data) {
                 _this.showPlayButton = true;
                 _this.isFromEdit = true;
                 _this.pathOfPodcastId = params.id;
@@ -1478,12 +1483,17 @@ var PodcastDetailComponent = /** @class */ (function () {
                     _this.showPlayButton = false;
                     _this.isFromEdit = false;
                 }
+                _this.spinner.hide();
             }, function (err) {
+                var body = JSON.parse(err.text());
+                sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
+                    title: body.status,
+                    text: "",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.noop);
             });
         });
-    };
-    PodcastDetailComponent.prototype.myFunc = function (val) {
-        // code here
     };
     PodcastDetailComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1491,7 +1501,7 @@ var PodcastDetailComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./podcastDetailforms.component.html */ "./src/app/forms/podcastDetailforms/podcastDetailforms.component.html"),
             styles: ["md-calendar {\n      width: 300px;\n  }"]
         }),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], ngx_spinner__WEBPACK_IMPORTED_MODULE_5__["NgxSpinnerService"]])
     ], PodcastDetailComponent);
     return PodcastDetailComponent;
 }());
@@ -1592,7 +1602,7 @@ var ExtendedTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary card-header-icon\">\n                        <div class=\"card-icon\">\n                            <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title\">Latest Podcast</h4>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                            <table id=\"datatables\" class=\"table table-striped table-no-bordered table-hover\"\n                                cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th>{{ dataTable.headerRow[4] }}</th>\n                                        <!--<th class=\"disabled-sorting\">{{ dataTable.headerRow[5] }}</th>\n                                        <th class=\"disabled-sorting\">{{ dataTable.headerRow[6] }}</th>-->\n                                        <th class=\"disabled-sorting\">{{ dataTable.headerRow[5] }}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[6]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[7]}}</th>\n                                    </tr>\n                                </thead>\n                                <!--<tfoot>\n                                    <tr>\n                                      <th>{{ dataTable.footerRow[0] }}</th>\n                                      <th>{{ dataTable.footerRow[1] }}</th>\n                                      <th>{{ dataTable.footerRow[2] }}</th>\n                                      <th>{{ dataTable.footerRow[3] }}</th>\n                                      <th>{{ dataTable.footerRow[4] }}</th>\n                                      <th class=\"text-right\">{{ dataTable.footerRow[5] }}</th>\n                                    </tr>\n                                </tfoot>-->\n                                <tbody>\n                                    <tr *ngFor=\"let row of dataTable.dataRows; let i=index;\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <!--<td>\n                                            <a href=\"#\" class=\"btn btn-link btn-info btn-just-icon like\"><i class=\"material-icons\">favorite</i></a>\n                                          <a href=\"#\" class=\"btn btn-link btn-warning btn-just-icon edit\"><i class=\"material-icons\">dvr</i></a>\n                                          <a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a>\n                                            <button (click)=\"clickOnPlay(i)\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">play_circle_outline</i></button>\n\n                                        </td>\n                                        <td>\n                                            <a href=\"#\" class=\"btn btn-link btn-info btn-just-icon like\"><i class=\"material-icons\">favorite</i></a>\n                                        </td>-->\n                                        <td>\n                                            <a [routerLink]=\"['/tables/latestPodcast/'+row[6]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[6]}}</td>\n                                        <td [hidden]=\"true\">{{row[7]}}</td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary card-header-icon\">\n                        <div class=\"card-icon\">\n                            <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title\">Latest Podcast</h4>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                        </div>\n                        <div class=\"material-datatables\">\n                            <table id=\"latestPodcastDataTable\" class=\"table table-striped table-no-bordered table-hover\"\n                                cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th>{{ dataTable.headerRow[4] }}</th>\n                                        <th class=\"disabled-sorting\">{{ dataTable.headerRow[5] }}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[6]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[7]}}</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of dataTable.dataRows; let i=index\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td>\n                                            <a [routerLink]=\"['/tables/latestPodcast/'+row[6]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[6]}}</td>\n                                        <td [hidden]=\"true\">{{row[7]}}</td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
 
 /***/ }),
 
@@ -1611,7 +1621,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
-// IMPORTANT: this is a plugin which requires jQuery for initialisation and data manipulation
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../global */ "./src/app/global.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1625,40 +1636,40 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var DataTableComponent = /** @class */ (function () {
-    function DataTableComponent(http, router) {
+    function DataTableComponent(http, router, spinner) {
         this.http = http;
         this.router = router;
+        this.spinner = spinner;
         this.dataRowsFromDB = null;
-        this.getPodcastIdPath = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
     DataTableComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.spinner.show();
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
         headers.append("token", localStorage.getItem("token"));
         headers.append("emailAddress", localStorage.getItem("emailAddress"));
-        this.http.get('http://localhost:3000/getLatestPodcast', { headers: headers }).subscribe(function (data) {
-            console.log("message sending results", data);
-            _this.dataRowsFromDB = data.json();
-            _this.dataRowsFromDB = _this.dataRowsFromDB.data;
-            console.log(_this.dataRowsFromDB);
+        this.http.get(_global__WEBPACK_IMPORTED_MODULE_5__["Global"].API_ENDPOINT + '/getLatestPodcast', { headers: headers }).subscribe(function (data) {
             _this.dataTable = {
-                //headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'Like', 'View', 'id', 'amount'],
                 headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id', 'amount'],
-                footerRow: [],
-                dataRows: _this.dataRowsFromDB
+                dataRows: data.json().data
             };
-            var body = JSON.parse(data.text());
+            _this.spinner.hide();
+        }, function (err) {
+            _this.spinner.hide();
+            var body = JSON.parse(err.text());
             sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
                 title: body.status,
                 text: "",
                 timer: 3000,
                 showConfirmButton: false
             }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.noop);
-        }, function (err) { console.log("message sending err", err); });
+        });
     };
     DataTableComponent.prototype.ngAfterViewInit = function () {
-        $('#datatables').DataTable({
+        $('#latestPodcastDataTable').DataTable({
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],
@@ -1670,116 +1681,15 @@ var DataTableComponent = /** @class */ (function () {
                 searchPlaceholder: "Search records",
             }
         });
-        var table = $('#datatables').DataTable();
-        // Edit record
-        /*table.on('click', '.play', function (e) {
-          
-          const $tr = $(this).closest('tr');
-          const data = table.row($tr).data();
-          console.log('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-          
-          e.preventDefault();
-          if(data[4] !== "No"){
-            console.log("Inside play inside No")
-            swal({
-              title: 'Paid Podcast',
-              text: "Do you want to purchase "+data[0]+" podcast by "+data[1]+" for "+data[9]+" pods token?",
-              type: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Confirm'
-            }).then((result) => {
-              console.log(result.value);
-              if (result.value) {
-                
-                self.http.post('http://localhost:3000/signup', this.model).subscribe((data) => {
-    
-                })
-                
-                // when confirms make an api call
-              }
-            })
-          }
-        });*/
-        // Edit record
-        table.on('click', '.view', function (e) {
-            var $tr = $(this).closest('tr');
-            var data = table.row($tr).data();
-            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[7] + '\'s row.');
-            //e.preventDefault();
-        });
-        // Delete a record
-        table.on('click', '.remove', function (e) {
-            var $tr = $(this).closest('tr');
-            table.row($tr).remove().draw();
-            e.preventDefault();
-        });
-        //Like record
-        table.on('click', '.like', function (e) {
-            alert('You clicked on Like button');
-            e.preventDefault();
-        });
         $('.card .material-datatables label').addClass('form-group');
     };
-    DataTableComponent.prototype.clickOnPlay = function (index) {
-        var _this = this;
-        console.log("clickOnPlay");
-        var rowData = this.dataTable.dataRows[index];
-        console.log(rowData);
-        if (rowData[4] !== "No") {
-            console.log("Inside play inside No");
-            sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
-                title: 'Paid Podcast',
-                text: "Do you want to purchase " + rowData[0] + " podcast by " + rowData[1] + " for " + rowData[9] + " pods token?",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Confirm'
-            }).then(function (result) {
-                console.log(result.value);
-                if (result.value === true) {
-                    console.log("Inside if result.value");
-                    var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
-                    headers.append("token", localStorage.getItem("token"));
-                    headers.append("emailAddress", localStorage.getItem("emailAddress"));
-                    console.log(_this);
-                    _this.http.post('http://localhost:3000/transferPodsToPurchase', { "id": rowData[8], "amount": rowData[9] }, { headers: headers }).subscribe(function (data) {
-                        console.log(data);
-                        var body = JSON.parse(data.text());
-                        _this.dataTable.dataRows[index][4] = body.purchasedStatus;
-                        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
-                            title: body.status,
-                            text: "",
-                            timer: 1000,
-                            showConfirmButton: false
-                        }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.noop);
-                        // play podcast
-                        // pass src to audio control
-                    }, function (err) { console.log("message sending err", err); }, function () { });
-                    // when confirms make an api call 
-                }
-            });
-        }
-        else {
-            console.log("Inside else of click on play");
-            console.log(this.getPodcastIdPath.emit(rowData[8]));
-            this.getPodcastIdPath.emit(rowData[8]);
-            // play podcast
-            // pass src to audio control
-        }
-    };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
-        __metadata("design:type", Object)
-    ], DataTableComponent.prototype, "getPodcastIdPath", void 0);
     DataTableComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-data-table-cmp',
             template: __webpack_require__(/*! ./datatable.component.html */ "./src/app/tables/latestPodcast/datatable.component.html")
         }),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"]])
     ], DataTableComponent);
     return DataTableComponent;
 }());
@@ -1795,7 +1705,7 @@ var DataTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary card-header-icon\">\n                        <div class=\"card-icon\">\n                            <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title\">Purchased Podcast</h4>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                            <table id=\"datatables\" class=\"table table-striped table-no-bordered table-hover\"\n                                cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th class=\"disabled-sorting\">{{ dataTable.headerRow[4] }}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[5]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[6]}}</th>\n                                        <th>{{ dataTable.headerRow[7] }}</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of dataTable.dataRows; let i=index;\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td>\n                                            <a [routerLink]=\"['/tables/purchasedPodcast/'+row[6]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[6]}}</td>\n                                        <td><a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a></td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary card-header-icon\">\n                        <div class=\"card-icon\">\n                            <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title\">Purchased Podcast</h4>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                            <table id=\"datatables\" class=\"table table-striped table-no-bordered table-hover\"\n                                cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th class=\"disabled-sorting\">{{ dataTable.headerRow[4] }}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[5]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[6]}}</th>\n                                        <th>{{ dataTable.headerRow[7] }}</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of purchasedTable.dataRows; let i=index;\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td>\n                                            <a [routerLink]=\"['/tables/purchasedPodcast/'+row[6]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[6]}}</td>\n                                        <td><a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a></td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
 
 /***/ }),
 
@@ -1814,6 +1724,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../global */ "./src/app/global.ts");
 // IMPORTANT: this is a plugin which requires jQuery for initialisation and data manipulation
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1828,87 +1740,38 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var PurchasedPodcastTableComponent = /** @class */ (function () {
-    function PurchasedPodcastTableComponent(http, router) {
+    function PurchasedPodcastTableComponent(http, router, spinner) {
         this.http = http;
         this.router = router;
+        this.spinner = spinner;
         this.dataRowsFromDB = null;
     }
     PurchasedPodcastTableComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.spinner.show();
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
         headers.append("token", localStorage.getItem("token"));
         headers.append("emailAddress", localStorage.getItem("emailAddress"));
-        this.http.get('http://localhost:3000/getPurchasedPodcastList', { headers: headers }).subscribe(function (data) {
-            console.log("message sending results", data);
-            _this.dataRowsFromDB = data.json();
-            _this.dataRowsFromDB = _this.dataRowsFromDB.data;
-            console.log(_this.dataRowsFromDB);
-            _this.dataTable = {
+        this.http.get(_global__WEBPACK_IMPORTED_MODULE_5__["Global"].API_ENDPOINT + '/getPurchasedPodcastList', { headers: headers }).subscribe(function (data) {
+            _this.purchasedTable = {
                 headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id', 'Actions'],
-                footerRow: [],
-                dataRows: _this.dataRowsFromDB
+                dataRows: data.json().data
             };
-            var body = JSON.parse(data.text());
+            _this.spinner.hide();
+        }, function (err) {
+            var body = JSON.parse(err.text());
+            _this.spinner.hide();
             sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
                 title: body.status,
                 text: "",
                 timer: 3000,
                 showConfirmButton: false
             }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.noop);
-        }, function (err) { console.log("message sending err", err); });
+        });
     };
-    /*ngOnInit() {
-      headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'Like', 'View', 'id', 'amount','Actions'],
-        this.dataTable = {
-            headerRow: [ 'Name', 'Position', 'Office', 'Age', 'Date', 'Actions' ],
-            footerRow: [ 'Name', 'Position', 'Office', 'Age', 'Start Date', 'Actions' ],
-
-            dataRows: [
-                ['Airi Satou', 'Andrew Mike', 'Develop', '2013', '99,225', ''],
-                ['Angelica Ramos', 'John Doe', 'Design', '2012', '89,241', 'btn-round'],
-                ['Ashton Cox', 'Alex Mike', 'Design', '2010', '92,144', 'btn-simple'],
-                ['Bradley Greer', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Brenden Wagner', 'Paul Dickens', 'Communication', '2015', '69,201', ''],
-                ['Brielle Williamson', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Caesar Vance', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Cedric Kelly', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Charde Marshall', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Colleen Hurst', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Dai Rios', 'Andrew Mike', 'Develop', '2013', '99,225', ''],
-                ['Doris Wilder', 'John Doe', 'Design', '2012', '89,241', 'btn-round'],
-                ['Fiona Green', 'Alex Mike', 'Design', '2010', '92,144', 'btn-simple'],
-                ['Garrett Winters', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Gavin Cortez', 'Paul Dickens', 'Communication', '2015', '69,201', ''],
-                ['Gavin Joyce', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Gloria Little', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Haley Kennedy', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Herrod Chandler', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Hope Fuentes', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Howard Hatfield', 'Andrew Mike', 'Develop', '2013', '99,225', ''],
-                ['Jena Gaines', 'John Doe', 'Design', '2012', '89,241', 'btn-round'],
-                ['Jenette Caldwell', 'Alex Mike', 'Design', '2010', '92,144', 'btn-simple'],
-                ['Jennifer Chang', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Martena Mccray', 'Paul Dickens', 'Communication', '2015', '69,201', ''],
-                ['Michael Silva', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Michelle House', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Paul Byrd', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Prescott Bartlett', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Quinn Flynn', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Rhona Davidson', 'Andrew Mike', 'Develop', '2013', '99,225', ''],
-                ['Shou Itou', 'John Doe', 'Design', '2012', '89,241', 'btn-round'],
-                ['Sonya Frost', 'Alex Mike', 'Design', '2010', '92,144', 'btn-simple'],
-                ['Suki Burks', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Tatyana Fitzpatrick', 'Paul Dickens', 'Communication', '2015', '69,201', ''],
-                ['Tiger Nixon', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Timothy Mooney', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Unity Butler', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Vivian Harrell', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-                ['Yuri Berry', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round']
-            ]
-         };
-
-    }*/
     PurchasedPodcastTableComponent.prototype.ngAfterViewInit = function () {
         $('#datatables').DataTable({
             "pagingType": "full_numbers",
@@ -1923,38 +1786,20 @@ var PurchasedPodcastTableComponent = /** @class */ (function () {
             }
         });
         var table = $('#datatables').DataTable();
-        // Edit record
-        /*table.on('click', '.edit', function(e) {
-          const $tr = $(this).closest('tr');
-          const data = table.row($tr).data();
-          alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-          e.preventDefault();
-        });*/
         // Delete a record
         table.on('click', '.remove', function (e) {
             var $tr = $(this).closest('tr');
             table.row($tr).remove().draw();
             e.preventDefault();
         });
-        //Like record
-        /*table.on('click', '.like', function(e) {
-          alert('You clicked on Like button');
-          e.preventDefault();
-        });*/
         $('.card .material-datatables label').addClass('form-group');
-    };
-    PurchasedPodcastTableComponent.prototype.clickOnPlay = function (index) {
-        console.log("clickOnPlay");
-        var rowData = this.dataTable.dataRows[index];
-        console.log(rowData);
-        // play podcast
     };
     PurchasedPodcastTableComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-purchased-podcast-cmp',
             template: __webpack_require__(/*! ./purchasedPodcast.component.html */ "./src/app/tables/purchasedPodcast/purchasedPodcast.component.html")
         }),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"]])
     ], PurchasedPodcastTableComponent);
     return PurchasedPodcastTableComponent;
 }());
@@ -2070,12 +1915,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _forms_detailForLatestAndPurchasedPodcast_detailForLatestAndPurchasedPodcast_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../forms/detailForLatestAndPurchasedPodcast/detailForLatestAndPurchasedPodcast.component */ "./src/app/forms/detailForLatestAndPurchasedPodcast/detailForLatestAndPurchasedPodcast.component.ts");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -2101,7 +1948,8 @@ var TablesModule = /** @class */ (function () {
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(_tables_routing__WEBPACK_IMPORTED_MODULE_5__["TablesRoutes"]),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 ngx_chips__WEBPACK_IMPORTED_MODULE_6__["TagInputModule"],
-                _app_module__WEBPACK_IMPORTED_MODULE_4__["MaterialModule"]
+                _app_module__WEBPACK_IMPORTED_MODULE_4__["MaterialModule"],
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_15__["NgxSpinnerModule"]
             ],
             declarations: [
                 _extendedtable_extendedtable_component__WEBPACK_IMPORTED_MODULE_7__["ExtendedTableComponent"],
@@ -2187,7 +2035,7 @@ var TablesRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary card-header-icon\">\n                        <div class=\"card-icon\">\n                            <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title\">User Published Podcast </h4>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <button mat-raised-button type=\"submit\" [routerLink]=\"['/tables/userPublishedTable', podcastId]\"\n                                class=\"btn btn-sm btn-rose pull-right\">Add Podcast</button>\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                            <table id=\"datatables\" class=\"table table-striped table-no-bordered table-hover\"\n                                cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th>{{ dataTable.headerRow[4] }}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[5]}}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[6]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[7]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[8]}}</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of dataTable.dataRows; let i=index;\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td>\n                                            <a [routerLink]=\"['/tables/userPublishedTable/'+row[7]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td>\n                                            <a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[7]}}</td>\n                                        <td [hidden]=\"true\">{{row[8]}}</td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>"
+module.exports = "<div class=\"main-content\">\n    <div class=\"container-fluid\">\n        <div class=\"row\">\n            <div class=\"col-md-12\">\n                <div class=\"card\">\n                    <div class=\"card-header card-header-primary card-header-icon\">\n                        <div class=\"card-icon\">\n                            <i class=\"material-icons\">assignment</i>\n                        </div>\n                        <h4 class=\"card-title\">User Published Podcast </h4>\n                    </div>\n                    <div class=\"card-body\">\n                        <div class=\"toolbar\">\n                            <button mat-raised-button type=\"submit\" [routerLink]=\"['/tables/userPublishedTable', podcastId]\"\n                                class=\"btn btn-sm btn-rose pull-right\">Add Podcast</button>\n                            <!--        Here you can write extra buttons/actions for the toolbar              -->\n                        </div>\n                        <div class=\"material-datatables\">\n                            <table id=\"datatables\" class=\"table table-striped table-no-bordered table-hover\"\n                                cellspacing=\"0\" width=\"100%\" style=\"width:100%\">\n                                <thead>\n                                    <tr>\n                                        <th>{{ dataTable.headerRow[0] }}</th>\n                                        <th>{{ dataTable.headerRow[1] }}</th>\n                                        <th>{{ dataTable.headerRow[2] }}</th>\n                                        <th>{{ dataTable.headerRow[3] }}</th>\n                                        <th>{{ dataTable.headerRow[4] }}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[5]}}</th>\n                                        <th class=\"disabled-sorting\">{{dataTable.headerRow[6]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[7]}}</th>\n                                        <th [hidden]=\"true\">{{dataTable.headerRow[8]}}</th>\n                                    </tr>\n                                </thead>\n                                <tbody>\n                                    <tr *ngFor=\"let row of publishedTable.dataRows; let i=index;\">\n                                        <td>{{row[0]}}</td>\n                                        <td>{{row[1]}}</td>\n                                        <td>{{row[2]}}</td>\n                                        <td>{{row[3]}}</td>\n                                        <td>{{row[4]}}</td>\n                                        <td>\n                                            <a [routerLink]=\"['/tables/userPublishedTable/'+row[7]]\" class=\"btn btn-link btn-warning btn-just-icon\"\n                                                style=\"color:rgb(171, 71, 188)\"><i class=\"material-icons\" style=\"font-size:18px\">remove_red_eye</i></a>\n                                        </td>\n                                        <td>\n                                            <a href=\"#\" class=\"btn btn-link btn-danger btn-just-icon remove\"><i class=\"material-icons\">close</i></a>\n                                        </td>\n                                        <td [hidden]=\"true\">{{row[7]}}</td>\n                                        <td [hidden]=\"true\">{{row[8]}}</td>\n                                    </tr>\n                                </tbody>\n                            </table>\n                        </div>\n                    </div>\n                    <!-- end content-->\n                </div>\n                <!--  end card  -->\n            </div>\n            <!-- end col-md-12 -->\n        </div>\n        <!-- end row -->\n    </div>\n</div>\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
 
 /***/ }),
 
@@ -2208,7 +2056,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
-// IMPORTANT: this is a plugin which requires jQuery for initialisation and data manipulation
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../global */ "./src/app/global.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2223,52 +2072,40 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var UserPublishedTableComponent = /** @class */ (function () {
-    function UserPublishedTableComponent(http, router) {
+    function UserPublishedTableComponent(http, router, spinner) {
         this.http = http;
         this.router = router;
+        this.spinner = spinner;
         this.podcastId = angular2_uuid__WEBPACK_IMPORTED_MODULE_1__["UUID"].UUID();
-        this.dataRowsFromDB = null;
         this.self = null;
     }
     UserPublishedTableComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.spinner.show();
         this.self = this;
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["Headers"]();
         headers.append("token", localStorage.getItem("token"));
         headers.append("emailAddress", localStorage.getItem("emailAddress"));
-        this.http.get('http://localhost:3000/getUserPublishedPodcast', { headers: headers }).subscribe(function (data) {
-            console.log("message sending results", data);
-            _this.dataRowsFromDB = data.json();
-            _this.dataRowsFromDB = _this.dataRowsFromDB.data;
-            console.log(_this.dataRowsFromDB);
-            _this.dataTable = {
+        this.http.get(_global__WEBPACK_IMPORTED_MODULE_6__["Global"].API_ENDPOINT + '/getUserPublishedPodcast', { headers: headers }).subscribe(function (data) {
+            _this.publishedTable = {
                 headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'Actions', 'id', 'amount'],
-                footerRow: [],
-                dataRows: _this.dataRowsFromDB
+                dataRows: data.json().data
             };
-            var body = JSON.parse(data.text());
+            _this.spinner.hide();
+        }, function (err) {
+            _this.spinner.hide();
+            var body = JSON.parse(err.text());
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default()({
                 title: body.status,
                 text: "",
                 timer: 3000,
                 showConfirmButton: false
             }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.noop);
-        }, function (err) { console.log("message sending err", err); });
+        });
     };
-    /*ngOnInit() {
-      this.dataTable = {
-        headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'Play', 'View', 'Actions', 'id', 'amount'],
-        footerRow: [],
-  
-        dataRows: [
-          ['Airi Satou', 'Andrew Mike', 'Develop', '2013', '99,225', '', '', '', '', ''],
-          ['Angelica Ramos', 'John Doe', 'Design', '2012', '89,241', 'btn-round', '', '', '', '', ''],
-          ['Ashton Cox', 'Alex Mike', 'Design', '2010', '92,144', 'btn-simple', '', '', '', '', '']
-        ]
-      };
-  
-    }*/
     UserPublishedTableComponent.prototype.ngAfterViewInit = function () {
         $('#datatables').DataTable({
             "pagingType": "full_numbers",
@@ -2283,46 +2120,20 @@ var UserPublishedTableComponent = /** @class */ (function () {
             }
         });
         var table = $('#datatables').DataTable();
-        /*table.on('click','.view',function(e){
-          console.log("Inside view");
-          //const $tr = $(this).closest('tr');
-          //const data = table.row($tr).data();
-          //this.router.navigate(["tables/userPublishedTable/"+data[8]]);
-          e.preventDefault();
-        })
-    
-        // Edit record
-        table.on('click', '.edit', function(e) {
-          const $tr = $(this).closest('tr');
-          const data = table.row($tr).data();
-          alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-          e.preventDefault();
-        });*/
         // Delete a record
         table.on('click', '.remove', function (e) {
             var $tr = $(this).closest('tr');
             table.row($tr).remove().draw();
             e.preventDefault();
         });
-        //Like record
-        /*table.on('click', '.like', function(e) {
-          alert('You clicked on Like button');
-          e.preventDefault();
-        });*/
         $('.card .material-datatables label').addClass('form-group');
-    };
-    UserPublishedTableComponent.prototype.clickOnPlay = function (index) {
-        console.log("clickOnPlay");
-        var rowData = this.dataTable.dataRows[index];
-        console.log(rowData);
-        // play podcast
     };
     UserPublishedTableComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-user-published-table-cmp',
             template: __webpack_require__(/*! ./userPublishedTable.component.html */ "./src/app/tables/userPublishedTable/userPublishedTable.component.html"),
         }),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_3__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_3__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], ngx_spinner__WEBPACK_IMPORTED_MODULE_5__["NgxSpinnerService"]])
     ], UserPublishedTableComponent);
     return UserPublishedTableComponent;
 }());

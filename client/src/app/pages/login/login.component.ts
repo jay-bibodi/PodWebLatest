@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, OnDestroy,Input } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import {Global} from '../../global';
 import swal from 'sweetalert2';
 
 declare var $: any;
@@ -19,10 +21,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     @Input('ngModel')
     model: any = {};
 
-    constructor(private element: ElementRef,private http: Http,private router: Router) {
+    constructor(private element: ElementRef,private http: Http,private router: Router,private spinner: NgxSpinnerService) {
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
-        
     }
 
     ngOnInit() {
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             card.classList.remove('card-hidden');
         }, 700);
     }
+
     sidebarToggle() {
         var toggleButton = this.toggleButton;
         var body = document.getElementsByTagName('body')[0];
@@ -60,25 +62,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     login(){
-        console.log(this.model);
-        this.http.post('http://localhost:3000/login', this.model).subscribe((data) => {
-        console.log("message sending results", data); 
+        this.spinner.show();
+        this.http.post(Global.API_ENDPOINT+'/login', this.model).subscribe((data) => {
         var body = JSON.parse(data.text());
         localStorage.setItem('emailAddress',body.emailAddress);
         localStorage.setItem("token",body.token); 
-        /*console.log(data.text());
-        var body = JSON.parse(data.text());
-        console.log(body.emailAddress);
-        console.log(body.token);
-        localStorage.setItem('emailAddress',body.emailAddress);
-        localStorage.setItem("token",body.token); 
-        swal({
-            title: "Successfully Registered",
-            text: "",
-            timer: 3000,
-            showConfirmButton: false
-        }).catch(swal.noop)  */      
+        this.spinner.hide();
         this.router.navigateByUrl('/tables/latestPodcast');
-        }, (err) => { console.log("message sending err", err) }, () => {})
+        }, (err) => { 
+            this.spinner.hide();
+            swal({
+                title: "Something went wrong!",
+                text: "Please try again or contact system administrator!",
+                timer: 3000,
+                showConfirmButton: false
+              }).catch(swal.noop)  
+        })
     }
 }

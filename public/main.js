@@ -11,6 +11,7 @@ var map = {
 	"./calendar/calendar.module": [
 		"./src/app/calendar/calendar.module.ts",
 		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
+		"common",
 		"calendar-calendar-module"
 	],
 	"./charts/charts.module": [
@@ -20,6 +21,7 @@ var map = {
 	"./forms/forms.module": [
 		"./src/app/forms/forms.module.ts",
 		"forms-forms-module~purchaseToken-purchaseToken-module",
+		"common",
 		"forms-forms-module"
 	],
 	"./maps/maps.module": [
@@ -29,21 +31,20 @@ var map = {
 	"./pages/pages.module": [
 		"./src/app/pages/pages.module.ts",
 		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
+		"common",
 		"pages-pages-module"
 	],
 	"./purchaseToken/purchaseToken.module": [
 		"./src/app/purchaseToken/purchaseToken.module.ts",
 		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
 		"forms-forms-module~purchaseToken-purchaseToken-module",
+		"common",
 		"purchaseToken-purchaseToken-module"
-	],
-	"./songDetails/songDetails.module": [
-		"./src/app/songDetails/songDetails.module.ts",
-		"songDetails-songDetails-module"
 	],
 	"./tables/tables.module": [
 		"./src/app/tables/tables.module.ts",
 		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
+		"common",
 		"tables-tables-module"
 	],
 	"./timeline/timeline.module": [
@@ -53,6 +54,7 @@ var map = {
 	"./userpage/user.module": [
 		"./src/app/userpage/user.module.ts",
 		"calendar-calendar-module~pages-pages-module~purchaseToken-purchaseToken-module~tables-tables-module~~3f46dd24",
+		"common",
 		"userpage-user-module"
 	],
 	"./widgets/widgets.module": [
@@ -89,7 +91,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"page-header\" data-parallax=\"true\" style=\"background-image: url('../../../assets/img/background-try.jpg'); color:#66615b\">\r\n    <div class=\"filter\"></div>\r\n    <div class=\"container\">\r\n        <div class=\"motto text-left\">\r\n            <h1 claass=\"about-font\">Welcome to PodWeb</h1>\r\n            <h3 class=\"about-font\">The Decentralized Application Powered by Ethereum Network</h3>\r\n            <br />\r\n            <a href=\"\" class=\"btn btn-outline-neutral btn-round\" style=\"margin-right:20px\"><i class=\"material-icons\">play_arrow</i> Watch Video</a>\r\n            <button type=\"button\" (click) = \"loadLoginComponent()\" class=\"btn btn-outline-neutral btn-round\" style=\"margin-right:20px\"><i class=\"material-icons\">fingerprint</i> Login</button>\r\n            <button type=\"button\" (click) = \"loadRegisterComponent()\" class=\"btn btn-outline-neutral btn-round\" style=\"margin-right:20px\"><i class=\"material-icons\">person_add</i> Register</button>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"main\">\r\n    <div class=\"section text-center\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-8 mr-auto ml-auto\">\r\n                <h2 class=\"title\">Let's talk product</h2>\r\n                <h5 class=\"description\">Product description</h5>\r\n                <br>\r\n                <a href=\"#paper-kit\" class=\"btn btn-danger btn-round\">See Details</a>\r\n            </div>\r\n        </div>\r\n        <br/><br/>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"section-dark text-center\" style=\"padding: 70px 0;position: relative;background-color: #FFFFFF;background-color: #0b1011;\">\r\n    <div class=\"container\">\r\n        <h2 style=\"color:floralwhite;font-size: 2.8em;margin: 30px 0 0;font-weight: 100\">Let's talk about us</h2>\r\n        <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n                <div class=\"card card-profile card-plain\">\r\n                    <div class=\"card-avatar\">\r\n                        <a href=\"#avatar\"><img src=\"../assets/img/faces/jay-bibodi.jpg\" alt=\"...\"></a>\r\n                    </div>\r\n                    <div class=\"card-block\">\r\n                        <a href=\"#paper-kit\">\r\n                            <div class=\"author\">\r\n                                <h4 class=\"card-title\" style=\"margin-top: 20px;color:floralwhite;\">Dr. Jinsong Ouyang</h4>\r\n                                <h6 class=\"card-category\" style=\"color:floralwhite;font-size: 1.2em;font-weight: lighter\">Professor-CSU Sacramento</h6>\r\n                            </div>\r\n                        </a>\r\n                        <p class=\"card-description text-center\">\r\n                            Dr. Ouyang Description\r\n                        </p>\r\n                    </div>\r\n                    <div class=\"text-center\" style=\"padding: 15px;background: transparent;border-top:0 none\">\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-twitter\"></i></a>\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-google-plus\"></i></a>\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-linkedin\"></i></a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-6\">\r\n                <div class=\"card card-profile card-plain\">\r\n                    <div class=\"card-avatar\">\r\n                        <a href=\"#avatar\"><img src=\"../assets/img/faces/jay-bibodi.jpg\" alt=\"...\"></a>\r\n                    </div>\r\n                    <div class=\"card-block\">\r\n                        <a href=\"#paper-kit\">\r\n                            <div class=\"author\">\r\n                                <h4 class=\"card-title\" style=\"margin-top: 20px;color:floralwhite;\">Jay Bibodi</h4>\r\n                                <h6 class=\"card-category\" style=\"color:floralwhite;font-size: 1.2em;font-weight: lighter\">Developer</h6>\r\n                            </div>\r\n                        </a>\r\n                        <p class=\"card-description text-center\">\r\n                            My description\r\n                        </p>\r\n                    </div>\r\n                    <div class=\"text-center\" style=\"padding: 15px;background: transparent;border-top:0 none\">\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-twitter\"></i></a>\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-google-plus\"></i></a>\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-linkedin\"></i></a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n    <div class=\"section landing-section\">\r\n        <div class=\"container\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-8 mr-auto ml-auto\">\r\n                    <h2 class=\"text-center\">Keep in touch?</h2>\r\n                    <form class=\"contact-form\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-6\">\r\n                                <div class=\"input-group\">\r\n                                    <span class=\"input-group-addon\">\r\n                                        <i class=\"nc-icon nc-single-02\"></i>\r\n                                    </span>\r\n                                    <input type=\"text\" class=\"form-control\" placeholder=\"Name\">\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-6\">\r\n                                <div class=\"input-group\">\r\n                                    <span class=\"input-group-addon\">\r\n                                        <i class=\"nc-icon nc-email-85\"></i>\r\n                                    </span>\r\n                                    <input type=\"text\" class=\"form-control\" placeholder=\"Email\">\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <textarea class=\"form-control\" style=\"padding-top: 30px;\" rows=\"4\" placeholder=\"Tell us your thoughts and feelings...\"></textarea>\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-4 mr-auto ml-auto\" style=\"padding-top: 20px;\">\r\n                                <button class=\"btn btn-danger btn-lg btn-fill\">Send Message</button>\r\n                            </div>\r\n                        </div>\r\n                    </form>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "\r\n<div class=\"page-header\" data-parallax=\"true\" style=\"background-image: url('../../../assets/img/background-try.jpg'); color:#66615b\">\r\n    <div class=\"filter\"></div>\r\n    <div class=\"container\">\r\n        <div class=\"motto text-left\">\r\n            <h1 claass=\"about-font\">Welcome to PodWeb</h1>\r\n            <h3 class=\"about-font\">The Decentralized Application Powered by Ethereum Network</h3>\r\n            <br />\r\n            <a href=\"\" class=\"btn btn-outline-neutral btn-round\" style=\"margin-right:20px\"><i class=\"material-icons\">play_arrow</i> Watch Video</a>\r\n            <button type=\"button\" (click) = \"loadLoginComponent()\" class=\"btn btn-outline-neutral btn-round\" style=\"margin-right:20px\"><i class=\"material-icons\">fingerprint</i> Login</button>\r\n            <button type=\"button\" (click) = \"loadRegisterComponent()\" class=\"btn btn-outline-neutral btn-round\" style=\"margin-right:20px\"><i class=\"material-icons\">person_add</i> Register</button>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"main\">\r\n    <div class=\"section text-center\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-8 mr-auto ml-auto\">\r\n                <h2 class=\"title\">Let's talk product</h2>\r\n                <h5 class=\"description\">Product description</h5>\r\n                <br>\r\n                <a href=\"#paper-kit\" class=\"btn btn-danger btn-round\">See Details</a>\r\n            </div>\r\n        </div>\r\n        <br/><br/>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"section-dark text-center\" style=\"padding: 70px 0;position: relative;background-color: #FFFFFF;background-color: #0b1011;\">\r\n    <div class=\"container\">\r\n        <h2 style=\"color:floralwhite;font-size: 2.8em;margin: 30px 0 0;font-weight: 100\">Let's talk about us</h2>\r\n        <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n                <div class=\"card card-profile card-plain\">\r\n                    <div class=\"card-avatar\">\r\n                        <a href=\"#avatar\"><img src=\"../assets/img/faces/jay-bibodi.jpg\" alt=\"...\"></a>\r\n                    </div>\r\n                    <div class=\"card-block\">\r\n                        <a href=\"#paper-kit\">\r\n                            <div class=\"author\">\r\n                                <h4 class=\"card-title\" style=\"margin-top: 20px;color:floralwhite;\">Dr. Jinsong Ouyang</h4>\r\n                                <h6 class=\"card-category\" style=\"color:floralwhite;font-size: 1.2em;font-weight: lighter\">Professor-CSU Sacramento</h6>\r\n                            </div>\r\n                        </a>\r\n                        <p class=\"card-description text-center\">\r\n                            Dr. Ouyang Description\r\n                        </p>\r\n                    </div>\r\n                    <div class=\"text-center\" style=\"padding: 15px;background: transparent;border-top:0 none\">\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-twitter\"></i></a>\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-google-plus\"></i></a>\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-linkedin\"></i></a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-6\">\r\n                <div class=\"card card-profile card-plain\">\r\n                    <div class=\"card-avatar\">\r\n                        <a href=\"#avatar\"><img src=\"../assets/img/faces/jay-bibodi.jpg\" alt=\"...\"></a>\r\n                    </div>\r\n                    <div class=\"card-block\">\r\n                        <a href=\"#paper-kit\">\r\n                            <div class=\"author\">\r\n                                <h4 class=\"card-title\" style=\"margin-top: 20px;color:floralwhite;\">Jay Bibodi</h4>\r\n                                <h6 class=\"card-category\" style=\"color:floralwhite;font-size: 1.2em;font-weight: lighter\">Developer</h6>\r\n                            </div>\r\n                        </a>\r\n                        <p class=\"card-description text-center\">\r\n                            My description\r\n                        </p>\r\n                    </div>\r\n                    <div class=\"text-center\" style=\"padding: 15px;background: transparent;border-top:0 none\">\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-twitter\"></i></a>\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-google-plus\"></i></a>\r\n                        <a href=\"#pablo\" class=\"btn btn-link btn-just-icon btn-neutral\"><i class=\"fa fa-linkedin\"></i></a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n    <div class=\"section landing-section\">\r\n        <div class=\"container\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-8 mr-auto ml-auto\">\r\n                    <h2 class=\"text-center\">Keep in touch?</h2>\r\n                    <form class=\"contact-form\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-6\">\r\n                                <div class=\"input-group\">\r\n                                    <span class=\"input-group-addon\">\r\n                                        <i class=\"nc-icon nc-single-02\"></i>\r\n                                    </span>\r\n                                    <input type=\"text\" class=\"form-control\" placeholder=\"Name\">\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-md-6\">\r\n                                <div class=\"input-group\">\r\n                                    <span class=\"input-group-addon\">\r\n                                        <i class=\"nc-icon nc-email-85\"></i>\r\n                                    </span>\r\n                                    <input type=\"text\" class=\"form-control\" placeholder=\"Email\">\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <textarea class=\"form-control\" style=\"padding-top: 30px;\" rows=\"4\" placeholder=\"Tell us your thoughts and feelings...\"></textarea>\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-4 mr-auto ml-auto\" style=\"padding-top: 20px;\">\r\n                                <button class=\"btn btn-danger btn-lg btn-fill\">Send Message</button>\r\n                            </div>\r\n                        </div>\r\n                    </form>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
 
 /***/ }),
 
@@ -105,6 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AboutComponent", function() { return AboutComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -116,12 +119,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var AboutComponent = /** @class */ (function () {
-    function AboutComponent(router) {
+    function AboutComponent(router, spinner) {
         this.router = router;
+        this.spinner = spinner;
         this.test = new Date();
     }
     AboutComponent.prototype.ngOnInit = function () {
+        this.spinner.show();
         var body = document.getElementsByTagName('body')[0];
         //body.classList.add('lock-page');
         body.classList.add('off-canvas-sidebar');
@@ -130,6 +136,7 @@ var AboutComponent = /** @class */ (function () {
             // after 1000 ms we add the class animated to the login/register card
             card.classList.remove('card-hidden');
         }, 700);
+        this.spinner.hide();
     };
     AboutComponent.prototype.ngOnDestroy = function () {
         var body = document.getElementsByTagName('body')[0];
@@ -147,7 +154,7 @@ var AboutComponent = /** @class */ (function () {
             selector: 'app-about-cmp',
             template: __webpack_require__(/*! ./about.component.html */ "./src/app/about/about.component.html")
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], ngx_spinner__WEBPACK_IMPORTED_MODULE_2__["NgxSpinnerService"]])
     ], AboutComponent);
     return AboutComponent;
 }());
@@ -247,12 +254,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _about_about_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./about/about.component */ "./src/app/about/about.component.ts");
 /* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
 /* harmony import */ var ngx_chips__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ngx-chips */ "./node_modules/ngx-chips/esm5/ngx-chips.js");
+/* harmony import */ var _cust_ext_browser_xhr__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./cust-ext-browser-xhr */ "./src/app/cust-ext-browser-xhr.ts");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -331,13 +343,17 @@ var AppModule = /** @class */ (function () {
                 _shared_navbar_navbar_module__WEBPACK_IMPORTED_MODULE_11__["NavbarModule"],
                 _shared_footer_footer_module__WEBPACK_IMPORTED_MODULE_10__["FooterModule"],
                 _shared_fixedplugin_fixedplugin_module__WEBPACK_IMPORTED_MODULE_12__["FixedpluginModule"],
-                ngx_chips__WEBPACK_IMPORTED_MODULE_17__["TagInputModule"]
+                ngx_chips__WEBPACK_IMPORTED_MODULE_17__["TagInputModule"],
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_19__["NgxSpinnerModule"]
             ],
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
                 _layouts_admin_admin_layout_component__WEBPACK_IMPORTED_MODULE_13__["AdminLayoutComponent"],
                 _layouts_auth_auth_layout_component__WEBPACK_IMPORTED_MODULE_14__["AuthLayoutComponent"],
                 _about_about_component__WEBPACK_IMPORTED_MODULE_15__["AboutComponent"]
+            ],
+            providers: [
+                { provide: _angular_http__WEBPACK_IMPORTED_MODULE_3__["BrowserXhr"], useClass: _cust_ext_browser_xhr__WEBPACK_IMPORTED_MODULE_18__["CustExtBrowserXhr"] }
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
         })
@@ -393,10 +409,6 @@ var AppRoutes = [
                 loadChildren: './purchaseToken/purchaseToken.module#PurchaseTokenModule'
             },
             {
-                path: '',
-                loadChildren: './songDetails/songDetails.module#SongDetailsModule'
-            },
-            {
                 path: 'forms',
                 loadChildren: './forms/forms.module#Forms'
             }, {
@@ -428,6 +440,65 @@ var AppRoutes = [
             }]
     }
 ];
+
+
+/***/ }),
+
+/***/ "./src/app/cust-ext-browser-xhr.ts":
+/*!*****************************************!*\
+  !*** ./src/app/cust-ext-browser-xhr.ts ***!
+  \*****************************************/
+/*! exports provided: CustExtBrowserXhr */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustExtBrowserXhr", function() { return CustExtBrowserXhr; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CustExtBrowserXhr = /** @class */ (function (_super) {
+    __extends(CustExtBrowserXhr, _super);
+    function CustExtBrowserXhr() {
+        return _super.call(this) || this;
+    }
+    CustExtBrowserXhr.prototype.build = function () {
+        var xhr = _super.prototype.build.call(this);
+        xhr.withCredentials = true; // this is all the magic we need for now
+        return (xhr);
+    };
+    CustExtBrowserXhr = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
+        /**
+         * @author AhsanAyaz
+         * We're extending the BrowserXhr to support CORS
+         */
+        ,
+        __metadata("design:paramtypes", [])
+    ], CustExtBrowserXhr);
+    return CustExtBrowserXhr;
+}(_angular_http__WEBPACK_IMPORTED_MODULE_1__["BrowserXhr"]));
+
 
 
 /***/ }),

@@ -13,7 +13,7 @@ import { RegularFormsComponent } from './regularforms/regularforms.component';
 import { ValidationFormsComponent } from './validationforms/validationforms.component';
 import { WizardComponent } from './wizard/wizard.component';
 import { FieldErrorDisplayComponent } from './validationforms/field-error-display/field-error-display.component';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   imports: [
@@ -23,7 +23,8 @@ import { FieldErrorDisplayComponent } from './validationforms/field-error-displa
     ReactiveFormsModule,
     NouisliderModule,
     TagInputModule,
-    MaterialModule
+    MaterialModule,
+    NgxSpinnerModule
   ],
   declarations: [
       ExtendedFormsComponent,

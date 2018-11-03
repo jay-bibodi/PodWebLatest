@@ -50,6 +50,9 @@ import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AboutComponent } from './about/about.component';
 import { AppRoutes } from './app.routing';
 import { TagInputModule } from 'ngx-chips';
+import { BrowserXhr } from '@angular/http';
+import {CustExtBrowserXhr} from './cust-ext-browser-xhr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   exports: [
@@ -101,13 +104,17 @@ export class MaterialModule {}
         NavbarModule,
         FooterModule,
         FixedpluginModule,
-        TagInputModule
+        TagInputModule,
+        NgxSpinnerModule
     ],
     declarations: [
         AppComponent,
         AdminLayoutComponent,
         AuthLayoutComponent,
         AboutComponent
+    ],
+    providers:[
+      {provide: BrowserXhr, useClass:CustExtBrowserXhr}
     ],
     bootstrap:    [ AppComponent ]
 })

@@ -817,7 +817,7 @@ exports.SelectModule = SelectModule;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-content\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"card\">\r\n                    <form #purchaseTokenForm=\"ngForm\" (ngSubmit)=\"purchaseToken(purchaseTokenForm.value)\">\r\n                        <div class=\"card-header card-header-rose card-header-icon\">\r\n                            <div class=\"card-icon\">\r\n                                <i class=\"material-icons\">shop</i>\r\n                            </div>\r\n                            <h4 class=\"card-title\">Purchase Tokens</h4>\r\n                        </div>\r\n                        <div class=\"col-lg-4\"></div>\r\n                        <div class=\"col-lg-12\">\r\n                            <mat-form-field style=\"margin-top: 20px;\">\r\n                                <mat-select placeholder=\"Number of Tokens\" name=\"tokenName\" (selectionChange)=\"selectedToken($event.value)\">\r\n                                    <mat-option *ngFor=\"let token of tokenList\" [value]=\"token.value\">\r\n                                        {{ token.viewValue }}\r\n                                    </mat-option>\r\n                                </mat-select>\r\n                            </mat-form-field>\r\n                        </div>\r\n                        <div class=\"col-lg-12\">\r\n                            <mat-form-field>\r\n                                <input [disabled]=\"amount\" type=\"text\" name=\"amountForTokenSelected\" matInput\r\n                                    placeholder=\"Amount will be Auto populated\" [(ngModel)]=\"amountForTokenSelected\"></mat-form-field>\r\n                        </div><br />\r\n                        <div class=\"col-lg-12\">\r\n                            <mat-form-field>\r\n                                <textarea matInput placeholder=\"Add optional Message\"></textarea></mat-form-field>\r\n                        </div>\r\n\r\n                        <div class=\"card-footer text-right\">\r\n                            <div class=\"form-check mr-auto\"></div>\r\n                            <button mat-raised-button type=\"submit\" class=\"btn btn-rose\">Purchase</button>\r\n                        </div>\r\n                    </form>\r\n                </div>\r\n                <!--Accordian here-->\r\n                <div class=\"card\">\r\n                    <div class=\"card-header card-header-rose card-header-icon\">\r\n                        <div class=\"card-icon\">\r\n                            <i class=\"material-icons\">shop</i>\r\n                        </div>\r\n                        <h4 class=\"card-title\">Tokens History</h4>\r\n                    </div>\r\n                    <br /><br />\r\n                    <div class=\"col-lg-12\" style=\"padding-top:2%;padding-bottom:2%\">\r\n                        <mat-accordion *ngFor=\"let data of purchaseHistoryAcc\">\r\n                            <mat-expansion-panel (opened)=\"panelOpenState = true\" (closed)=\"panelOpenState = false\">\r\n                                <mat-expansion-panel-header>\r\n                                    <mat-panel-title>\r\n                                        {{data.podsPurchased}}\r\n                                    </mat-panel-title>\r\n                                    <mat-panel-description>\r\n                                        {{data.reason}}\r\n                                      </mat-panel-description>\r\n                                </mat-expansion-panel-header>\r\n                                <p>Amount Paid: {{data.amountPaid}}</p>\r\n                                <p>Transaction Hash: {{data.transactionHash}}</p>\r\n                                <p>Block Hash: {{data.blockHash}}</p>\r\n                                <p>Block Number: {{data.blockNumber}}</p>\r\n                                <p>Created Date & Time: {{data.createdDateTime}}</p>\r\n                            </mat-expansion-panel>\r\n                        </mat-accordion>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"main-content\">\r\n    <div class=\"container-fluid\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"card\">\r\n                    <form #purchaseTokenForm=\"ngForm\" (ngSubmit)=\"purchaseToken(purchaseTokenForm.value)\">\r\n                        <div class=\"card-header card-header-rose card-header-icon\">\r\n                            <div class=\"card-icon\">\r\n                                <i class=\"material-icons\">shop</i>\r\n                            </div>\r\n                            <h4 class=\"card-title\">Purchase Tokens</h4>\r\n                        </div>\r\n                        <div class=\"col-lg-4\"></div>\r\n                        <div class=\"col-lg-12\">\r\n                            <mat-form-field style=\"margin-top: 20px;\">\r\n                                <mat-select placeholder=\"Number of Tokens\" name=\"tokenName\" (selectionChange)=\"selectedToken($event.value)\">\r\n                                    <mat-option *ngFor=\"let token of tokenList\" [value]=\"token.value\">\r\n                                        {{ token.viewValue }}\r\n                                    </mat-option>\r\n                                </mat-select>\r\n                            </mat-form-field>\r\n                        </div>\r\n                        <div class=\"col-lg-12\">\r\n                            <mat-form-field>\r\n                                <input [disabled]=\"amount\" type=\"text\" name=\"amountForTokenSelected\" matInput\r\n                                    placeholder=\"Amount will be Auto populated\" [(ngModel)]=\"amountForTokenSelected\"></mat-form-field>\r\n                        </div><br />\r\n                        <div class=\"col-lg-12\">\r\n                            <mat-form-field>\r\n                                <textarea matInput placeholder=\"Add optional Message\"></textarea></mat-form-field>\r\n                        </div>\r\n\r\n                        <div class=\"card-footer text-right\">\r\n                            <div class=\"form-check mr-auto\"></div>\r\n                            <button mat-raised-button type=\"submit\" class=\"btn btn-rose\">Purchase</button>\r\n                        </div>\r\n                    </form>\r\n                </div>\r\n                <!--Accordian here-->\r\n                <div class=\"card\">\r\n                    <div class=\"card-header card-header-rose card-header-icon\">\r\n                        <div class=\"card-icon\">\r\n                            <i class=\"material-icons\">shop</i>\r\n                        </div>\r\n                        <h4 class=\"card-title\">Tokens History</h4>\r\n                    </div>\r\n                    <br /><br />\r\n                    <div class=\"col-lg-12\" style=\"padding-top:2%;padding-bottom:2%\">\r\n                        <mat-accordion *ngFor=\"let data of purchaseHistoryAcc\">\r\n                            <mat-expansion-panel (opened)=\"panelOpenState = true\" (closed)=\"panelOpenState = false\">\r\n                                <mat-expansion-panel-header>\r\n                                    <mat-panel-title>\r\n                                        {{data.podsPurchased}}\r\n                                    </mat-panel-title>\r\n                                    <mat-panel-description>\r\n                                        {{data.reason}}\r\n                                      </mat-panel-description>\r\n                                </mat-expansion-panel-header>\r\n                                <p>Amount Paid: {{data.amountPaid}}</p>\r\n                                <p>Transaction Hash: {{data.transactionHash}}</p>\r\n                                <p>Block Hash: {{data.blockHash}}</p>\r\n                                <p>Block Number: {{data.blockNumber}}</p>\r\n                                <p>Created Date & Time: {{data.createdDateTime}}</p>\r\n                            </mat-expansion-panel>\r\n                        </mat-accordion>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<ngx-spinner bdColor = \"rgba(51, 51, 51, 0.8)\" size = \"large\" color = \"#fff\" type = \"square-jelly-box\" ></ngx-spinner>"
 
 /***/ }),
 
@@ -836,6 +836,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
+/* harmony import */ var _global__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../global */ "./src/app/global.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -849,29 +851,31 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var PurchaseTokenComponent = /** @class */ (function () {
-    function PurchaseTokenComponent(http, router) {
+    function PurchaseTokenComponent(http, router, spinner) {
         this.http = http;
         this.router = router;
+        this.spinner = spinner;
         this.amount = true;
-        //gasPrice: string;
-        //gas:string;
         this.panelOpenState = false;
         this.purchaseHistoryAcc = [];
     }
     PurchaseTokenComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.spinner.show();
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
         headers.append("token", localStorage.getItem("token"));
         headers.append("emailAddress", localStorage.getItem("emailAddress"));
-        this.http.get('http://localhost:3000/getTokenList', { headers: headers }).subscribe(function (data) {
-            console.log("message sending results", data);
+        this.http.get(_global__WEBPACK_IMPORTED_MODULE_5__["Global"].API_ENDPOINT + '/getTokenList', { headers: headers }).subscribe(function (data) {
             _this.tokenList = data.json().data;
             _this.purchaseHistoryAcc = data.json().purchaseHistory;
+            _this.spinner.hide();
         }, function (err) {
-            console.log("message sending err", err);
             localStorage.removeItem("token");
             localStorage.removeItem("emailAddress");
+            _this.spinner.hide();
             sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
                 title: "Invalid login credentials. Please login again!",
                 text: "",
@@ -881,34 +885,22 @@ var PurchaseTokenComponent = /** @class */ (function () {
             _this.router.navigateByUrl('/');
         });
     };
-    PurchaseTokenComponent.prototype.myFunc = function (val) {
-        // code here
-    };
     PurchaseTokenComponent.prototype.selectedToken = function (value) {
         var _this = this;
-        console.log("Inside selected Token");
-        console.log(value);
+        this.spinner.show();
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
         headers.append("token", localStorage.getItem("token"));
         headers.append("emailAddress", localStorage.getItem("emailAddress"));
-        this.http.post('http://localhost:3000/getAmountForTokenValue', { "totalToken": value }, { headers: headers }).subscribe(function (data) {
-            console.log("message sending results", data);
+        this.http.post(_global__WEBPACK_IMPORTED_MODULE_5__["Global"].API_ENDPOINT + '/getAmountForTokenValue', { "totalToken": value }, { headers: headers }).subscribe(function (data) {
             var body = JSON.parse(data.text());
-            //console.log(body);
             _this.amountForTokenSelected = body.data;
             _this.prices = (body.price).toString();
             _this.tokens = body.tokens;
-            //this.gasPrice = body.gasPrice;
-            //this.gas = body.gas;
-            console.log(_this.prices);
-            console.log(_this.tokens);
-            console.log(_this.amountForTokenSelected);
-            //console.log(this.gasPrice);
-            //console.log(this.gas);
+            _this.spinner.hide();
         }, function (err) {
-            console.log("message sending err", err);
             localStorage.removeItem("token");
             localStorage.removeItem("emailAddress");
+            _this.spinner.hide();
             sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
                 title: "Invalid login credentials. Please login again!",
                 text: "",
@@ -920,50 +912,29 @@ var PurchaseTokenComponent = /** @class */ (function () {
     };
     PurchaseTokenComponent.prototype.purchaseToken = function (form) {
         var self = this;
-        console.log("Inside purchase Token form");
-        console.log(form.amountForTokenSelected);
-        console.log(this.prices);
-        console.log(this.tokens);
         var ethPrice = this.prices;
         var tokensToBuy = this.tokens;
-        //var gasPrice = this.gasPrice;
-        //var gas = this.gas;
-        //console.log("Gas:"+gas);
         var purchaseTokenObj = {
             "stripeId": "",
             "price": ethPrice,
             "tokens": tokensToBuy,
             "amount": form.amountForTokenSelected
-            //"gasPrice":gasPrice,
-            //"gas":gas
         };
-        console.log(purchaseTokenObj);
         var handler = window.StripeCheckout.configure({
             key: 'pk_test_CoMBkQnIgd8vejmt3EsQTasU',
             locale: 'auto',
         });
         handler.open({
             name: 'Purchase PodWeb Token',
-            //description: '2 widgets',
             amount: (parseFloat(form.amountForTokenSelected) * 100),
             token: function (token) {
-                console.log(token);
-                console.log(token.id);
                 purchaseTokenObj.stripeId = token.id;
-                console.log(purchaseTokenObj);
-                //this.callStripePurchaseToken(purchaseTokenObj);
-                /*swal({
-                    title: "Tokens will be credited in your account in few minutes!",
-                    text: "If tokens are not credited within 3 hours! Please contact send us an email",
-                    timer: 2000,
-                    showConfirmButton: false
-                }).catch(swal.noop)*/
+                self.spinner.show();
                 var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_2__["Headers"]();
                 headers.append("token", localStorage.getItem("token"));
                 headers.append("emailAddress", localStorage.getItem("emailAddress"));
-                self.http.post('http://localhost:3000/stripePurchaseToken', purchaseTokenObj, { headers: headers }).subscribe(function (data) {
-                    console.log("message sending results stripePurchaseToken", data);
-                    console.log("Inside success of stripePurchaseToken");
+                self.http.post(_global__WEBPACK_IMPORTED_MODULE_5__["Global"].API_ENDPOINT + '/stripePurchaseToken', purchaseTokenObj, { headers: headers }).subscribe(function (data) {
+                    self.spinner.hide();
                     self.purchaseHistoryAcc = data.json().purchaseHistory;
                     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
                         title: data.json().status,
@@ -972,9 +943,9 @@ var PurchaseTokenComponent = /** @class */ (function () {
                         showConfirmButton: false
                     }).catch(sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.noop);
                 }, function (err) {
-                    console.log("message sending err", err);
                     localStorage.removeItem("token");
                     localStorage.removeItem("emailAddress");
+                    self.spinner.hide();
                     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()({
                         title: "Invalid login credentials. Please login again!",
                         text: "",
@@ -992,7 +963,7 @@ var PurchaseTokenComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./purchaseToken.component.html */ "./src/app/purchaseToken/purchaseToken.component.html"),
             styles: ["md-calendar {\n      width: 300px;\n  }"]
         }),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"]])
     ], PurchaseTokenComponent);
     return PurchaseTokenComponent;
 }());
@@ -1023,6 +994,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../app.module */ "./src/app/app.module.ts");
 /* harmony import */ var _purchaseToken_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./purchaseToken.component */ "./src/app/purchaseToken/purchaseToken.component.ts");
 /* harmony import */ var _purchaseToken_routing__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./purchaseToken.routing */ "./src/app/purchaseToken/purchaseToken.routing.ts");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1040,6 +1012,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var PurchaseTokenModule = /** @class */ (function () {
     function PurchaseTokenModule() {
     }
@@ -1053,7 +1026,8 @@ var PurchaseTokenModule = /** @class */ (function () {
                 ng2_nouislider__WEBPACK_IMPORTED_MODULE_4__["NouisliderModule"],
                 ngx_chips__WEBPACK_IMPORTED_MODULE_5__["TagInputModule"],
                 ng2_select__WEBPACK_IMPORTED_MODULE_6__["SelectModule"],
-                _app_module__WEBPACK_IMPORTED_MODULE_7__["MaterialModule"]
+                _app_module__WEBPACK_IMPORTED_MODULE_7__["MaterialModule"],
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_10__["NgxSpinnerModule"]
             ],
             declarations: [_purchaseToken_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseTokenComponent"]]
         })

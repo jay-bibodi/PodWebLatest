@@ -14,6 +14,7 @@ import { PurchasedPodcastTableComponent } from './purchasedPodcast/purchasedPodc
 import { PodcastDetailComponent } from '../forms/podcastDetailforms/podcastDetailforms.component';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 import { DetailForLatestAndPurchasedPodcastComponent } from '../forms/detailForLatestAndPurchasedPodcast/detailForLatestAndPurchasedPodcast.component'
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { DetailForLatestAndPurchasedPodcastComponent } from '../forms/detailForL
     RouterModule.forChild(TablesRoutes),
     FormsModule,
     TagInputModule,
-    MaterialModule
+    MaterialModule,
+    NgxSpinnerModule
   ],
   declarations: [
       ExtendedTableComponent,

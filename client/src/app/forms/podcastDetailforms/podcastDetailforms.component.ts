@@ -2,11 +2,9 @@ import { Component, OnInit, ElementRef} from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import swal from 'sweetalert2';
-import { FileUploader } from "ng2-file-upload"
-
-declare const require: any;
-
-declare const $: any;
+import { FileUploader } from "ng2-file-upload";
+import {NgxSpinnerService} from 'ngx-spinner'
+import {Global} from '../../global';
 
 @Component({
   selector: 'app-podcastDetailforms-cmp',
@@ -42,7 +40,7 @@ export class PodcastDetailComponent implements OnInit {
   pathOfPodcastId = null;
 
   podcastPurchasedByDetail = [];
-  public uploader: FileUploader = new FileUploader({ url: 'http://localhost:3000/uploadfile' });
+  public uploader: FileUploader = new FileUploader({ url: Global.API_ENDPOINT+'/uploadfile' });
   public hasBaseDropZoneOver:boolean = false;
   public hasAnotherDropZoneOver:boolean = false;
   
@@ -54,10 +52,9 @@ export class PodcastDetailComponent implements OnInit {
     this.hasAnotherDropZoneOver = e;
   }
 
-  constructor(private http: Http, private router: Router,private route: ActivatedRoute) { }
+  constructor(private http: Http, private router: Router,private route: ActivatedRoute,private spinner:NgxSpinnerService) { }
 
   radioChange(event) {
-    console.log(event.value);
     if (event.value === "Paid Podcast") {
       this.selectedType = "Paid Podcast";
       this.isPaidPodcast = true;
@@ -87,7 +84,6 @@ export class PodcastDetailComponent implements OnInit {
           cancelButtonColor: '#d33',
           confirmButtonText: 'Confirm'
         }).then((result) => {
-          console.log(result.value);
           if (result.value) {
             this.router.navigate(["tables/userPublishedTable"]);
           }
@@ -126,8 +122,6 @@ export class PodcastDetailComponent implements OnInit {
     }
 
     if (!this.isErrorPresent && !this.isFromEdit) {
-      console.log("Inside if");
-      console.log(form.tags);
 
       for (var i = 0; i < form.tags.length; i++) {
         this.tagsArray.push(form.tags[i].display);
@@ -147,7 +141,6 @@ export class PodcastDetailComponent implements OnInit {
 
       this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
         if (response) {
-          //console.log("response" + JSON.stringify(response));
           this.fileUploaded = true;
           this.UIChange = false;
           var body = JSON.parse(response);
@@ -162,7 +155,6 @@ export class PodcastDetailComponent implements OnInit {
 
       this.uploader.onErrorItem = (item: any, response: string, status: number, headers: any): any => {
         if (response) {
-          //console.log("response" + JSON.stringify(response));
           var body = JSON.parse(response);
             swal({
               title: body.status,
@@ -175,19 +167,16 @@ export class PodcastDetailComponent implements OnInit {
     }
     else if(!this.isErrorPresent && this.isFromEdit)
     {
-      console.log("Inside else of form submit");
+      this.spinner.show();
         let headers = new Headers();
         headers.append("token",localStorage.getItem("token")); 
         headers.append("emailAddress",localStorage.getItem("emailAddress"));
 
         this.tagsArray = [];
 
-        console.log("Tags")
-        console.log(form.tags);
         for (var i = 0; i < form.tags.length; i++) {
           this.tagsArray.push(form.tags[i].display);
         }
-        console.log(this.tagsArray);
         
         var editedObject = {
           'title':this.titleName,
@@ -197,11 +186,9 @@ export class PodcastDetailComponent implements OnInit {
           'amount': this.amount,
           'id': this.fileId
         }
-        
-        console.log("editedObj")
-        console.log(editedObject);
 
-        this.http.post('http://localhost:3000/updatePodcastDetails',editedObject,{headers: headers}).subscribe((data) => {
+        this.http.post(Global.API_ENDPOINT+'/updatePodcastDetails',editedObject,{headers: headers}).subscribe((data) => {
+          this.spinner.hide();
           var body = JSON.parse(data.text());
   
           swal({
@@ -210,13 +197,18 @@ export class PodcastDetailComponent implements OnInit {
             timer: 2000,
             showConfirmButton: false
           }).catch(swal.noop);
-        },(err) => { console.log("message sending err", err) }, () => {})
+        },(err) => { 
+          this.spinner.hide();
+          var body = JSON.parse(err.text());
+          swal({
+            title: body.status,
+            text: "",
+            timer: 2000,
+            showConfirmButton: false
+          }).catch(swal.noop);
+        })
     }
   }
-
-  /*check_for_error(error) {
-    console.log(error)
-  }*/
 
   deleteFile(item){
     console.log(item);
@@ -228,15 +220,14 @@ export class PodcastDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.route.params.subscribe(params => {
-      console.log(params.id);
 
       let headers = new Headers();
         headers.append("token",localStorage.getItem("token")); 
         headers.append("emailAddress",localStorage.getItem("emailAddress"));
 
-        this.http.post('http://localhost:3000/getPodcastDetailsForView',{"id":params.id},{headers: headers}).subscribe((data) => {
-            console.log("message sending results", data); 
+        this.http.post(Global.API_ENDPOINT+'/getPodcastDetailsForView',{"id":params.id},{headers: headers}).subscribe((data) => {
             this.showPlayButton = true;
             this.isFromEdit = true;
 
@@ -270,12 +261,16 @@ export class PodcastDetailComponent implements OnInit {
               this.showPlayButton = false;
               this.isFromEdit = false;
             }
+            this.spinner.hide();
         }, (err) => { 
-
+          var body = JSON.parse(err.text());
+          swal({
+            title: body.status,
+            text: "",
+            timer: 2000,
+            showConfirmButton: false
+        }).catch(swal.noop)
         })
     })
    }
-  myFunc(val: any) {
-    // code here
-  }
 }

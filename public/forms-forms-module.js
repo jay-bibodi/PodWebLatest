@@ -87,12 +87,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _validationforms_validationforms_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./validationforms/validationforms.component */ "./src/app/forms/validationforms/validationforms.component.ts");
 /* harmony import */ var _wizard_wizard_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./wizard/wizard.component */ "./src/app/forms/wizard/wizard.component.ts");
 /* harmony import */ var _validationforms_field_error_display_field_error_display_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./validationforms/field-error-display/field-error-display.component */ "./src/app/forms/validationforms/field-error-display/field-error-display.component.ts");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -118,7 +120,8 @@ var Forms = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 ng2_nouislider__WEBPACK_IMPORTED_MODULE_4__["NouisliderModule"],
                 ngx_chips__WEBPACK_IMPORTED_MODULE_5__["TagInputModule"],
-                _app_module__WEBPACK_IMPORTED_MODULE_6__["MaterialModule"]
+                _app_module__WEBPACK_IMPORTED_MODULE_6__["MaterialModule"],
+                ngx_spinner__WEBPACK_IMPORTED_MODULE_13__["NgxSpinnerModule"]
             ],
             declarations: [
                 _extendedforms_extendedforms_component__WEBPACK_IMPORTED_MODULE_8__["ExtendedFormsComponent"],

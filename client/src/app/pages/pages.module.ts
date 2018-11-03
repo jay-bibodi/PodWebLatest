@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 //import { LockComponent } from './lock/lock.component';
 import { LoginComponent } from './login/login.component';
 //import { AboutComponent } from './about/about.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { LoginComponent } from './login/login.component';
     RouterModule.forChild(PagesRoutes),
     FormsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   declarations: [
     LoginComponent,

@@ -29,7 +29,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let row of dataTable.dataRows; let i=index;">
+                                    <tr *ngFor="let row of purchasedTable.dataRows; let i=index;">
                                         <td>{{row[0]}}</td>
                                         <td>{{row[1]}}</td>
                                         <td>{{row[2]}}</td>
@@ -55,3 +55,4 @@
         <!-- end row -->
     </div>
 </div>
+<ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "large" color = "#fff" type = "square-jelly-box" ></ngx-spinner>

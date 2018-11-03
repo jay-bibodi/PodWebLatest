@@ -5,12 +5,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AboutComponent } from './about.component';
 import { AboutRoutes } from './about.routing';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule.forChild(AboutRoutes),
-        FormsModule
+        FormsModule,
+        NgxSpinnerModule
     ],
     declarations: [AboutComponent]
 })
