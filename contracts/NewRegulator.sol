@@ -1,6 +1,7 @@
 contract NewRegulator {
     
     struct IpfsAndAmount{
+        string ipfsPath;
         string ipfsAddress;
         string amount;
     }
@@ -14,9 +15,10 @@ contract NewRegulator {
         return true;
     }
     
-    function storeAddressAndIpfsStruct(address _userAddress,string ipfsAddr,string amount) public returns (bool success){
+    function storeAddressAndIpfsStruct(address _userAddress,string ipfsPath,string ipfsAddr,string amount) public returns (bool success){
         IpfsAndAmount memory ipfsAndAmountObject;
         ipfsAndAmountObject.ipfsAddress = ipfsAddr;
+        ipfsAndAmountObject.ipfsPath = ipfsPath;
         ipfsAndAmountObject.amount = amount;
         
         IpfsAndAmount[] arrObject = addressToIpfsStruct[_userAddress];

@@ -26,6 +26,8 @@ export class PodcastDetailComponent implements OnInit {
   selectFileToUpload = true;
   fileUploaded = false;
   fileId: string;
+  amountDisable = false;
+  parameterId: string;
 
   titleName: string;
   errorTextForAmount: string;
@@ -97,12 +99,12 @@ export class PodcastDetailComponent implements OnInit {
   }
 
   editPodcastDetail(form) {
-    if (this.isPaidPodcast && (form.amount === undefined || (form.amount).trim().length === 0)) {
+    if (this.isPaidPodcast && !this.amountDisable && (form.amount === undefined || (form.amount).trim().length === 0)) {
       this.isAmountPresent = false;
       this.errorTextForAmount = "Amount of pods are required"
       this.isErrorPresent = true;
     }
-    if (parseInt(form.amount) === NaN) {
+    if (parseInt(form.amount) === NaN && !this.amountDisable) {
       this.isAmountPresent = false;
       this.errorTextForAmount = "Amount should be expressed in Integer"
       this.isErrorPresent = true;
@@ -111,7 +113,7 @@ export class PodcastDetailComponent implements OnInit {
       this.isTitlePresent = false;
       this.isErrorPresent = true;
     }
-    if (this.selectedType === undefined) {
+    if (this.selectedType === undefined && !this.amountDisable) {
       this.isErrorPresent = true;
       this.isRadioButtonSelected = false;
     }
@@ -183,14 +185,18 @@ export class PodcastDetailComponent implements OnInit {
           'artist': this.artistName,
           'tags': this.tagsArray,
           'isPaidPodcast': this.isPaidPodcast,
-          'amount': this.amount,
-          'id': this.fileId
+          'amount':this.amount,
+          'id': this.fileId,
+          'parameterId':this.parameterId
         }
+
+        console.log(editedObject);
 
         this.http.post(Global.API_ENDPOINT+'/updatePodcastDetails',editedObject,{headers: headers}).subscribe((data) => {
           this.spinner.hide();
           var body = JSON.parse(data.text());
-  
+          this.UIChange = false;
+
           swal({
             title: body.status,
             text: "",
@@ -223,6 +229,8 @@ export class PodcastDetailComponent implements OnInit {
     this.spinner.show();
     this.route.params.subscribe(params => {
 
+      this.parameterId = params.id;
+
       let headers = new Headers();
         headers.append("token",localStorage.getItem("token")); 
         headers.append("emailAddress",localStorage.getItem("emailAddress"));
@@ -231,36 +239,42 @@ export class PodcastDetailComponent implements OnInit {
             this.showPlayButton = true;
             this.isFromEdit = true;
 
-            this.pathOfPodcastId = params.id;
-
             var jsonData = data.json();
-            if(jsonData.status !== "Adding Podcast"){
-              
+            this.amountDisable = jsonData.amountDisable;
+            if(jsonData.status !== "Adding Podcast")
+            {  
+
               jsonData = jsonData.data;
               
-              this.fileId = jsonData.fileHashKey[0].hash
+              this.fileId = jsonData.path
               this.titleName = jsonData.title;
               this.artistName = jsonData.artistName;
-              if(jsonData.amount!=="undefined"){
+              
+              if(jsonData.amount!=="undefined")
+              {
                 this.selectedType = "Paid Podcast";
                 this.isPaidPodcast = true;
                 this.amount = jsonData.amount
               }
-              else{
+              else
+              {
                 this.selectedType = "Free Podcast";
               }
 
               this.podcastPurchasedByDetail = jsonData.purchasedUserList;
 
               var tagsArr = jsonData.tags.split(",");
-              for (var i = 0; i <  tagsArr.length; i++) {
+              for (var i = 0; i <  tagsArr.length; i++) 
+              {
                 this.tags.push({ "display":  tagsArr[i], "value":  tagsArr[i] });
               }
             }
-            else{
+            else
+            {
               this.showPlayButton = false;
               this.isFromEdit = false;
             }
+            this.pathOfPodcastId = jsonData.path;
             this.spinner.hide();
         }, (err) => { 
           var body = JSON.parse(err.text());

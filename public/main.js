@@ -462,7 +462,7 @@ var CustExtBrowserXhr = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"wrapper\">\r\n    <div class=\"sidebar\" data-color=\"white\" data-background-color=\"black\" data-image=\"./assets/img/sidebar-1.jpg\">\r\n        <app-sidebar-cmp></app-sidebar-cmp>\r\n        <div class=\"sidebar-background\" style=\"background-image: url(assets/img/sidebar-1.jpg)\"></div>\r\n    </div>\r\n    <div class=\"main-panel\">\r\n        <app-navbar-cmp></app-navbar-cmp>\r\n        <router-outlet (getPodcastIdPath)=\"passPodcastIdPath($event)\"></router-outlet>\r\n        <div *ngIf=\"!isMap()\">\r\n            <app-footer-cmp [pathOfPodcastId] = \"globalPodcastId\"></app-footer-cmp>\r\n        </div>\r\n    </div>\r\n    <app-fixedplugin></app-fixedplugin>\r\n</div>\r\n"
+module.exports = "\r\n<div class=\"wrapper\">\r\n    <div class=\"sidebar\" data-color=\"white\" data-background-color=\"black\" data-image=\"./assets/img/sidebar-1.jpg\">\r\n        <app-sidebar-cmp></app-sidebar-cmp>\r\n        <div class=\"sidebar-background\" style=\"background-image: url(assets/img/sidebar-1.jpg)\"></div>\r\n    </div>\r\n    <div class=\"main-panel\">\r\n        <app-navbar-cmp></app-navbar-cmp>\r\n        <router-outlet></router-outlet>\r\n        <div *ngIf=\"!isMap()\">\r\n            <app-footer-cmp></app-footer-cmp>\r\n        </div>\r\n    </div>\r\n    <app-fixedplugin></app-fixedplugin>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -994,7 +994,7 @@ var FixedpluginModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<footer class=\"footer \">\n  <div class=\"container-fluid\">\n      <!--<audio controls=\"controls\" src=\"https://ipfs.io/ipfs/{{pathOfPodcastId}}\" style=\"width:100%\">\n        Your browser does not support the <a href=\"http://caniuse.com/#search=audio\"><code>audio</code></a> element.\n      </audio>-->\n    <nav class=\"pull-left\">\n      <ul>\n        <li>\n          <a [routerLink]=\"['/about']\">\n            About Us\n          </a>\n        </li>\n        <li>\n          <a href=\"http://blog.creative-tim.com\">\n            Blog\n          </a>\n        </li>\n      </ul>\n    </nav>\n    <div class=\"copyright pull-right\">\n      &copy;\n      {{test | date: 'yyyy'}}, made with <i class=\"material-icons\">favorite</i> by Jay Bibodi, CSU Sacramento.\n    </div>\n  </div>\n</footer>\n"
+module.exports = "<footer class=\"footer \">\n  <div class=\"container-fluid\">\n    <nav class=\"pull-left\">\n      <ul>\n        <li>\n          <a [routerLink]=\"['/about']\">\n            About Us\n          </a>\n        </li>\n        <li>\n          <a href=\"http://blog.creative-tim.com\">\n            Blog\n          </a>\n        </li>\n      </ul>\n    </nav>\n    <div class=\"copyright pull-right\">\n      &copy;\n      {{test | date: 'yyyy'}}, made with <i class=\"material-icons\">favorite</i> by Jay Bibodi, CSU Sacramento.\n    </div>\n  </div>\n</footer>\n"
 
 /***/ }),
 
@@ -1015,21 +1015,13 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 
 var FooterComponent = /** @class */ (function () {
     function FooterComponent() {
         this.test = new Date();
     }
     FooterComponent.prototype.ngOnInit = function () {
-        console.log(this.pathOfPodcastId);
     };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
-    ], FooterComponent.prototype, "pathOfPodcastId", void 0);
     FooterComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-footer-cmp',

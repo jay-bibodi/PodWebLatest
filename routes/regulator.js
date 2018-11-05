@@ -40,8 +40,6 @@ var storage = multer.diskStorage({
         cb(null, DIR)
     },
     filename: function (req, file, cb) {
-        console.log(req);
-        console.log(file);
         cb(null, file.originalname)
     }
 })
@@ -63,12 +61,12 @@ var userInfoStructure = {
 
 var podcastDetailStructure = {
     "uploadedBy": "",
-    "fileHashKey": "",
+    "address":"",
     "title": "",
+    "location": 0,
     "tags": [],
     "artistName": "",
     "isPodcastPaid": "",
-    "amount": "",
     "comments": [],
     "likes": [],
     "purchasedUserList": [],
@@ -103,11 +101,11 @@ web3.setProvider(new web3.providers.HttpProvider('http://127.0.0.1:7545'));
 // mapping user to account, user to file contract
 var contractInstance;
 var input = {
-    'Regulator.sol': fs.readFileSync('../contracts/Regulator.sol', 'utf8')
+    'NewRegulator.sol': fs.readFileSync('../contracts/NewRegulator.sol', 'utf8')
 };
 let compiledContract = solc.compile({ sources: input }, 1);
-let abi = compiledContract.contracts['Regulator.sol:Regulator'].interface;
-let bytecode = '0x' + compiledContract.contracts['Regulator.sol:Regulator'].bytecode;
+let abi = compiledContract.contracts['NewRegulator.sol:NewRegulator'].interface;
+let bytecode = '0x' + compiledContract.contracts['NewRegulator.sol:NewRegulator'].bytecode;
 var myContract = new web3.eth.Contract(JSON.parse(abi));
 var myContractTx = myContract.deploy({ data: bytecode });
 
@@ -192,7 +190,6 @@ function deployContract() {
 
 function login(req, res, next) {
     var userCredentials = JSON.parse(JSON.stringify(req.body));
-    // console.log("Inside regulator login");
 
     MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
         if (err) throw new Error();
@@ -200,16 +197,6 @@ function login(req, res, next) {
 
         db.collection(DatabaseCollectionName).findOne({ emailId: userCredentials.emailOfPerson }, function (err, result) {
             if (err) throw err;
-
-            /*console.log("Get ETH balance");
-            web3.eth.getBalance(result.address)
-                .then(console.log);
-            
-            web3.eth.sendTransaction({from:ethAccounts[0], to:ethAccounts[1], value: web3.utils.toWei("10", "ether")});
-            web3.eth.sendTransaction({from:ethAccounts[0], to:result.address, value: web3.utils.toWei("10", "ether")});
-            
-            web3.eth.getBalance(result.address)
-                .then(console.log);*/
 
             if (result !== undefined && bcrypt.compareSync(userCredentials.passwordOfPerson, result.password)) {
                 var jwtToken = jwt.sign({ emailId: userCredentials.emailOfPerson }, serverJWT_Secret);
@@ -231,7 +218,6 @@ function login(req, res, next) {
 
 // from pods token
 function tokenSold() {
-    console.log("Inside token sold");
     podsTokenSaleContractInstance.methods.tokensSold().call({ from: ethAccounts[0] }).then(console.log);
 }
 
@@ -257,9 +243,7 @@ function signup(req, res, next) {
 
 var createUserAccount = (userInfo, res) => {
     var accountJson = web3.eth.accounts.create();
-    /*console.log("Get ETH balance createUserAccount");
-    web3.eth.getBalance(accountJson.address)
-        .then(console.log);*/
+
     if (accountJson !== undefined && Object.keys(accountJson).length > 0) {
         accountJson["emailId"] = userInfo.emailOfPerson;
         accountJson["name"] = userInfo.nameOfPerson;
@@ -284,10 +268,8 @@ var createUserAccount = (userInfo, res) => {
                 { "upsert": "true" },
                 function (error, object) {
                     if (!error) {
-                        //console.log(ethAccounts[0]);
                         contractInstance.methods.storeEmailAddressMapping(accountJson.address, userInfo.emailOfPerson).send({ from: ethAccounts[0] }, function (error, result) {
-                            console.log(error);
-                            console.log(result);
+
                             if (result !== undefined) {
                                 console.log("Account Address: " + accountJson.address);
                                 contractInstance.methods.emailAddressMapping(accountJson.address).call({ from: ethAccounts[0] }).then(console.log);
@@ -295,8 +277,6 @@ var createUserAccount = (userInfo, res) => {
 
                                 podsTokenContractInstance.methods.transfer(accountJson.address, 10).send({ from: ethAccounts[0] })
                                     .then(function (receipt) {
-                                        console.log("Inside get Receipt");
-                                        console.log(receipt);
                                         //podsTokenContractInstance.methods.balanceOf(ethAccounts[0]).call().then(console.log).catch(console.error);
 
                                         var tokenObject = JSON.parse(JSON.stringify(tokenPurchasedDetail));
@@ -311,7 +291,7 @@ var createUserAccount = (userInfo, res) => {
                                         try {
                                             db.collection(TokenPurchasedDetailCollectionName).insertOne({ "emailId": userInfo.emailOfPerson, "purchaseTokenHistory": [tokenObject] }).then(tokenHistoryStatus => {
                                                 var jwtToken = jwt.sign({ emailId: userInfo.emailOfPerson }, serverJWT_Secret);
-                                                console.log(jwt.verify(jwtToken, serverJWT_Secret));
+
                                                 res.status(200).send({
                                                     status: "Created Successfully",
                                                     emailAddress: userInfo.emailOfPerson,
@@ -334,7 +314,6 @@ var createUserAccount = (userInfo, res) => {
                         });
                     }
                     else {
-                        console.log(err)
                         res.status(403).send(JSON.stringify({
                             status: "Something went wrong!"
                         }));
@@ -435,7 +414,6 @@ function resetPassword(req, res, next) {
 }
 
 function updateUserDetails(req, res, next) {
-    console.log("Inside update user details")
 
     var headers = JSON.parse(JSON.stringify(req.headers));
     var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
@@ -446,7 +424,6 @@ function updateUserDetails(req, res, next) {
         }));
     }
     else {
-        console.log(req.body);
         var userInfo = JSON.parse(JSON.stringify(req.body));
 
         MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
@@ -469,7 +446,6 @@ function updateUserDetails(req, res, next) {
 }
 
 function getUserInfo(req, res, next) {
-    console.log("Inside getUserInfo");
     var headers = JSON.parse(JSON.stringify(req.headers));
     var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
 
@@ -489,10 +465,8 @@ function getUserInfo(req, res, next) {
                 }
                 else {
                     var userInfoDetails = JSON.parse(JSON.stringify(userInfoStructure));
-                    console.log(result);
 
                     podsTokenContractInstance.methods.balanceOf(result[0].address).call().then((balance) => {
-                        console.log(balance);
                         userInfoDetails.token = balance
                         userInfoDetails.name = result[0].name;
                         userInfoDetails.emailAddress = result[0].emailId;
@@ -569,50 +543,8 @@ function getAmountForTokenValue(req, res, next) {
                     data: Math.ceil(tokenPriceInDollars),
                     price: prices.USD,
                     tokens: tokenVal.totalToken,
-                    //gasPrice: gasPrice,
-                    //gas: gas,
                     status: "amount fetched successfully"
                 }));
-
-                /*web3.eth.getGasPrice().then(getGasPrice => {
-                    var gasPrice = getGasPrice;
-                    console.log("What is gas price");
-                    console.log(gasPrice);
-
-                    web3.eth.estimateGas({
-                        from: ethAccounts[0],
-                        data: podsTokenSaleBytecode
-                    })
-                        .then((gas) => {
-                            console.log("What is gas");
-                            console.log(gas);
-
-                            console.log("Gas * GasPrice")
-                            console.log(gas * gasPrice);
-
-                            var gasCostInString = (gas * gasPrice).toString();
-                            console.log(gasCostInString);
-
-                            var ethers = parseFloat(web3.utils.fromWei(gasCostInString, 'ether'))
-                            console.log("Ethers: " + ethers);
-
-                            var etherToDollar = parseFloat(ethers * price);
-                            console.log("Ethers TO dollar: " + etherToDollar);
-
-                            var tokenPriceInWei = (tokenPrice * tokens).toString();
-                            var tokenPriceInEther = parseFloat(web3.utils.fromWei(tokenPriceInWei, 'ether'));
-                            var tokenPriceInDollars = tokenPriceInEther * price;
-
-                            res.send(JSON.stringify({
-                                data: Math.ceil(tokenPriceInDollars + etherToDollar),
-                                price: prices.USD,
-                                tokens: tokenVal.totalToken,
-                                gasPrice: gasPrice,
-                                gas: gas,
-                                status: "amount fetched successfully"
-                            }));
-                        });
-                })*/
             })
             .catch(console.error)
     }
@@ -631,31 +563,13 @@ function stripePurchaseToken(req, res, next) {
         var purchaseTokenObj = JSON.parse(JSON.stringify(req.body));
         var stripeId = purchaseTokenObj.stripeId;
 
-        console.log("Inside else stripe payment");
         var tokens = parseInt(purchaseTokenObj.tokens);
-        console.log("Tokens:" + tokens);
         var price = parseFloat(purchaseTokenObj.price);
-        console.log("price:" + price);
         var amount = parseFloat(purchaseTokenObj.amount);
-        console.log("amount:" + amount);
-
-        /*var gasPrice = parseInt(purchaseTokenObj.gasPrice);
-        console.log("gasPrice:" + gasPrice);
-        var gas = parseInt(purchaseTokenObj.gas);
-        console.log("gas:" + gas);*/
 
         var tokenPriceInWei = (tokenPrice * tokens).toString();
         var tokenPriceInEther = parseFloat(web3.utils.fromWei(tokenPriceInWei, 'ether'));
         var tokenPriceInDollars = tokenPriceInEther * price;
-
-        /*var gasCostInString = (gas * gasPrice).toString();
-        console.log(gasCostInString);
-
-        var ethers = parseFloat(web3.utils.fromWei(gasCostInString, 'ether'))
-        console.log("Ethers: " + ethers);
-
-        var etherToDollar = parseFloat(ethers * price);
-        console.log("Ethers TO dollar: " + etherToDollar);*/
 
         var verifyAmount = Math.ceil(tokenPriceInDollars /*+ etherToDollar*/);
 
@@ -713,29 +627,7 @@ function stripePurchaseToken(req, res, next) {
                                             }));
                                         }
                                     );
-
-                                    /*db.collection(TokenPurchasedDetailCollectionName).updateOne({"emailId":jwtVerified.emailId},updatePurchaseTokenList,function(err,updateTokenPurchaseDetail){
-                                        if(err) throw err;
-
-                                        //console.log("Call tokenSold()");
-                                        //tokenSold();
-                                        //podsTokenContractInstance.methods.balanceOf(address).call().then(console.log).catch(console.error);
-                                        
-                                        db.collection(TokenPurchasedDetailCollectionName).findOne({"emailId":jwtVerified.emailId}).then((err,purchaseTokenHistoryObject)=>{
-                                            console.log("Inside purchaseTokenHistoryObject")
-                                            console.log(purchaseTokenHistoryObject);
-                                            res.status(200).send(JSON.stringify({
-                                                purchaseHistory: (purchaseTokenHistoryObject.purchaseTokenHistory),
-                                                status: "Tokens Credited"
-                                            }));    
-                                        })
-                                    })*/
                                 })
-
-                                // transfer ether
-                                /*web3.eth.sendTransaction({ from: ethAccounts[0], to: address, value: gasCostInString }).then((receipt) => {
-                                    console.log(receipt);    
-                                });*/
                             }
                         })
                     }
@@ -751,16 +643,13 @@ function stripePurchaseToken(req, res, next) {
 }
 
 function uploadfile(req, res, next) {
-    console.log("Inside upload");
     upload(req, res, function (err) {
         if (err) throw err;
 
-        console.log("File is uploaded!");
         var body = JSON.parse(JSON.stringify(req.body));
         var fileDetail = JSON.parse(JSON.stringify(req.file));
 
         var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(body.token, serverJWT_Secret)));
-        console.log(jwtVerified);
 
         if (jwtVerified.emailId !== body.emailAddress) {
             res.status(400).send(JSON.stringify({
@@ -769,11 +658,8 @@ function uploadfile(req, res, next) {
         }
         else {
             var filePath = path.join(__dirname, "..", "uploads", fileDetail.originalname);
-            console.log(filePath);
 
             detect.fromFile(filePath, function (err, result) {
-                console.log("Inside detect file");
-                console.log(result);
                 if (err) 
                 {
                     console.log(err);
@@ -789,88 +675,71 @@ function uploadfile(req, res, next) {
                             if (err || !result) {
                                 console.log("Unable to upload to IPFS API: " + err);
                             }
-                            else {
-                                console.log(result);
-                                MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
-                                    var db = database.db(DatabaseName)
-                                    db.collection(PodcastCollectionName).find({ "fileHashKey.hash": result[0].hash }).toArray((err, docs) => {
-                                        if (docs.length > 0) {
-                                            fs.unlink(filePath, (err) => {
-                                                if (err) throw err;
+                            else 
+                            {
 
-                                                console.log('successfully deleted' + filePath);
-                                                res.status(400).send(JSON.stringify({
-                                                    status: "File with the same content is already present"
-                                                }));
-                                            });
-                                        }
-                                        else {
-                                            var podcastObject = JSON.parse(JSON.stringify(podcastDetailStructure));
-                                            console.log("Inside podcastObject get tags");
-                                            console.log(body.tags);
-                                            podcastObject.uploadedBy = body.emailAddress;
-                                            podcastObject.fileHashKey = result;
-                                            podcastObject.title = body.title
-                                            podcastObject.tags = body.tags;
-                                            podcastObject.artistName = body.artist;
-                                            podcastObject.isPodcastPaid = body.isPaidPodcast;
-                                            podcastObject.amount = (body.amount !== undefined? body.amount : 0);
-                                            podcastObject.comments = [];
-                                            podcastObject.likes = [];
-                                            podcastObject.createdDateTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
-                                            podcastObject.modifiedDataTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
+                                MongoClient.connect(DatabaseUrl,{useNewUrlParser:true},function(err,database){
+                                    var db = database.db(DatabaseName);
+                                    db.collection(DatabaseCollectionName).findOne({"emailId":jwtVerified.emailId}, function (err, userDocs) {
+                                        var address = userDocs.address;
 
-                                            console.log("Podcast object");
-                                            console.log(podcastObject);
+                                        contractInstance.methods.addrToIpfsCount(address).call().then((count)=>{
+                                            count = parseInt(count);
 
-
-                                            db.collection(PodcastCollectionName).insertOne(podcastObject).then((result) => {
-                                                console.log("find error of insertOne");
-                                                
-                                                fs.unlink(filePath, (err) => {
-                                                    if (err) throw err;
-
-                                                    console.log('successfully deleted' + filePath);
-                                                    res.status(200).send({
-                                                        status: "File uploaded successfully!"
-                                                    });
-                                                });
-                                                
-                                                /*if (error) {
-                                                    ipfs.files.rm(filePath, (err) => {
-                                                        if (err) {
-                                                            console.log("Error in removing file from ipfs")
-                                                        }
-                                                        console.log("Error in inserting metadata of podcast file detail in mongo db")
-
+                                            var isFilePresent = false;
+                                            for(var i=0;i<count;i++){
+                                                contractInstance.methods.addressToIpfsStruct(address,i).call().then((resultForPathAddressAndAMount)=>{
+                                                    if(resultForPathAddressAndAMount.ipfsAddress === result[0].hash){
+                                                        isFilePresent = true;
                                                         fs.unlink(filePath, (err) => {
                                                             if (err) throw err;
-                                                            console.log('successfully deleted' + filePath);
-                                                        });
-                                                    });
-                                                }
-                                                else {
-                                                    
-                                                }*/
-                                            })
+            
+                                                            res.status(400).send(JSON.stringify({
+                                                                status: "File with the same content is already present"
+                                                            }));
+                                                        });    
+                                                    }
+                                                }).catch(console.error);
+                                            }
+                                            
+                                            if(!isFilePresent)
+                                            {
+                                                contractInstance.methods.storeAddressAndIpfsStruct(address,result[0].path,result[0].hash,(body.amount !== undefined? body.amount : 0)).send({ from: ethAccounts[0], gas: 4712388 }).then((result) => {
 
-                                            /*db.collection(PodcastCollectionName).findAndModify(
-                                                { "uploadedBy": jwtVerified.emailId },
-                                                [],
-                                                podcastObject,
-                                                { "upsert": "true" },
-                                                function (error, object) {
-                                                    
-                                                }
-                                            )*/
-                                        }
-                                    });
-                                });
+                                                    var podcastObject = JSON.parse(JSON.stringify(podcastDetailStructure));
+                                             
+                                                    podcastObject.uploadedBy = body.emailAddress;
+                                                    podcastObject.location = count;
+                                                    podcastObject.address = address;
+                                                    podcastObject.title = body.title
+                                                    podcastObject.tags = body.tags;
+                                                    podcastObject.artistName = body.artist;
+                                                    podcastObject.isPodcastPaid = body.isPaidPodcast;
+                                                    podcastObject.comments = [];
+                                                    podcastObject.likes = [];
+                                                    podcastObject.createdDateTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
+                                                    podcastObject.modifiedDataTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
+        
+                                                    db.collection(PodcastCollectionName).insertOne(podcastObject).then((result) => {
+                                                        
+                                                        fs.unlink(filePath, (err) => {
+                                                            if (err) throw err;
+        
+                                                            res.status(200).send({
+                                                                status: "File uploaded successfully!"
+                                                            });
+                                                        });
+                                                    })  
+                                                });
+                                               }
+                                        }).catch(console.error);
+                                    })
+                                })
                             }
                         })
-                    });
+                    })
                 }
-            });
+            })
         }
     })
 }
@@ -891,20 +760,28 @@ function getLatestPodcast(req, res, next) {
                 if (err) throw err;
 
                 var mainArr = [];
-                var podPaid = "No";
+                var lengthOfArray = docs.length;
 
-                for (var i = 0; i < docs.length; i++) {
-                    (docs[i].isPodcastPaid === "true") ? (podPaid = "Yes") : (podPaid = "No");
-                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, podPaid, '', docs[i].fileHashKey[0].hash, docs[i].amount]
-                    mainArr.push(subArr);
+                if(lengthOfArray > 0){
+                    for(var i=0;i<lengthOfArray;i++)
+                    {
+                        returnPromise(docs[i],i,true).then((r) => {
+                            mainArr.push(r.subArr);       
+                            if(r.i === lengthOfArray-1){
+                                res.status(200).send(JSON.stringify({
+                                    data: mainArr,
+                                    status: "Results fetched successfully"
+                                }))            
+                            }
+                        });
+                    }    
                 }
-
-                console.log(mainArr);
-
-                res.status(200).send(JSON.stringify({
-                    data: mainArr,
-                    status: "Results fetched successfully"
-                }))
+                else{
+                    res.status(200).send(JSON.stringify({
+                        data: mainArr,
+                        status: "Results fetched successfully"
+                    }))
+                }
             });
         });
     }
@@ -919,28 +796,60 @@ function getUserPublishedPodcast(req, res, next) {
             status: "Invalid login credentials. Please login again!"
         }));
     }
-    else {
+    else 
+    {
+        var mainArr = [];
+        var emailId = jwtVerified.emailId;
+        
         MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
-            var db = database.db(DatabaseName)
-            db.collection(PodcastCollectionName).find({ "uploadedBy": jwtVerified.emailId }).toArray((err, docs) => {
-
-                var mainArr = [];
-                var podPaid = "No";
-
-                for (var i = 0; i < docs.length; i++) {
-                    (docs[i].isPodcastPaid === "true") ? (podPaid = "Yes") : (podPaid = "No");
-                    var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, podPaid, '', '', docs[i].fileHashKey[0].hash, docs[i].amount]
-                    mainArr.push(subArr);
+            var db = database.db(DatabaseName);
+            db.collection(PodcastCollectionName).find({ "uploadedBy": emailId }).toArray((err, docs) => {
+                var lengthOfArray = docs.length;
+                if(lengthOfArray > 0){
+                    for(var i=0;i<lengthOfArray;i++)
+                    {
+                        returnPromise(docs[i],i,false).then((r) => {
+                            mainArr.push(r.subArr);       
+                            if(r.i === lengthOfArray-1){
+                                res.status(200).send(JSON.stringify({
+                                    data: mainArr,
+                                    status: "Results fetched successfully"
+                                }))            
+                            }
+                        });
+                    }    
+                }
+                else{
+                    res.status(200).send(JSON.stringify({
+                        data: mainArr,
+                        status: "Results fetched successfully"
+                    }))
                 }
 
-                console.log(mainArr);
-                res.status(200).send(JSON.stringify({
-                    data: mainArr,
-                    status: "Results fetched successfully"
-                }))
-            });
-        });
+            })
+        })
     }
+}
+
+function returnPromise(docs,i,purpose){
+    console.log(purpose);
+    return new Promise((resolve, reject) => {
+        contractInstance.methods.addressToIpfsStruct(docs.address,docs.location).call().then((resultForPathAddressAndAMount)=>{
+            var podPaid = (docs.isPodcastPaid === "true") ? "Yes" : "No";
+            var subArr = [];
+            if(purpose === ""){
+                console.log("Inside else if of undefined return promise");
+                subArr = [docs.title, docs.artistName, moment(docs.createdDateTime).format('L'), docs.tags, podPaid, '',jwt.sign({ address: docs.address, emailId:docs.uploadedBy, location:docs.location }, serverJWT_Secret),''];
+            }
+            else if(!purpose){
+                subArr = [docs.title, docs.artistName, moment(docs.createdDateTime).format('L'), docs.tags, podPaid, '', '', jwt.sign({ address:docs.address, emailId:docs.uploadedBy, location:docs.location }, serverJWT_Secret), resultForPathAddressAndAMount.amount];
+            }
+            else if(purpose){
+                subArr = [docs.title, docs.artistName, moment(docs.createdDateTime).format('L'), docs.tags, podPaid, '',jwt.sign({ address: docs.address, emailId:docs.uploadedBy, location:docs.location }, serverJWT_Secret)];
+            }
+            resolve({"subArr":subArr,"i":i});                                
+        })
+    })
 }
 
 function getPodcastDetailsForView(req, res, next) {
@@ -952,25 +861,44 @@ function getPodcastDetailsForView(req, res, next) {
             status: "Invalid login credentials. Please login again!"
         }));
     }
-    else {
-        var body = JSON.parse(JSON.stringify(req.body));
-        console.log("Inside else of getPodcastDetailsForView: " + body.id);
-        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
-            var db = database.db(DatabaseName)
-            db.collection(PodcastCollectionName).find({ "fileHashKey.hash": body.id }).toArray((err, docs) => {
-                if (docs.length !== 0) {
+    else 
+    {
+        jwt.verify(req.body.id,serverJWT_Secret,function(err,decoded){
+            if(err){
+                res.status(200).send(JSON.stringify({
+                    status: "Adding Podcast"
+                }));    
+            }
+            else{
+                var body = JSON.parse(JSON.stringify(jwt.verify(req.body.id,serverJWT_Secret)));
+                console.log("Print body")
+                console.log(body);
 
-                    res.status(200).send(JSON.stringify({
-                        data: docs[0],
-                        status: "details fetched successfully!"
-                    }));
-                }
-                else {
-                    res.status(200).send(JSON.stringify({
-                        status: "Adding Podcast"
-                    }));
-                }
-            })
+                contractInstance.methods.addressToIpfsStruct(body.address,body.location).call().then((resultForPathAddressAndAMount)=>{
+                    MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+                        if(err) {console.log(err);throw err;}    
+        
+                        var db = database.db(DatabaseName)
+                        
+                        db.collection(PodcastCollectionName).findOne({"uploadedBy":body.emailId,"location":body.location},function(err,result){
+                            console.log("Inside get Podcast details");
+                            console.log(result);
+        
+                            if(result!==undefined && result !== "")
+                            {
+                                result["path"] = resultForPathAddressAndAMount.ipfsPath;
+                                result["amount"] = resultForPathAddressAndAMount.amount;
+                                console.log(result);
+                                res.status(200).send(JSON.stringify({
+                                    data: result,
+                                    amountDisable: true,
+                                    status: "Details fetched successfully!"
+                                }));    
+                            }
+                        })
+                    })
+                })
+            }
         })
     }
 }
@@ -984,24 +912,40 @@ function updatePodcastDetails(req, res, next) {
             status: "Invalid login credentials. Please login again!"
         }));
     }
-    else {
+    else 
+    {
+        console.log("Update podcast")
         var body = JSON.parse(JSON.stringify(req.body));
+        var parameterIdBody = jwt.verify(body.parameterId,serverJWT_Secret);
         console.log(body);
-        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
-            var db = database.db(DatabaseName)
+        console.log(parameterIdBody);
 
-            var myquery = { "fileHashKey.hash": body.id, "uploadedBy": jwtVerified.emailId };
-            var newvalues = { $set: { title: body.title, artistName: body.artist, tags: body.tags, isPodcastPaid: body.isPaidPodcast, amount: body.amount } };
-
-            db.collection(PodcastCollectionName).updateOne(myquery, newvalues, function (err, updateResult) {
-                if (err) throw err;
-                database.close();
-
+        contractInstance.methods.addressToIpfsStruct(parameterIdBody.address,parameterIdBody.location).call().then((resultForPathAddressAndAMount)=>{
+            console.log(resultForPathAddressAndAMount.ipfsPath !== body.id);
+            if(resultForPathAddressAndAMount.ipfsPath !== body.id){
                 res.status(200).send(JSON.stringify({
-                    status: "Podcast details updated successfully!"
+                    status: "Some of secret values are altered! Please refresh the page or contact system administrator!"
                 }));
-            });
-        });
+            }
+            else{
+
+                MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+                    var db = database.db(DatabaseName)
+        
+                    var myquery = {"uploadedBy": parameterIdBody.emailId,"location":parameterIdBody.location,"address":parameterIdBody.address};
+                    var newvalues = { $set: { title: body.title, artistName: body.artist, tags: body.tags } };
+        
+                    db.collection(PodcastCollectionName).updateOne(myquery, newvalues, function (err, updateResult) {
+                        if (err) throw err;
+                        database.close();
+        
+                        res.status(200).send(JSON.stringify({
+                            status: "Podcast details updated successfully!"
+                        }));
+                    });
+                });
+            }
+        })
     }
 }
 
@@ -1014,119 +958,93 @@ function transferPodsToPurchase(req, res, next) {
             status: "Invalid login credentials. Please login again!"
         }));
     }
-    else {
-        console.log("Inside transferPodsToPurchase");
-        var body = JSON.parse(JSON.stringify(req.body));
-        console.log(body);
+    else 
+    {
+        var requestBody = JSON.parse(JSON.stringify(req.body));
+        var body = JSON.parse(JSON.stringify(jwt.verify(requestBody.id,serverJWT_Secret)));
+        var amount = requestBody.amount;
 
-        // validate the amount
-        // validate if user has not purchased this already
-        // validate if user have specific amount
-        // transfer pods to creater of podcast
-        // add emailid to purchased podcast
-        // change isPaidPodcast to Purchased (Not yes or No in UI)
+        contractInstance.methods.addressToIpfsStruct(body.address,body.location).call().then((resultForPathAddressAndAMount)=>{
+            var path = resultForPathAddressAndAMount.ipfsPath;
+            var amountFromChain = resultForPathAddressAndAMount.amount;
 
-        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
-            if (err) throw err;
+            // validate the amount
+            if ((parseInt(amountFromChain) !== parseInt(amount))) 
+            {
+                res.status(400).send(JSON.stringify({
+                    status: "Amount altered! Please refresh your page or contact system administrator"
+                }));
+            }
+            else
+            {
+                MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+                    if (err) throw err;
 
-            var db = database.db(DatabaseName);
-
-            db.collection(PodcastCollectionName).find({ "fileHashKey.hash": body.id }).toArray((err, docs) => {
-                console.log("Print docs");
-                console.log(docs);
-
-                if (docs.length !== 0) {
-                    if ((parseInt(docs[0].amount) !== parseInt(body.amount))) {
-                        res.status(400).send(JSON.stringify({
-                            status: "Amount altered! Please refresh your page or contact system administrator"
-                        }));
-                    }
-                    else {
-                        console.log("Print purchasedUserList")
-                        console.log(docs[0].purchasedUserList)
-
+                    var db = database.db(DatabaseName);
+                    db.collection(PodcastCollectionName).findOne({"uploadedBy":body.emailId,"location":body.location},function(err,docs){
                         var isAlreadyPurchased = false;
-                        for(var i=0;i<(docs[0].purchasedUserList).length;i++){
-                            var obj = docs[0].purchasedUserList[i];
+                        for(var i=0;i<(docs.purchasedUserList).length;i++){
+                            var obj = docs.purchasedUserList[i];
                             if(obj.emailId === jwtVerified.emailId){
                                 isAlreadyPurchased = true;
                                 break;
                             }
                         }
 
+                        // validate if user has not purchased this already
                         if (isAlreadyPurchased) {
                             res.status(400).send(JSON.stringify({
                                 status: "You already have purchased this podcast! If you cannot access it, Please refresh your page or contact system administrator!"
                             }));
                         }
                         else {
-                            // podcast purchaser user data
-                            db.collection(DatabaseCollectionName).findOne({ "emailId": jwtVerified.emailId }, function (err, userDocs) {
-                                if (err) throw err;
-
-                                console.log("Print userDocs");
-                                console.log(userDocs);
-
+                            // validate if user have specific amount
+                            db.collection(DatabaseCollectionName).findOne({"emailId":jwtVerified.emailId},function(err,userDocs){
                                 // validate email Id and address
                                 contractInstance.methods.emailAddressMapping(userDocs.address).call().then((contractEmail) => {
-                                    console.log("Inside contractInstance")
-                                    console.log(contractEmail);
                                     if (contractEmail === jwtVerified.emailId) {
-
-                                        console.log("Inside contractEmail === jwtVerified.emailId");
                                         // check balance of the purchaser
                                         podsTokenContractInstance.methods.balanceOf(userDocs.address).call().then((balance) => {
-                                            console.log("Inside podsTokenCOntractInstance");
-                                            console.log(balance);
 
-                                            if (parseInt(balance) >= parseInt(body.amount)) {
-                                                console.log("Inside balance if >= body.amount");
+                                            if (parseInt(balance) >= parseInt(amountFromChain)) {
+                                                
+                                                podsTokenContractInstance.methods.transferFrom(userDocs.address, body.address, parseInt(amountFromChain)).send({ from: ethAccounts[0] }).then((receipt) => {
+                                                    db.collection(PodcastCollectionName).updateOne({ "uploadedBy": body.emailId }, { $addToSet: { purchasedUserList: {"name":userDocs.name,"emailId":jwtVerified.emailId} } }, function (err, updateResult) {
+                                                        if (err) throw err;
 
-                                                // podcast uploaded user data
-                                                db.collection(DatabaseCollectionName).findOne({ "emailId": docs[0].uploadedBy }, function (err, userData) {
-                                                    if (err) throw err;
+                                                        var tokenObject = JSON.parse(JSON.stringify(tokenPurchasedDetail));
+                                                        tokenObject.amountPaid = parseInt(amountFromChain)+" Pods Token";
+                                                        tokenObject.blockHash = receipt.blockHash;
+                                                        tokenObject.blockNumber = receipt.blockNumber;
+                                                        tokenObject.podsPurchased = parseInt(amountFromChain) + " Pods Token Received";
+                                                        tokenObject.reason = "Tokens Received for "+docs.title+" Podcast"//+" from "+userDocs.name;
+                                                        tokenObject.transactionHash = receipt.transactionHash;
+                                                        tokenObject.createdDateTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
 
-                                                    console.log("UserData");
-                                                    console.log(userData);
-                                                    podsTokenContractInstance.methods.transferFrom(userDocs.address, userData.address, parseInt(body.amount)).send({ from: ethAccounts[0] }).then((receipt) => {
-                                                        console.log("Inside receipt");
-                                                        console.log(receipt);
-                                                        db.collection(PodcastCollectionName).updateOne({ "uploadedBy": userData.emailId }, { $addToSet: { purchasedUserList: {"name":userDocs.name,"emailId":jwtVerified.emailId} } }, function (err, updateResult) {
-                                                            if (err) throw err;
+                                                        var updatePurchaseTokenList = { $push: { purchaseTokenHistory: tokenObject } }
 
+                                                        // for podcast publisher
+                                                        db.collection(TokenPurchasedDetailCollectionName).updateOne({"emailId":body.emailId},updatePurchaseTokenList,function(err,updatedPodcastPublisherData){
+                                                            // for podcast purchaser
                                                             var tokenObject = JSON.parse(JSON.stringify(tokenPurchasedDetail));
-                                                            tokenObject.amountPaid = body.amount+" Pods Token";
+                                                            tokenObject.amountPaid = parseInt(amountFromChain)+" Pods Token";
                                                             tokenObject.blockHash = receipt.blockHash;
                                                             tokenObject.blockNumber = receipt.blockNumber;
-                                                            tokenObject.podsPurchased = body.amount + " Pods Token Received";
-                                                            tokenObject.reason = "Tokens Received for "+docs[0].title+" from "+userDocs.name;
+                                                            tokenObject.podsPurchased = parseInt(amountFromChain) + " Pods Token Transferred";
+                                                            tokenObject.reason = "Tokens transferred for "+docs.title+" Podcast";
                                                             tokenObject.transactionHash = receipt.transactionHash;
                                                             tokenObject.createdDateTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
-
-                                                            var updatePurchaseTokenList = { $push: { purchaseTokenHistory: tokenObject } }
-
-                                                            // for podcast publisher
-                                                            db.collection(TokenPurchasedDetailCollectionName).updateOne({"emailId":userData.emailId},updatePurchaseTokenList,function(err,updatedPodcastPublisherData){
-                                                                // for podcast purchaser
-                                                                var tokenObject = JSON.parse(JSON.stringify(tokenPurchasedDetail));
-                                                                tokenObject.amountPaid = body.amount+" Pods Token";
-                                                                tokenObject.blockHash = receipt.blockHash;
-                                                                tokenObject.blockNumber = receipt.blockNumber;
-                                                                tokenObject.podsPurchased = body.amount + " Pods Token Transferred";
-                                                                tokenObject.reason = "Tokens transferred for "+docs[0].title+" Podcast to "+userData.name;
-                                                                tokenObject.transactionHash = receipt.transactionHash;
-                                                                tokenObject.createdDateTime = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
-                                                                updatePurchaseTokenList = { $push: { purchaseTokenHistory: tokenObject } }
-                                                                db.collection(TokenPurchasedDetailCollectionName).updateOne({"emailId":userDocs.emailId},updatePurchaseTokenList,function(err,updatedPodcastPurchaserData){
-                                                                    res.status(200).send(JSON.stringify({
-                                                                        purchasedStatus: "Purchased",
-                                                                        status: "Podcast Purchased Successfully"
-                                                                    }));
-                                                                })
+                                                            updatePurchaseTokenList = { $push: { purchaseTokenHistory: tokenObject } }
+                                                            db.collection(TokenPurchasedDetailCollectionName).updateOne({"emailId":userDocs.emailId},updatePurchaseTokenList,function(err,updatedPodcastPurchaserData){
+                                                                res.status(200).send(JSON.stringify({
+                                                                    purchasedStatus: "Purchased",
+                                                                    path:path,
+                                                                    status: "Podcast Purchased Successfully"
+                                                                }));
                                                             })
-                                                        });
-                                                    })
-                                                });
+                                                        })
+                                                    });
+                                                })
                                             }
                                             else {
                                                 res.status(400).send(JSON.stringify({
@@ -1135,17 +1053,12 @@ function transferPodsToPurchase(req, res, next) {
                                             }
                                         });
                                     }
-                                });
-                            });
+                                });    
+                            })
                         }
-                    }
-                }
-                else {
-                    res.status(400).send(JSON.stringify({
-                        status: "Podcast Data not Found"
-                    }));
-                }
-            })
+                    })
+                })        
+            }
         })
     }
 }
@@ -1168,7 +1081,32 @@ function getPurchasedPodcastList(req, res, next) {
             db.collection(PodcastCollectionName).find({ "purchasedUserList.emailId": jwtVerified.emailId }).toArray((err, docs) => {
                 var mainArr = [];
 
-                for (var i = 0; i < docs.length; i++) {
+                var lengthOfArray = docs.length;
+                if(lengthOfArray > 0){
+                    for(var i=0;i<lengthOfArray;i++)
+                    {
+                        returnPromise(docs[i],i,"").then((r) => {
+                            mainArr.push(r.subArr);       
+                            if(r.i === lengthOfArray-1){
+                                res.status(200).send(JSON.stringify({
+                                    data: mainArr,
+                                    status: "Results fetched successfully"
+                                }))            
+                            }
+                        });
+                    }    
+                }
+                else{
+                    res.status(200).send(JSON.stringify({
+                        data: mainArr,
+                        status: "Results fetched successfully"
+                    }))
+                }
+                
+                
+                
+
+                /*for (var i = 0; i < docs.length; i++) {
                     var subArr = [docs[i].title, docs[i].artistName, moment(docs[i].createdDateTime).format('L'), docs[i].tags, "Purchased",'', docs[i].fileHashKey[0].hash, '']
                     mainArr.push(subArr);
                 }
@@ -1178,7 +1116,7 @@ function getPurchasedPodcastList(req, res, next) {
                 res.status(200).send(JSON.stringify({
                     data: mainArr,
                     status: "Results fetched successfully"
-                }))
+                }))*/
             });
         });
     }
@@ -1194,41 +1132,47 @@ function getPodcastForCurrUser(req,res,next){
         }));
     }
     else {
-        var body = JSON.parse(JSON.stringify(req.body));
-        console.log("Inside else of getPodcastDetailsForView: " + body.id);
-        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
-            var db = database.db(DatabaseName)
-            db.collection(PodcastCollectionName).find({ "fileHashKey.hash": body.id }).toArray((err, docs) => {
-                if (docs.length !== 0) {
+        var body = JSON.parse(JSON.stringify(jwt.verify(req.body.id, serverJWT_Secret)));
+        console.log("get specific file details");
+        console.log(body);
+
+        contractInstance.methods.addressToIpfsStruct(body.address,body.location).call().then((resultForPathAddressAndAMount)=>{
+            var path = resultForPathAddressAndAMount.ipfsPath;
+            MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+                var db = database.db(DatabaseName)
+                db.collection(PodcastCollectionName).find({ "uploadedBy":body.emailId,"location":body.location}).toArray((err, docs) => {
+                    if (docs.length !== 0) {
                     
-                    var purchasedUserList = docs[0].purchasedUserList;
-                    var isPurchasedPodcast = false;
-
-                    for(var i=0;i<purchasedUserList.length;i++){
-                        if(purchasedUserList[i].emailId === jwtVerified.emailId){
-                            isPurchasedPodcast = true;
-                            break;
+                        var purchasedUserList = docs[0].purchasedUserList;
+                        var isPurchasedPodcast = false;
+    
+                        for(var i=0;i<purchasedUserList.length;i++){
+                            if(purchasedUserList[i].emailId === jwtVerified.emailId){
+                                isPurchasedPodcast = true;
+                                break;
+                            }
                         }
+    
+                        res.status(200).send(JSON.stringify({
+                            uploadedByValue: docs[0].uploadedBy,
+                            titleValue: docs[0].title,
+                            tagsValue: docs[0].tags,
+                            artistNameValue: docs[0].artistName,
+                            createdDateTimeValue: moment(docs[0].createdDateTime).format('L'),
+                            likesValue: (docs[0].likes).length,
+                            amountValue: (resultForPathAddressAndAMount.amount !== undefined? resultForPathAddressAndAMount.amount : 0), 
+                            isPaidPodcast: ((docs[0].uploadedBy !== jwtVerified.emailId) ? docs[0].isPodcastPaid : "false"),
+                            isPurchasedPodcast: ((docs[0].uploadedBy !== jwtVerified.emailId) ? isPurchasedPodcast:"false"),
+                            path:path,
+                            status: "Details fetched successfully!"
+                        }));
                     }
-
-                    res.status(200).send(JSON.stringify({
-                        uploadedByValue: docs[0].uploadedBy,
-                        titleValue: docs[0].title,
-                        tagsValue: docs[0].tags,
-                        artistNameValue: docs[0].artistName,
-                        createdDateTimeValue: moment(docs[0].createdDateTime).format('L'),
-                        likesValue: (docs[0].likes).length,
-                        amountValue: (docs[0].amount !== "undefined"? docs[0].amount : 0), 
-                        isPaidPodcast: ((docs[0].uploadedBy !== jwtVerified.emailId) ? docs[0].isPodcastPaid : "false"),
-                        isPurchasedPodcast: ((docs[0].uploadedBy !== jwtVerified.emailId) ? isPurchasedPodcast:"false"),
-                        status: "Details fetched successfully!"
-                    }));
-                }
-                else {
-                    res.status(400).send(JSON.stringify({
-                        status: "No file present with file id: "+body.id
-                    }));
-                }
+                    else {
+                        res.status(400).send(JSON.stringify({
+                            status: "No file present with file id: "+body.id
+                        }));
+                    }    
+                })
             })
         })
     }        

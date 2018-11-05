@@ -31,8 +31,9 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     headers.append("emailAddress", localStorage.getItem("emailAddress"));
 
     this.http.get(Global.API_ENDPOINT + '/getLatestPodcast', { headers: headers }).subscribe((data) => {
+      console.log(data);
       this.dataTable = {
-        headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id', 'amount'],
+        headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id'],
         dataRows: data.json().data
       }
       

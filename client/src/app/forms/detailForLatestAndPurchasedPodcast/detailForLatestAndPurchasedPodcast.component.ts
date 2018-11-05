@@ -37,12 +37,15 @@ export class DetailForLatestAndPurchasedPodcastComponent implements OnInit {
     this.spinner.show();
     this.route.params.subscribe(params => {
       this.id = params.id;
+      console.log(params.id);
+      console.log(this.id);
 
       let headers = new Headers();
         headers.append("token",localStorage.getItem("token")); 
         headers.append("emailAddress",localStorage.getItem("emailAddress"));
 
         this.http.post(Global.API_ENDPOINT+'/getPodcastForCurrUser',{"id":this.id},{headers: headers}).subscribe((data) => {
+          console.log(data);
             var body = JSON.parse(data.text());
 
             this.isPaidPodcast = (body.isPaidPodcast === "false" ? false:true);
@@ -54,9 +57,10 @@ export class DetailForLatestAndPurchasedPodcastComponent implements OnInit {
             this.createdDateTimeValue = body.createdDateTimeValue;
             this.likesValue = body.likesValue;
             this.amountValue = (body.amountValue === undefined ? "0": body.amountValue);
+            var path = body.path;
 
             if(!this.isPaidPodcast || (this.isPaidPodcast && this.isPurchasedPodcast)){
-              this.podcastId = this.id;
+              this.podcastId = path;
             }
             else{
               this.podcastId = "";
@@ -77,16 +81,20 @@ export class DetailForLatestAndPurchasedPodcastComponent implements OnInit {
    }
 
    callLikeFunc(){
-     if(this.likeButtonValue === "Like"){
+    let headers = new Headers();
+    headers.append("token",localStorage.getItem("token")); 
+    headers.append("emailAddress",localStorage.getItem("emailAddress")); 
+    
+    if(this.likeButtonValue === "Like"){
       this.likeButtonValue = "Liked";
       this.likesValue = this.likesValue + 1;
+
+      this.http.post(Global.API_ENDPOINT+'/likePodcast',{"id":this.id},{headers: headers}).subscribe((data) => {
+        
+      })
     }
-     else if(this.likeButtonValue === "Liked"){
-      this.likeButtonValue = "Like";
-      this.likesValue = this.likesValue - 1;
-     }
-     
-   }
+   
+  }
 
    callPurchasePodcast(){
      if(this.isPaidPodcast && !this.isPurchasedPodcast){
@@ -110,7 +118,7 @@ export class DetailForLatestAndPurchasedPodcastComponent implements OnInit {
             var body = JSON.parse(data.text());
             
             this.isPurchasedPodcast = true;
-            this.podcastId = this.id;
+            this.podcastId = body.path;
 
             this.spinner.hide();
           }, (err) => { 

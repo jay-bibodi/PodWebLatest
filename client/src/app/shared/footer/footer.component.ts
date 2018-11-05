@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-footer-cmp',
@@ -7,9 +7,8 @@ import { Component, Input } from '@angular/core';
 
 export class FooterComponent {
     test: Date = new Date();
-    @Input() pathOfPodcastId:any;
 
     ngOnInit(){
-        console.log(this.pathOfPodcastId);
+        
     }
 }

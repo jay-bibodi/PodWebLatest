@@ -39,7 +39,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group" style="margin-top:3%">
-                                            <mat-radio-group class="example-radio-group" [(ngModel)]="selectedType" name="selectedType">
+                                            <mat-radio-group class="example-radio-group" [(ngModel)]="selectedType" name="selectedType" [disabled]="amountDisable">
                                                 <mat-radio-button class="example-radio-button" *ngFor="let type of podcastTypes"
                                                     [value]="type" (change)="radioChange($event)">
                                                     {{type}} &nbsp;&nbsp;&nbsp;&nbsp;
@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="col-md-6" *ngIf="isPaidPodcast">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="amount" [(ngModel)]="amount"
+                                            <input type="text" [disabled]="amountDisable" class="form-control" name="amount" [(ngModel)]="amount"
                                                 placeholder="Number of Pods Token Required to purchase podcast">
                                             <div *ngIf="!isAmountPresent && isPaidPodcast" class="help-block" style="text-align: right;color:red">{{errorTextForAmount}}</div>
                                         </div>

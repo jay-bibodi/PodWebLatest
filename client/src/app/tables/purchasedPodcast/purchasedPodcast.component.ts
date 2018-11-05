@@ -31,6 +31,8 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
       headers.append("emailAddress", localStorage.getItem("emailAddress"));
   
       this.http.get(Global.API_ENDPOINT+'/getPurchasedPodcastList', { headers: headers }).subscribe((data) => {
+        console.log("Purchased Podcast list")
+        console.log(data);
         this.dataTable = {
           headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id','Actions'],
           dataRows: data.json().data
