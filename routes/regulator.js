@@ -1,7 +1,6 @@
 var fs = require('fs');
 var moment = require('moment-timezone');
 var jwt = require('jsonwebtoken');
-var async = require('async');
 var crypto = require('crypto');
 var bcrypt = require('bcrypt');
 //var sgMail = require('@sendgrid/mail');
@@ -22,6 +21,7 @@ var fs = require('fs');
 var path = require('path');
 var CircularJSON = require('circular-json')
 var DIR = path.join(__dirname, '..', 'uploads'); //'../uploads/';
+var ValidateUser = require('./validateUser');
 
 // Load user detail collection configurations
 var MongoClient = require('mongodb').MongoClient;
@@ -48,41 +48,10 @@ var upload = multer({ //multer settings
     storage: storage
 }).single('file');
 
-var userInfoStructure = {
-    "token": "",
-    "name": "",
-    "emailAddress": "",
-    "secondaryEmailAddress": "",
-    "userAddress": "",
-    "city": "",
-    "country": "",
-    "postalCode": ""
-};
 
-var podcastDetailStructure = {
-    "uploadedBy": "",
-    "address":"",
-    "title": "",
-    "location": 0,
-    "tags": [],
-    "artistName": "",
-    "isPodcastPaid": "",
-    "comments": [],
-    "likes": [],
-    "purchasedUserList": [],
-    "createdDateTime": "",
-    "modifiedDataTime": ""
-}
-
-var tokenPurchasedDetail = {
-    "podsPurchased": "",
-    "amountPaid": "",
-    "transactionHash": "",
-    "blockHash": "",
-    "blockNumber": "",
-    "reason": "",
-    "createdDateTime": ""
-}
+var userInfoStructure = JSON.parse(fs.readFileSync(__dirname+'/models/userInfoStructure.json'));
+var podcastDetailStructure = JSON.parse(fs.readFileSync(__dirname+'/models/podcastDetailStructure.json'));
+var tokenPurchasedDetail = JSON.parse(fs.readFileSync(__dirname+'/models/tokenPurchasedDetail.json'));
 
 console.log("Inside Regulator");
 
@@ -414,6 +383,9 @@ function resetPassword(req, res, next) {
 }
 
 function updateUserDetails(req, res, next) {
+
+    console.log("Inside updateUserDetails");
+    console.log(ValidateUser.validateUser(req));
 
     var headers = JSON.parse(JSON.stringify(req.headers));
     var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
