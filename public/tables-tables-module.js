@@ -1146,6 +1146,7 @@ var DetailForLatestAndPurchasedPodcastComponent = /** @class */ (function () {
                 _this.artistNameValue = body.artistNameValue;
                 _this.createdDateTimeValue = body.createdDateTimeValue;
                 _this.likesValue = body.likesValue;
+                _this.likeButtonValue = (body.isLikedPodcast === "true") ? "Liked" : "Like";
                 _this.amountValue = (body.amountValue === undefined ? "0" : body.amountValue);
                 var path = body.path;
                 if (!_this.isPaidPodcast || (_this.isPaidPodcast && _this.isPurchasedPodcast)) {

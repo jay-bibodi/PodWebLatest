@@ -75,4 +75,8 @@ router.post('/getPodcastForCurrUser',function(req,res,next){
   regulator.getPodcastForCurrUser(req,res,next);
 })
 
+router.post('/likePodcast',function(req,res,next){
+  regulator.likePodcast(req,res,next);
+})
+
 module.exports = router;

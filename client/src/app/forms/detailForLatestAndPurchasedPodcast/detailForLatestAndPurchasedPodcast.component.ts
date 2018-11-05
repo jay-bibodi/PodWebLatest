@@ -56,6 +56,7 @@ export class DetailForLatestAndPurchasedPodcastComponent implements OnInit {
             this.artistNameValue = body.artistNameValue;
             this.createdDateTimeValue = body.createdDateTimeValue;
             this.likesValue = body.likesValue;
+            this.likeButtonValue = (body.isLikedPodcast === "true") ? "Liked" : "Like";
             this.amountValue = (body.amountValue === undefined ? "0": body.amountValue);
             var path = body.path;
 

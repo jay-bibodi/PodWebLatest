@@ -1164,6 +1164,7 @@ function getPodcastForCurrUser(req,res,next){
                             isPaidPodcast: ((docs[0].uploadedBy !== jwtVerified.emailId) ? docs[0].isPodcastPaid : "false"),
                             isPurchasedPodcast: ((docs[0].uploadedBy !== jwtVerified.emailId) ? isPurchasedPodcast:"false"),
                             path:path,
+                            isLikedPodcast: (((docs[0].likes).includes(jwtVerified.emailId)) ? "true" : "false"),
                             status: "Details fetched successfully!"
                         }));
                     }
@@ -1176,6 +1177,28 @@ function getPodcastForCurrUser(req,res,next){
             })
         })
     }        
+}
+function likePodcast(req,res,next){
+    var headers = JSON.parse(JSON.stringify(req.headers));
+    var jwtVerified = JSON.parse(JSON.stringify(jwt.verify(headers.token, serverJWT_Secret)));
+
+    if (jwtVerified.emailId !== headers.emailaddress) {
+        res.status(400).send(JSON.stringify({
+            status: "Invalid login credentials. Please login again!"
+        }));
+    }
+    else {
+        var body = JSON.parse(JSON.stringify(jwt.verify(req.body.id, serverJWT_Secret)));
+        console.log(body);
+
+        MongoClient.connect(DatabaseUrl,{useNewUrlParser:true},function(err,database){
+            var db = database.db(DatabaseName);
+
+            db.collection(PodcastCollectionName).updateOne({"uploadedBy":body.emailId,"address":body.address,"location":body.location},{$addToSet:{likes:jwtVerified.emailId}},function (err, updateResult) {
+                res.status(200).send("success");
+            })
+        })
+    }
 }
 
 exports.getUserInfo = getUserInfo;
@@ -1195,3 +1218,4 @@ exports.updatePodcastDetails = updatePodcastDetails;
 exports.transferPodsToPurchase = transferPodsToPurchase;
 exports.getPurchasedPodcastList = getPurchasedPodcastList;
 exports.getPodcastForCurrUser = getPodcastForCurrUser;
+exports.likePodcast = likePodcast;
