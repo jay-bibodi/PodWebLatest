@@ -57,7 +57,10 @@ export class DetailForLatestAndPurchasedPodcastComponent implements OnInit {
             this.createdDateTimeValue = body.createdDateTimeValue;
             this.likesValue = body.likesValue;
             this.likeButtonValue = (body.isLikedPodcast === "true") ? "Liked" : "Like";
-            this.amountValue = (body.amountValue === undefined ? "0": body.amountValue);
+            this.amountValue = (body.amountValue === "undefined" ? "0": body.amountValue);
+            if(this.isPurchasedPodcast){
+              this.amountValue = "0";
+            }
             var path = body.path;
 
             if(!this.isPaidPodcast || (this.isPaidPodcast && this.isPurchasedPodcast)){

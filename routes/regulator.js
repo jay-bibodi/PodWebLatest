@@ -890,7 +890,7 @@ function returnPromise(docs,i,purpose){
             var subArr = [];
             if(purpose === ""){
                 console.log("Inside else if of undefined return promise");
-                subArr = [docs.title, docs.artistName, moment(docs.createdDateTime).format('L'), docs.tags, podPaid, '',jwt.sign({ address: docs.address, emailId:docs.uploadedBy, location:docs.location }, serverJWT_Secret),''];
+                subArr = [docs.title, docs.artistName, moment(docs.createdDateTime).format('L'), docs.tags, (podPaid === "Yes") ? "Purchased":podPaid, '',jwt.sign({ address: docs.address, emailId:docs.uploadedBy, location:docs.location }, serverJWT_Secret),''];
             }
             else if(!purpose){
                 subArr = [docs.title, docs.artistName, moment(docs.createdDateTime).format('L'), docs.tags, podPaid, '', '', jwt.sign({ address:docs.address, emailId:docs.uploadedBy, location:docs.location }, serverJWT_Secret), resultForPathAddressAndAMount.amount];
@@ -1060,7 +1060,7 @@ function transferPodsToPurchase(req, res, next) {
                                             if (parseInt(balance) >= parseInt(amountFromChain)) {
                                                 
                                                 podsTokenContractInstance.methods.transferFrom(userDocs.address, body.address, parseInt(amountFromChain)).send({ from: ethAccounts[0] }).then((receipt) => {
-                                                    db.collection(PodcastCollectionName).updateOne({ "uploadedBy": body.emailId }, { $addToSet: { purchasedUserList: {"name":userDocs.name,"emailId":jwtVerified.emailId} } }, function (err, updateResult) {
+                                                    db.collection(PodcastCollectionName).updateOne({ "uploadedBy": body.emailId,"location":body.location }, { $addToSet: { purchasedUserList: {"name":userDocs.name,"emailId":jwtVerified.emailId} } }, function (err, updateResult) {
                                                         if (err) throw err;
 
                                                         var tokenObject = JSON.parse(JSON.stringify(tokenPurchasedDetail));
