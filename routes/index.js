@@ -18,7 +18,7 @@ router.post('/forgotPassword',function(req,res,next){
   regulator.forgotPassword(req,res,next);
 });
 
-router.post('/resetPassword/:token',function(req,res,next){
+router.post('/resetPassword',function(req,res,next){
   regulator.resetPassword(req,res,next);
 });
 

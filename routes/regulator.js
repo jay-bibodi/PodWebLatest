@@ -22,10 +22,27 @@ var path = require('path');
 var CircularJSON = require('circular-json')
 var DIR = path.join(__dirname, '..', 'uploads'); //'../uploads/';
 var ValidateUser = require('./validateUser');
+var smtpTransport = require('nodemailer-smtp-transport');
+const nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: "podwebapplication@gmail.com",
+        pass: "podweb1010@"
+    }
+});
+var mailOptions = {
+    from: "podwebapplication@gmail.com", // sender address
+    to: '', // list of receivers
+    subject: 'Reset Password - PodWeb Application',
+    text: '',
+    html: ''
+};
 
 // Load user detail collection configurations
 var MongoClient = require('mongodb').MongoClient;
-var DatabaseUrl = "mongodb://localhost:27017/podweb1"//"mongodb://podweb1:zyiF9C2bTNt75wpnpuJqpEoA0riWV8izvxINQzKxRHS1dJnE0SZ5otRhUGBEq3CWPmGjN6Rgn0KQrehqGRailA==@podweb1.documents.azure.com:10255/?ssl=true"; //process.env.DatabaseUri;
+var DatabaseUrl = "mongodb://localhost:27017/podweb1";//"mongodb://podweb1:zyiF9C2bTNt75wpnpuJqpEoA0riWV8izvxINQzKxRHS1dJnE0SZ5otRhUGBEq3CWPmGjN6Rgn0KQrehqGRailA==@podweb1.documents.azure.com:10255/?ssl=true"; //process.env.DatabaseUri;
 var DatabaseName = "podweb1";
 var DatabaseCollectionName = "AppUser";
 
@@ -70,7 +87,7 @@ web3.setProvider(new web3.providers.HttpProvider('http://127.0.0.1:7545'));
 // mapping user to account, user to file contract
 var contractInstance;
 var input = {
-    'NewRegulator.sol': fs.readFileSync('../contracts/NewRegulator.sol', 'utf8')
+    'NewRegulator.sol': fs.readFileSync(path.join(__dirname,'..','contracts','NewRegulator.sol'), 'utf8')
 };
 let compiledContract = solc.compile({ sources: input }, 1);
 let abi = compiledContract.contracts['NewRegulator.sol:NewRegulator'].interface;
@@ -81,7 +98,7 @@ var myContractTx = myContract.deploy({ data: bytecode });
 // Deploy pods token contract
 var podsTokenContractInstance;
 var podsTokenInput = {
-    'PodsToken.sol': fs.readFileSync('../contracts/PodsToken.sol', 'utf8')
+    'PodsToken.sol': fs.readFileSync(path.join(__dirname,'..','contracts','PodsToken.sol'), 'utf8')
 };
 let podsTokenCompiledContract = solc.compile({ sources: podsTokenInput }, 1);
 let podsTokenAbi = podsTokenCompiledContract.contracts['PodsToken.sol:PodsToken'].interface;
@@ -92,8 +109,8 @@ var podsTokenContractTx = podsTokenContract.deploy({ data: podsTokenBytecode, ar
 // Deploy pods token sale contract
 var podsTokenSaleContractInstance;
 var podsTokenSaleInput = {
-    'PodsToken.sol': fs.readFileSync('../contracts/PodsToken.sol', 'utf8'),
-    'PodsTokenSale.sol': fs.readFileSync('../contracts/PodsTokenSale.sol', 'utf8')
+    'PodsToken.sol': fs.readFileSync(path.join(__dirname,'..','contracts','PodsToken.sol'), 'utf8'),
+    'PodsTokenSale.sol': fs.readFileSync(path.join(__dirname,'..','contracts','PodsTokenSale.sol'), 'utf8')
 };
 let podsTokenSaleCompiledContract = solc.compile({ sources: podsTokenSaleInput }, 1);
 let podsTokenSaleAbi = podsTokenSaleCompiledContract.contracts['PodsTokenSale.sol:PodsTokenSale'].interface;
@@ -198,6 +215,8 @@ function signup(req, res, next) {
         var db = database.db(DatabaseName);
         var emailId = result.emailOfPerson;
         db.collection(DatabaseCollectionName).findOne({ emailId: emailId }).then((userObject) => {
+            console.log("User object");
+            console.log(userObject);
             if (userObject !== null && userObject !== "") {
                 res.status(400).send(JSON.stringify({
                     status: "User already exists"
@@ -260,6 +279,7 @@ var createUserAccount = (userInfo, res) => {
                                         try {
                                             db.collection(TokenPurchasedDetailCollectionName).insertOne({ "emailId": userInfo.emailOfPerson, "purchaseTokenHistory": [tokenObject] }).then(tokenHistoryStatus => {
                                                 var jwtToken = jwt.sign({ emailId: userInfo.emailOfPerson }, serverJWT_Secret);
+                                                console.log("Jwt token");
 
                                                 res.status(200).send({
                                                     status: "Created Successfully",
@@ -268,6 +288,7 @@ var createUserAccount = (userInfo, res) => {
                                                 });
                                             })
                                         } catch (e) {
+                                            console.log("Jwt token catch");
                                             res.status(403).send(JSON.stringify({
                                                 status: "Something went wrong!"
                                             }));
@@ -276,6 +297,7 @@ var createUserAccount = (userInfo, res) => {
                                     });
                             }
                             else {
+                                console.log("Jwt token catch One");
                                 res.status(403).send(JSON.stringify({
                                     status: "Something went wrong!"
                                 }));
@@ -283,6 +305,7 @@ var createUserAccount = (userInfo, res) => {
                         });
                     }
                     else {
+                        console.log("Jwt token catch two");
                         res.status(403).send(JSON.stringify({
                             status: "Something went wrong!"
                         }));
@@ -307,7 +330,45 @@ function getEncryptedPassword(password) {
 function forgotPassword(req, res, next) {
     console.log("Inside forgotPassword")
 
-    crypto.randomBytes(20, function (err, buf) {
+    var user = JSON.parse(JSON.stringify(req.body));
+    console.log(user);
+
+    if(user.emailId !== ""){
+        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+            if (err) { console.log(err); throw new Error(); }
+            var db = database.db(DatabaseName)
+            db.collection(DatabaseCollectionName).findOne({ "emailId": user.emailId },function(err,result){
+                contractInstance.methods.emailAddressMapping(result.address).call({ from: ethAccounts[0] }).then((emailId) => {
+                    if(emailId === user.emailId){
+                        
+                        var tokenId = jwt.sign({ address: result.address, emailId:user.emailId,timestamp:moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a")}, serverJWT_Secret)
+
+                        mailOptions.to = user.emailId;
+                        mailOptions.text = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                        'http://localhost:3000/pages/resetpassword/' + tokenId + '\n\n' +
+                        'If you did not request this, please ignore this email and your password will remain unchanged.\n';
+
+                        transporter.sendMail(mailOptions, (error, info) => {
+                            if (error) {
+                                console.log(error);
+                                res.status(400).send(JSON.stringify({
+                                    status:"Error sending email!"
+                                }))
+                            }
+                            else {
+                                res.status(200).send(JSON.stringify({
+                                    status:"Email sent successfully!"
+                                }))
+                            }
+                        });
+                    }
+                });
+            })
+        })
+    }
+
+    /*crypto.randomBytes(20, function (err, buf) {
         var token = buf.toString('hex');
         console.log("Token: " + token)
         MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
@@ -345,13 +406,31 @@ function forgotPassword(req, res, next) {
                 }
             });
         });
-    });
+    });*/
 }
 
 // reset token
 function resetPassword(req, res, next) {
+    console.log("Reset password");
 
-    MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+    var body = JSON.parse(JSON.stringify(req.body));
+    var encodedObject = JSON.parse(JSON.stringify(jwt.verify(body.id,serverJWT_Secret)));
+    console.log(encodedObject);
+
+    //var tokenId = jwt.sign({ address: result.address, emailId:user.emailId,timestamp:moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a")}, serverJWT_Secret)
+
+    var end = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
+    var duration = moment.duration(end.diff(moment(encodedObject.timestamp).format("MM/DD/YYYY hh:mm:ss a")));
+    console.log(duration);
+
+    var hours = duration.asHours();
+    console.log(hours);
+
+    if(hours > 1){
+
+    }
+
+    /*MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
         if (err) { console.log(err); throw new Error(); }
         var db = database.db(DatabaseName)
         db.collection(DatabaseCollectionName).find({ "emailId": req.body.emailOfPerson }).toArray((err, result) => {
@@ -379,7 +458,7 @@ function resetPassword(req, res, next) {
                 }
             }
         })
-    });
+    });*/
 }
 
 function updateUserDetails(req, res, next) {

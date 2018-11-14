@@ -8,6 +8,8 @@ import { PagesRoutes } from './pages.routing';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ForgotPasswordComponent } from './forgotPassword/forgotPassword.component';
+import { ResetPasswordComponent } from './resetpassword/resetpassword.component';
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   ],
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ]
 })
 
