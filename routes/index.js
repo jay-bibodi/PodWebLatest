@@ -2,10 +2,6 @@ var express = require('express');
 var router = express.Router();
 var regulator = require('./regulator');
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 router.post('/login',function(req,res,next){
   regulator.login(req,res,next);
 });
@@ -78,5 +74,11 @@ router.post('/getPodcastForCurrUser',function(req,res,next){
 router.post('/likePodcast',function(req,res,next){
   regulator.likePodcast(req,res,next);
 })
+
+router.get('/*', function(req, res, next) {
+  res.set('content-type', 'text/html');
+  res.sendFile('D:/Github - Final year project/PodWebLatest/public/index.html');
+  //res.render('index', { title: 'Express' });
+});
 
 module.exports = router;

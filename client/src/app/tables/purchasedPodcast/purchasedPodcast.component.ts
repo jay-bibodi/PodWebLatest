@@ -20,12 +20,13 @@ declare const $: any;
 })
 
 export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
-    public dataTable: PurchasedPodcastTable;
+    public purchasedTable: PurchasedPodcastTable;
     constructor(private http: Http, private router: Router,private spinner:NgxSpinnerService) { }
-    dataRowsFromDB = null;
 
     ngOnInit() {
       this.spinner.show();
+      
+
       let headers = new Headers();
       headers.append("token", localStorage.getItem("token"));
       headers.append("emailAddress", localStorage.getItem("emailAddress"));
@@ -33,10 +34,11 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
       this.http.get(Global.API_ENDPOINT+'/getPurchasedPodcastList', { headers: headers }).subscribe((data) => {
         console.log("Purchased Podcast list")
         console.log(data);
-        this.dataTable = {
+        this.purchasedTable = {
           headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id','Actions'],
           dataRows: data.json().data
-        }       
+        }
+        //this.purchasedTable.dataRows = ;       
         this.spinner.hide();
       }, (err) => { 
         var body = JSON.parse(err.text())
@@ -51,7 +53,7 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-      $('#purchasedTable').DataTable({
+      $('#purchasedTableId').DataTable({
         "pagingType": "full_numbers",
         "lengthMenu": [
           [10, 25, 50, -1],
@@ -65,7 +67,7 @@ export class PurchasedPodcastTableComponent implements OnInit, AfterViewInit {
 
       });
 
-      const table = $('#purchasedTable').DataTable();
+      const table = $('#purchasedTableId').DataTable();
 
       // Delete a record
       table.on('click', '.remove', function(e) {

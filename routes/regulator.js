@@ -29,7 +29,7 @@ var transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
         user: "podwebapplication@gmail.com",
-        pass: "podweb1010@"
+        pass: "TestJay@12345"
     }
 });
 var mailOptions = {
@@ -367,46 +367,6 @@ function forgotPassword(req, res, next) {
             })
         })
     }
-
-    /*crypto.randomBytes(20, function (err, buf) {
-        var token = buf.toString('hex');
-        console.log("Token: " + token)
-        MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
-            if (err) { console.log(err); throw new Error(); }
-            var db = database.db(DatabaseName)
-            db.collection(DatabaseCollectionName).find({ "emailId": req.body.emailOfPerson }).toArray((err, result) => {
-                if (err) throw err;
-                if (result.length >= 1) {
-                    var timeStamp = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
-                    var updateRequestPasswordToken = { $push: { requestPassword: { $each: [{ "resetToken": token, "resetDateAndTime": timeStamp }] } } }
-
-                    db.collection(DatabaseCollectionName).update(updateRequestPasswordToken, result[0], { upsert: true }, function (err, obj) {
-                        if (err) throw err;
-                        db.close();
-                        const msg = {
-                            to: user.emailId,
-                            from: 'jay23193@gmail.com',
-                            subject: 'PodWeb - Password Reset',
-                            text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                                'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-                            //html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-                        };
-                        sgMail.send(msg);
-                        res.status(200).send(JSON.stringify({
-                            status: "Check your email address to reset your password"
-                        }));
-                    });
-                }
-                else {
-                    res.status(400).send(JSON.stringify({
-                        status: "User does not exists!"
-                    }));
-                }
-            });
-        });
-    });*/
 }
 
 // reset token
@@ -414,51 +374,56 @@ function resetPassword(req, res, next) {
     console.log("Reset password");
 
     var body = JSON.parse(JSON.stringify(req.body));
+    console.log(body)
     var encodedObject = JSON.parse(JSON.stringify(jwt.verify(body.id,serverJWT_Secret)));
+    console.log(encodedObject.emailId);
+    console.log(encodedObject.address);
     console.log(encodedObject);
-
-    //var tokenId = jwt.sign({ address: result.address, emailId:user.emailId,timestamp:moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a")}, serverJWT_Secret)
-
-    var end = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
-    var duration = moment.duration(end.diff(moment(encodedObject.timestamp).format("MM/DD/YYYY hh:mm:ss a")));
-    console.log(duration);
-
-    var hours = duration.asHours();
-    console.log(hours);
-
-    if(hours > 1){
-
-    }
-
-    /*MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
+    
+    MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
         if (err) { console.log(err); throw new Error(); }
+
         var db = database.db(DatabaseName)
-        db.collection(DatabaseCollectionName).find({ "emailId": req.body.emailOfPerson }).toArray((err, result) => {
+        db.collection(DatabaseCollectionName).find({ "emailId": encodedObject.emailId,"address":encodedObject.address }).toArray((err, result) => {
             if (err) throw err;
-            if (result.length >= 1) {
-                var requestPasswordLength = result[0].requestPassword.length;
-                var latestRequestPassword = result[0].requestPassword[requestPasswordLength - 1];
-                var end = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
-                var duration = moment.duration(end.diff(moment(latestRequestPassword.resetDateAndTime).format("MM/DD/YYYY hh:mm:ss a")));
-                var hours = duration.asHours();
+
+//            console.log(result);
+            if (result.length === 1) {
+                //var requestPasswordLength = result[0].requestPassword.length;
+                //var latestRequestPassword = result[0].requestPassword[requestPasswordLength - 1];
+                //var end = moment(new Date()).tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ss a");
+
+                //var duration = end - moment(encodedObject.timestamp) //moment.duration(end.diff(moment(encodedObject.timestamp).format("MM/DD/YYYY hh:mm:ss a")));
+                var hours = 0//duration/60;
+                console.log(hours);
 
                 if (hours > 1) {
+                    console.log("Inside hours > 1")
                     res.status(400).send(JSON.stringify({
                         status: "Token expired! Reset Password token is valid only for 1 hour!"
                     }));
                 }
                 else {
-                    db.collection(DatabaseCollectionName).update({ "password": getEncryptedPassword(req.body.passwordOfPerson) }, result[0], { upsert: true }, function (err, obj) {
+
+                    var newvalues = { $set: { password: getEncryptedPassword(body.confirmPassword)} };
+                    var myquery = {"emailId":encodedObject.emailId,"address":encodedObject.address};
+                    console.log("Inside else reset password")
+                    db.collection(DatabaseCollectionName).updateOne(myquery, newvalues, function (err, obj) {
                         if (err) throw err;
-                        db.close();
+                        database.close();
                         res.status(200).send(JSON.stringify({
                             status: "Password updated successfully!"
                         }));
                     });
                 }
             }
+            else{
+                res.status(200).send(JSON.stringify({
+                    status: "Invalid token!"
+                }));
+            }
         })
-    });*/
+    });
 }
 
 function updateUserDetails(req, res, next) {
@@ -807,7 +772,7 @@ function getLatestPodcast(req, res, next) {
     else {
         MongoClient.connect(DatabaseUrl, { useNewUrlParser: true }, function (err, database) {
             var db = database.db(DatabaseName)
-            db.collection(PodcastCollectionName).find({}).sort({ "createdDateTime": -1 }).limit(10).toArray((err, docs) => {
+            db.collection(PodcastCollectionName).find({}).limit(10).toArray((err, docs) => {
                 if (err) throw err;
 
                 var mainArr = [];

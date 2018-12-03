@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Output, EventEmitter, Injectable, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output, EventEmitter, Injectable, Inject  } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import swal from 'sweetalert2';
@@ -18,25 +18,28 @@ declare const $: any;
 })
 
 @Injectable()
-export class DataTableComponent implements OnInit, AfterViewInit {
-  public dataTable: DataTable;
+export class DataTableComponent implements OnInit,AfterViewInit {
+  public latestPodcastDataTable: DataTable;
   constructor(private http: Http, private router: Router, private spinner: NgxSpinnerService) { }
-  dataRowsFromDB = null;
 
   ngOnInit() {
 
+    console.log("Inside ngoninit");
+
     this.spinner.show();
+    
     let headers = new Headers();
     headers.append("token", localStorage.getItem("token"));
     headers.append("emailAddress", localStorage.getItem("emailAddress"));
-
     this.http.get(Global.API_ENDPOINT + '/getLatestPodcast', { headers: headers }).subscribe((data) => {
+      console.log("Data in this.get");
       console.log(data);
-      this.dataTable = {
+      
+      this.latestPodcastDataTable = {
         headerRow: ['Title', 'Artist', 'Date', 'Tag', 'Paid', 'View', 'id'],
         dataRows: data.json().data
-      }
-      
+      };
+
       this.spinner.hide();
     }, (err) => {
       this.spinner.hide();
@@ -49,9 +52,9 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       }).catch(swal.noop);
     })
   }
-
+  
   ngAfterViewInit() {
-    $('#latestPodcastDataTable').DataTable({
+    $('#latestPodcastDataTableId').DataTable({
       "pagingType": "full_numbers",
       "lengthMenu": [
         [10, 25, 50, -1],
